@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  pgserver-myshop:
+    container_name: pgserver-myshop
+    image: postgres
+    networks:
+      - network-1
+    ports:
+      - "5432:5432"
+    volumes:
+      - c:\11\docker-backend\data:/var/lib/postgresql/data
+#      - c:\11\docker-backend\sql:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: rootroot
+
+  app-myshop:
+    container_name: myshop
+    image: myshop_test
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - network-1
+    ports:
+      - "8081:8081"
+    depends_on:
+      pgserver-myshop:
+        condition: service_started
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pgserver-myshop:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=rootroot
+networks:
+  network-1:
