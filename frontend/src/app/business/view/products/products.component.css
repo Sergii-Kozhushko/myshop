@@ -1,0 +1,14 @@
+.products-container{
+  display: flex;
+  width: 100%;
+  border: 1px solid #403f3f;
+  padding: 1em;
+}
+.products-cat{
+  width:20%;
+  border: 1px solid #403f3f;
+}
+.products-grid{
+  width:80%;
+  border: 1px solid #403f3f;
+}

@@ -1,0 +1,16 @@
+<div class="spinner" *ngIf="spinner && spinner.visibility | async"></div>
+
+
+<app-header *ngIf="cookieEnabled"></app-header>
+
+<p *ngIf="!cookieEnabled"> Cookies отключены. Включите в настройках браузера - после этого обновите страницу.</p>
+
+
+<router-outlet *ngIf="cookieEnabled"></router-outlet>
+
+<app-footer></app-footer>
+
+
+
+
+

@@ -12,28 +12,24 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
-
 import java.util.Arrays;
 
-//@Configuration // данный класс будет считан как конфиг для spring контейнера
-//@EnableWebSecurity // включает механизм защиты адресов, которые настраиваются в SecurityFilterChain
-//@EnableGlobalMethodSecurity(prePostEnabled = true) // включение механизма для защиты методов по ролям
-//
-//// исключить авто конфигурация для подключения к БД
-//@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-
+@Configuration // данный класс будет считан как конфиг для spring контейнера
+@EnableWebSecurity // включает механизм защиты адресов, которые настраиваются в SecurityFilterChain
+@EnableGlobalMethodSecurity(prePostEnabled = true) // включение механизма для защиты методов по ролям
 public class SpringSecurityConfig {
 
     @Value("${client.url}")
     private String clientURL; // клиентский URL
 
     // создается спец. бин, который отвечает за настройки запросов по http (метод вызывается автоматически) Spring контейнером
-    @Bean
+    //@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // конвертер для настройки spring security
@@ -43,9 +39,13 @@ public class SpringSecurityConfig {
 
 
         // все сетевые настройки
-        http.authorizeRequests()
+        http.
+                authorizeRequests()
+
                 .antMatchers("/admin/*").hasRole("admin") // CRUD для работы с пользователями
                 .antMatchers("/user/*").hasRole("user") // действия самого пользователям (регистрация и пр.)
+                .antMatchers("/category/*").hasRole("user")
+
                 .anyRequest().authenticated() // остальной API будет доступен только аутентифицированным пользователям
                 .and()
 
@@ -60,11 +60,21 @@ public class SpringSecurityConfig {
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter)
                 .and()
-                .authenticationEntryPoint(new OAuth2ExceptionHandler()); // добавляем конвертер ролей из JWT в Authority (Role)
+                .authenticationEntryPoint(new OAuth2ExceptionHandler())
+        ; // добавляем конвертер ролей из JWT в Authority (Role)
 
         return http.build();
     }
 
+    // чтобы не было отклонения запросов с недопустимыми значениями в заголовках
+    @Bean
+    public StrictHttpFirewall httpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowedHeaderNames((header) -> true);
+        firewall.setAllowedHeaderValues((header) -> true); // не отклонять запросы с не ISO символами
+        firewall.setAllowedParameterNames((parameter) -> true);
+        return firewall;
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

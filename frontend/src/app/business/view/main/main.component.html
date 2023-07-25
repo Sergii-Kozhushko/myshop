@@ -1,0 +1,12 @@
+<!--это подписчик на стороне HTML кода -->
+<div class="spinner" *ngIf="spinner && spinner.visibility | async"></div>
+
+
+<div class="main">
+<p *ngIf="user">Привет, {{user.email}}</p>
+<p>Ваши данные: {{data}}</p>
+<p *ngIf="user">Профиль юзера:</p>
+  <p *ngIf="user">Привет, {{user.name}}</p>
+<br>
+  <a (click)="logoutAction()" class="link">logout</a>
+</div>

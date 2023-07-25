@@ -16,7 +16,7 @@ public class UserProfile {
     //private String givenName;
 //    private String userName;
 //    private String address;
-    private String phone;
+    //private String phone;
     private String name;
     private String email;
     private String id;

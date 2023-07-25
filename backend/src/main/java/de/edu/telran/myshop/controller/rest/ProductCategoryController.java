@@ -21,39 +21,38 @@ import java.util.List;
 @RequestMapping(ProductCategoryController.MAIN_PATH)
 @RequiredArgsConstructor
 public class ProductCategoryController {
-   public static final String MAIN_PATH = "/category";
-   private final ProductCategoryServiceImpl productCategoryService;
+    public static final String MAIN_PATH = "/category";
+    private final ProductCategoryServiceImpl productCategoryService;
 
-   @GetMapping("/all")
-   public ResponseEntity<List<ProductCategory>> getAllCategories() {
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductCategory>> getAllCategories() {
 
-      return ResponseEntity.ok(productCategoryService.getAllCategories());
-   }
+        return ResponseEntity.ok(productCategoryService.getAllCategories());
+    }
 
-   @PostMapping("/add")
-   public ResponseEntity<ProductCategory> createCategory(@RequestBody final ProductCategory productCategory)
-           throws URISyntaxException {
+    @PostMapping("/add")
+    public ResponseEntity<ProductCategory> createCategory(@RequestBody final ProductCategory productCategory)
+            throws URISyntaxException {
 
-      return ResponseEntity
-              .created(new URI(MAIN_PATH))
-              .body(productCategoryService.createProductCategory(productCategory));
-   }
+        return ResponseEntity
+                .created(new URI(MAIN_PATH))
+                .body(productCategoryService.createProductCategory(productCategory));
+    }
 
-   @PutMapping("/update")
-   public ResponseEntity<ProductCategory> updateProductCategory(@RequestBody final ProductCategory productCategory
-   ) throws Exception {
+    @PutMapping("/update")
+    public ResponseEntity<ProductCategory> updateProductCategory(@RequestBody final ProductCategory productCategory
+    ) throws Exception {
 
-      return ResponseEntity.created(new URI(MAIN_PATH))
-              .body(productCategoryService.update(productCategory));
-   }
+        return ResponseEntity.created(new URI(MAIN_PATH))
+                .body(productCategoryService.update(productCategory));
+    }
 
-   @DeleteMapping("/delete/{id}")
-   public ResponseEntity<Void> deleteProductCategory(@PathVariable final Integer id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteProductCategory(@PathVariable final Integer id) {
 
-      productCategoryService.deleteProduct(id);
-      return ResponseEntity.noContent().build();
-   }
-
+        productCategoryService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

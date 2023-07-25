@@ -38,6 +38,7 @@ public class KCRoleConverter implements Converter<Jwt, Collection<GrantedAuthori
         for (String roleName : (List<String>) realmAccess.get("roles") // проходим по всем значениям из JSON
         ) {
             // создаем объект SimpleGrantedAuthority - это дефолтная реализация GrantedAuthority
+            System.out.println("Role: " + roleName);
             returnValue.add(new SimpleGrantedAuthority("ROLE_" + roleName)); // префикс ROLE обязатален
         }
 

@@ -1,0 +1,12 @@
+a.nav-links {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+a.nav-links-active {
+  margin-left: 30px;
+  margin-right: 30px;
+  font-weight: bold;
+  color: red;
+  font-size: 24px;
+}

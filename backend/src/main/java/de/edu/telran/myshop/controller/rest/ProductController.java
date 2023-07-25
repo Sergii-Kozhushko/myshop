@@ -8,6 +8,7 @@
 package de.edu.telran.myshop.controller.rest;
 
 import de.edu.telran.myshop.dto.CreateProductDto;
+import de.edu.telran.myshop.dto.TestDataResultDto;
 import de.edu.telran.myshop.entity.Product;
 import de.edu.telran.myshop.search.ProductSearchValues;
 import de.edu.telran.myshop.service.impl.ProductServiceImpl;
@@ -31,6 +32,13 @@ public class ProductController {
     public static final String MAIN_PATH = "/product";
     public static final String ID_COLUMN = "id";
 
+
+    @GetMapping("/test")
+    public ResponseEntity<TestDataResultDto> getTest() {
+
+        return ResponseEntity.ok(new TestDataResultDto("test data from beckend"));
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProducts() {
 
@@ -44,7 +52,7 @@ public class ProductController {
         // preparing data for page view
         String sortDirection = productSearchValues.getSortDirection();
         Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0 ||
-                        sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
 
         Sort sort = Sort.by(direction, productSearchValues.getSortColumn(), ID_COLUMN);
         Integer pageNumber = productSearchValues.getPageNumber() != null ? productSearchValues.getPageNumber() : 0;

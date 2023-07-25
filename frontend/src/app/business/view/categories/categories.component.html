@@ -1,0 +1,38 @@
+
+
+<!--<ul>-->
+<!--  <li *ngFor="let category of categories">-->
+<!--    {{category.name}}-->
+<!--&lt;!&ndash;    <a routerLink="/detail/{{hero.id}}">&ndash;&gt;-->
+<!--&lt;!&ndash;      <span class="badge">{{hero.id}}</span> {{hero.name}}&ndash;&gt;-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button class="delete" title="delete hero"&ndash;&gt;-->
+<!--&lt;!&ndash;            (click)="delete(hero)">x</button>&ndash;&gt;-->
+<!--  </li>-->
+
+<!--</ul>-->
+
+<h2>Categories</h2>
+<div>
+  <p><label>Category name:
+    <input #categoryName/>
+  </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(categoryName.value); categoryName.value=''">
+      add
+    </button>
+  </p>
+
+</div>
+<div>
+<ul class="categories">
+  <li *ngFor="let category of categories">
+    <a routerLink="/detail/{{category.id}}">
+      <span class="badge">{{category.id}}</span> {{category.name}}
+    </a>
+    <button class="delete" title="delete hero"
+            (click)="delete(category)">x</button>
+  </li>
+
+</ul>
+</div>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -21,6 +22,7 @@ import ru.javabegin.oauth2.backend.utils.CookieUtils;
 
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -111,10 +113,75 @@ public class BFFController {
         HttpEntity<SearchValues> request = new HttpEntity<>(searchValues, headers);
 
         // получение бизнес-данных пользователя (ответ обернется в DataResult)
-        ResponseEntity<DataResult> response = restTemplate.postForEntity(resourceServerURL + "/user/data", request, DataResult.class);
+        ResponseEntity<DataResult> response = restTemplate.postForEntity(resourceServerURL + "/product/test", request, DataResult.class);
 
         return response;
     }
+
+    // универсальный метод, который перенаправляет любой запрос из frontend на Resource Server и добавляет в него токен из кука
+    @PostMapping("/list-operation")
+    public ResponseEntity<List<Object>> listData(@RequestBody Operation operation, @CookieValue("AT") String accessToken) {
+
+        // заголовок авторизации с access token
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken); // слово Bearer будет добавлено автоматически
+        headers.setContentType(MediaType.APPLICATION_JSON); // чтобы передать searchValues в формате JSON
+
+        HttpEntity<Object> request;
+
+        // специальный контейнер для передачи объекта внутри запроса
+        if (operation.getBody() != null) {
+            request = new HttpEntity<>(operation.getBody(), headers);
+        }else {
+            request = new HttpEntity<>(headers);
+        }
+
+        // получение бизнес-данных пользователя (ответ обернется в DataResult)
+        ResponseEntity<List<Object>> response = restTemplate.exchange(operation.getUrl(),
+                operation.getHttpMethod(),
+                request,
+                new ParameterizedTypeReference<List<Object>>() {
+                });
+
+        return response;
+    }
+
+    @PostMapping("/checkauth")
+    public ResponseEntity<Object> checkAuth(@CookieValue("AT") String accessToken){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken); // слово Bearer будет добавлено автоматически
+        headers.setContentType(MediaType.APPLICATION_JSON); // чтобы передать searchValues в формате JSON
+
+        HttpEntity<Object> request = new HttpEntity<>(headers);
+
+        ResponseEntity<Object> result = restTemplate.exchange(resourceServerURL + "/utils/checkauth", HttpMethod.POST, request, Object.class);
+
+        return result;
+    }
+
+    @PostMapping("/operation")
+    public ResponseEntity<Object> data(@RequestBody Operation operation, @CookieValue("AT") String accessToken) {
+
+        // заголовок авторизации с access token
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken); // слово Bearer будет добавлено автоматически
+        headers.setContentType(MediaType.APPLICATION_JSON); // чтобы передать searchValues в формате JSON
+
+        HttpEntity<Object> request;
+
+        // специальный контейнер для передачи объекта внутри запроса
+        if (operation.getBody() != null) {
+            request = new HttpEntity<>(operation.getBody(), headers);
+        }else {
+            request = new HttpEntity<>(headers);
+        }
+
+        // получение бизнес-данных пользователя (ответ обернется в DataResult)
+        ResponseEntity<Object> response = restTemplate.exchange(operation.getUrl(), operation.getHttpMethod(), request, Object.class);
+
+        return response;
+    }
+
 
 
     // получение новых токенов на основе старого RT
@@ -159,7 +226,7 @@ public class BFFController {
 
         UserProfile userProfile = new UserProfile(
 
-                getPayloadValue("phone2"),
+
                 getPayloadValue("name"),
                 getPayloadValue("email"),
                 userId
@@ -252,29 +319,7 @@ public class BFFController {
 
     }
 
-    // универсальный метод, который перенаправляет любой запрос из frontend на Resource Server и добавляет в него токен из кука
-    @PostMapping("/operation")
-    public ResponseEntity<Object> data(@RequestBody Operation operation, @CookieValue("AT") String accessToken) {
 
-        // заголовок авторизации с access token
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken); // слово Bearer будет добавлено автоматически
-        headers.setContentType(MediaType.APPLICATION_JSON); // чтобы передать searchValues в формате JSON
-
-        HttpEntity<Object> request;
-
-        // специальный контейнер для передачи объекта внутри запроса
-        if (operation.getBody() != null) {
-            request = new HttpEntity<>(operation.getBody(), headers);
-        }else {
-            request = new HttpEntity<>(headers);
-        }
-
-        // получение бизнес-данных пользователя (ответ обернется в DataResult)
-        ResponseEntity<Object> response = restTemplate.exchange(operation.getUrl(), operation.getHttpMethod(), request, Object.class);
-
-        return response;
-    }
 
 
 
