@@ -1,0 +1,34 @@
+.title-edit-w {
+  width: 350px;
+}
+.price-edit-w {
+  width: 150px;
+}
+.row-box {
+  display: flex;
+  justify-content: space-between; /* Равномерно распределяем элементы по горизонтали */
+  align-items: end;/* Выравниваем элементы по вертикали по центру */
+  padding: 3px;
+
+}
+
+.row-box-buttons {
+  display: flex;
+  justify-content: center; /* Равномерно распределяем элементы по горизонтали */
+  align-items: center;/* Выравниваем элементы по вертикали по центру */
+  margin-top: 10px;
+  padding-bottom: 3px;
+}
+
+
+.edit-product-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 28px;
+  line-height: 32px;
+  color: black;
+}
+
+.bgc-lgrey {
+  background-color: #e1e0e0;
+}
+

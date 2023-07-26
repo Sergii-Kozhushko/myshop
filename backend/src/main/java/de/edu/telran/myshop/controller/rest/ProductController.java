@@ -45,6 +45,13 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
+    @GetMapping("/getbycategory/{categoryId}")
+    public ResponseEntity<List<Product>> getProductByCategoryId(@PathVariable("categoryId") Integer categoryId
+    ) throws Exception {
+
+        return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
+    }
+
     @PostMapping("/search")
     public ResponseEntity<Page<Product>> search(@RequestBody ProductSearchValues productSearchValues) throws ParseException {
 

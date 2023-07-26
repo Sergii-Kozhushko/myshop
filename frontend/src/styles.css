@@ -11,9 +11,13 @@ h1 {
   font-size: 250%;
 }
 h2, h3 {
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
+  font-family: 'Nunito', sans-serif;
+  font-size: 28px;
+  line-height: 32px;
+  color: black;
+
+
 }
 body {
   margin: 2em;
@@ -84,3 +88,77 @@ body, input[type="text"], button {
     transform: rotate(359deg);
   }
 }
+
+.button{
+  border-radius: 85px;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  color: black;
+  line-height: 20px;
+  height: 48px;
+  border-style: none;
+  padding: 0 20px;
+
+  margin: 3px;
+}
+.button-save{
+  background: #FFE44D;
+}
+
+.button-save:hover{
+  background: #f0d748;
+  transform: scale(1.01);
+}
+
+.button-cancel{
+  background: #ff6389;
+}
+
+.button-cancel:hover{
+  background: #fb5076;
+  transform: scale(1.01);
+}
+
+form .input-text{
+
+  height: 48px;
+  margin-left: 32px;
+  margin-right: 32px;
+  border-radius: 12px;
+  border: 1px solid #CFD8DC;
+  padding: 7px 16px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  box-sizing: border-box;
+}
+form .input-text:focus{
+  border: 1px solid #FFE44D;
+  outline: none;
+}
+form .input-text:hover{
+  transform: scale(1.01);
+  border: 1px solid #FFE44D;
+}
+.flex {
+  display: flex;
+}
+
+.common-box{
+//position: absolute;
+//top: 0; left: 0; bottom: 0; right: 0;
+  /*width: 420px;*/
+  /*height: 426px;*/
+  border: 1px solid black;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0px 6px 5px rgba(40, 41, 61, 0.2), 0px 5px 5px rgba(96, 97, 112, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+

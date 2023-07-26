@@ -22,18 +22,18 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner = this.spinnerService;
-    this.keycloakService.checkAuth()
-      .subscribe(
-        {
-          next: (response => {
-            console.log(response);
-          }),
-          error: (error => {
-            console.log(error);
-            this.router.navigate(['login']);
-          })
-        }
-      );
+    // this.keycloakService.checkAuth()
+    //   .subscribe(
+    //     {
+    //       next: (response => {
+    //         console.log(response);
+    //       }),
+    //       error: (error => {
+    //         console.log(error);
+    //         this.router.navigate(['login']);
+    //       })
+    //     }
+    //   );
 
 
     this.cookieEnabled = navigator.cookieEnabled; // проверяем включены ли куки в браузере

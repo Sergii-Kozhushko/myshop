@@ -10,6 +10,7 @@ import {PurchasesComponent} from './business/view/purchases/purchases.component'
 import {SalesComponent} from './business/view/sales/sales.component';
 import {CustomersComponent} from './business/view/customers/customers.component';
 import {OptionsComponent} from './business/view/options/options.component';
+import { ProductsGridComponent } from './business/view/products-grid/products-grid.component';
 
 
 /*
@@ -41,6 +42,8 @@ const routes: Routes = [
   {path: 'purchases', component: PurchasesComponent},
   {path: 'sales', component: SalesComponent },
   {path: 'products', component: ProductsComponent},
+  { path: 'products/:cid/:pid?', component: ProductsComponent },
+
   {path: 'customers', component: CustomersComponent},
   {path: 'options', component: OptionsComponent},
 

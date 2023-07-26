@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Category} from '../../../model/Models';
-import {CategoryService} from '../../../category.service';
+import {CategoryService} from '../../data/dao/impl/CategoryService';
+import {ActivatedRoute} from '@angular/router';
+import {ExchangeDataService} from '../../data/dao/impl/ExchangeDataService';
 
 @Component({
   selector: 'app-products-cat',
@@ -9,16 +11,28 @@ import {CategoryService} from '../../../category.service';
 })
 export class ProductsCatComponent implements OnInit{
   categories: Category[];
+  currentCategory = 0;
 
-  constructor(public categoryService: CategoryService) {
+  // @Output() categorySelected = new EventEmitter<number>();
+
+  constructor(public categoryService: CategoryService,
+              private route: ActivatedRoute,
+              private readonly exchangeDataService: ExchangeDataService) {
   }
 
   ngOnInit(): void {
+    this.currentCategory = + this.route.snapshot.paramMap.get('cid'); // получить параметр из адресной строки
+    // this.exchangeDataService.setValue(this.currentCategory);
+
     this.getCategories();
+  }
+  selectCategory(category: number): void {
+    this.currentCategory = category;
+    this.exchangeDataService.setSelectedCategory(category);
   }
 
   getCategories(): void {
-    this.categoryService.getAllCategories()
+    this.categoryService.findAll()
       .subscribe(categories => {
         this.categories = categories;
       }); // асинхронный вызов

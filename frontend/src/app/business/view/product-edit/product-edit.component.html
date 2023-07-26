@@ -1,0 +1,45 @@
+<div>
+
+  <form class="common-box">
+    <div class="row-box">
+      <span class="edit-product-title">Edit or Add Product</span>
+    </div>
+    <div class="row-box">
+      <label>Id</label>
+      <input type="text" id="product-id" name="" class="input-text title-edit-w bgc-lgrey"
+             value="{{editedProduct.id}}" readonly>
+    </div>
+    <div class="row-box">
+      <label>Title</label>
+      <input type="text" id="product-name" name="" class="input-text title-edit-w"
+             [(ngModel)]="editedProduct.name">
+    </div>
+    <div class="row-box">
+      <label>Retail Price, EUR</label>
+      <input type="text" id="product-price" placeholder="0,00" name="retail_price"
+             class="input-text price-edit-w"
+             [(ngModel)]="editedProduct.price"
+      >
+    </div>
+    <div class="row-box">
+      <label>Wholesale Price, EUR</label>
+      <input type="text" id="product-wprice" placeholder="0,00"
+             class="input-text price-edit-w"
+             [(ngModel)]="editedProduct.wholesalePrice"
+      >
+    </div>
+    <div class="row-box">
+      <label>Start Quantity</label>
+      <input type="number" id="product-quantity" placeholder="0"
+             class="input-text price-edit-w"
+             [(ngModel)]="editedProduct.quantity"
+      >
+    </div>
+
+
+    <div class="row-box-buttons">
+      <button class="button button-save" type="button" (click)="save()">Save</button>
+      <button class="button button-cancel" type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

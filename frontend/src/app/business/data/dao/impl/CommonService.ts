@@ -49,11 +49,11 @@ export class CommonService<T> implements CommonDAO<T> {
     return this.httpClient.post<T>(environment.bffURI + '/operation', operation);
   }
 
-  findAll(email: string): Observable<T[]> {
+  findAll(): Observable<T[]> {
     const operation = new Operation();
     operation.url = this.url + '/all';
-    operation.body = email;
-    operation.httpMethod = HttpMethod.POST;
+    operation.body = ' ';
+    operation.httpMethod = HttpMethod.GET;
     return this.httpClient.post<T[]>(environment.bffURI + '/operation', operation);
   }
 
@@ -62,6 +62,7 @@ export class CommonService<T> implements CommonDAO<T> {
     operation.url = this.url + '/update';
     operation.body = t;
     operation.httpMethod = HttpMethod.PUT;
+    console.log('performing update' + t + 'host: ' + environment.bffURI + '/operation');
     return this.httpClient.post(environment.bffURI + '/operation', operation);
   }
 

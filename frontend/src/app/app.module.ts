@@ -27,6 +27,11 @@ import { OptionsComponent } from './business/view/options/options.component';
 import { FooterComponent } from './business/view/footer/footer.component';
 import { ProductsCatComponent } from './business/view/products-cat/products-cat.component';
 import { ProductsGridComponent } from './business/view/products-grid/products-grid.component';
+import {CATEGORY_URL_TOKEN} from './business/data/dao/impl/CategoryService';
+import {PRODUCT_URL_TOKEN} from './business/data/dao/impl/ProductService';
+import {ExchangeDataService} from './business/data/dao/impl/ExchangeDataService';
+import { ProductEditComponent } from './business/view/product-edit/product-edit.component';
+
 
 
 
@@ -55,7 +60,8 @@ import { ProductsGridComponent } from './business/view/products-grid/products-gr
     OptionsComponent,
     FooterComponent,
     ProductsCatComponent,
-    ProductsGridComponent
+    ProductsGridComponent,
+    ProductEditComponent
 
   ],
   imports: [
@@ -82,6 +88,14 @@ import { ProductsGridComponent } from './business/view/products-grid/products-gr
       useValue: environment.devMode
       // базовый URL веб сервиса + '/user'
     },
+    {
+      provide: CATEGORY_URL_TOKEN,
+      useValue: environment.resourceServerURL + '/category'
+    },
+    {
+      provide: PRODUCT_URL_TOKEN,
+      useValue: environment.resourceServerURL + '/product'
+    },
 
     /* нужно указывать для корректной работы диалоговых окон */
     {
@@ -95,6 +109,7 @@ import { ProductsGridComponent } from './business/view/products-grid/products-gr
       useClass: SpinnerInterceptor,
       multi: true
     },
+    ExchangeDataService
 
   ],
   entryComponents: [ // https://angular.io/guide/entry-components

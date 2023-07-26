@@ -1,1 +1,29 @@
-<p>products-grid works!</p>
+
+
+<div class="common-box">
+  <h3>Current category: {{selectedCategoryName}}</h3>
+  <table border="2px dotted">
+    <thead>
+      <tr>
+        <th class="center">Id</th>
+        <th>Title</th>
+        <th class="center">Price</th>
+        <th class="center">Wholesale price</th>
+        <th class="center">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let product of products">
+      <td class="product-grid-cell center">{{product.id}}</td>
+      <td class="product-grid-cell">
+        <a (click)="editProduct(product.id)"
+           routerLink="/products">{{product.name}}</a>
+      </td>
+      <td class="product-grid-cell center">{{product.price}}</td>
+      <td class="product-grid-cell center">{{product.wholesalePrice}}</td>
+      <td class="product-grid-cell center">{{product.quantity}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
