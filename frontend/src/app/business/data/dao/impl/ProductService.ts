@@ -6,6 +6,8 @@ import {ProductDAO} from '../interface/ProductDAO';
 import {HttpMethod, Operation} from '../../../../model/RequestBFF';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../../environments/environment';
+import {Router} from '@angular/router';
+import {MessageService} from '../../../service/message.service';
 
 
 // глобальная переменная для хранения URL
@@ -17,8 +19,10 @@ export const PRODUCT_URL_TOKEN = new InjectionToken<string>('url');
 export class ProductService extends CommonService<Product> implements ProductDAO {
 
   constructor(@Inject(PRODUCT_URL_TOKEN) private baseUrl, // уникальный url для запросов
-              private http: HttpClient) {
-    super(baseUrl, http);
+              private http: HttpClient,
+              router: Router,
+              messageService: MessageService) {
+    super(baseUrl, http, router, messageService);
   }
 
   findProductsByCategory(categoryId: number): Observable<any> { // из backend получаем тип Page, поэтому указываем any

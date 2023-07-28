@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
@@ -22,7 +22,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleProductNotFoundException(Exception ex) {
 
-        return ResponseEntity.status(BAD_REQUEST)
+        return ResponseEntity.status(NOT_ACCEPTABLE)
                 .body(new ErrorResponse(ex.getMessage()));
     }
 
@@ -30,14 +30,14 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleProductIDNullException(Exception ex) {
 
 
-        return ResponseEntity.status(BAD_REQUEST)
+        return ResponseEntity.status(NOT_ACCEPTABLE)
                 .body(new ErrorResponse(ex.getMessage()));
     }
 
     @ExceptionHandler(ProductNameEmptyException.class)
     public ResponseEntity<ErrorResponse> handleProductNameEmptyException(Exception ex) {
 
-        return ResponseEntity.status(BAD_REQUEST)
+        return ResponseEntity.status(NOT_ACCEPTABLE)
                 .body(new ErrorResponse(ex.getMessage()));
 
     }
@@ -52,7 +52,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ProductCategoryInvalidParameterException.class)
     public ResponseEntity<ErrorResponse> handleCategoryInvalidParameterException(Exception ex) {
-        return ResponseEntity.status(BAD_REQUEST)
+        return ResponseEntity.status(NOT_ACCEPTABLE)
                 .body(new ErrorResponse(ex.getMessage()));
     }
 
@@ -70,10 +70,9 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
                 .body(new ErrorResponse(ex.getMessage()));
     }
-
 
 
 }

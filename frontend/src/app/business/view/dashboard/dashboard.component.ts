@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MessageService} from '../../../message.service';
+import {MessageService} from '../../service/message.service';
 import {BACKEND_URL, DEV_MODE} from '../../service/backend.service';
  //import {logCumulativeDurations} from '@angular-devkit/build-angular/src/builders/browser-esbuild/profiling';
 

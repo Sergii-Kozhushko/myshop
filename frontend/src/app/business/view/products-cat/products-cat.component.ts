@@ -2,7 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Category} from '../../../model/Models';
 import {CategoryService} from '../../data/dao/impl/CategoryService';
 import {ActivatedRoute} from '@angular/router';
-import {ExchangeDataService} from '../../data/dao/impl/ExchangeDataService';
+import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {isError} from 'util';
 
 @Component({
   selector: 'app-products-cat',
@@ -11,7 +12,7 @@ import {ExchangeDataService} from '../../data/dao/impl/ExchangeDataService';
 })
 export class ProductsCatComponent implements OnInit{
   categories: Category[];
-  currentCategory = 0;
+  selectedCategory: Category;
 
   // @Output() categorySelected = new EventEmitter<number>();
 
@@ -21,13 +22,19 @@ export class ProductsCatComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.currentCategory = + this.route.snapshot.paramMap.get('cid'); // получить параметр из адресной строки
-    // this.exchangeDataService.setValue(this.currentCategory);
+    // this.selectedCategory = + this.route.snapshot.paramMap.get('cid'); // получить параметр из адресной строки
+    // подписываемся на обновления выбранной категории
+    this.exchangeDataService.getSelectedCategory()
+      .subscribe((newCategory) => {
+        this.selectedCategory = newCategory;
+
+      });
 
     this.getCategories();
   }
-  selectCategory(category: number): void {
-    this.currentCategory = category;
+
+
+  selectCategory(category: Category): void {
     this.exchangeDataService.setSelectedCategory(category);
   }
 
@@ -50,9 +57,6 @@ export class ProductsCatComponent implements OnInit{
       });
   }
 
-  delete(category: Category): void {
-    this.categories = this.categories.filter(h => h !== category);
-    // this.categoryService.deleteCategory(category).subscribe();
-  }
 
+  protected readonly isError = isError;
 }

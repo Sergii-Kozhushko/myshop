@@ -29,7 +29,7 @@ import { ProductsCatComponent } from './business/view/products-cat/products-cat.
 import { ProductsGridComponent } from './business/view/products-grid/products-grid.component';
 import {CATEGORY_URL_TOKEN} from './business/data/dao/impl/CategoryService';
 import {PRODUCT_URL_TOKEN} from './business/data/dao/impl/ProductService';
-import {ExchangeDataService} from './business/data/dao/impl/ExchangeDataService';
+import {ExchangeDataService} from './business/service/ExchangeDataService';
 import { ProductEditComponent } from './business/view/product-edit/product-edit.component';
 
 

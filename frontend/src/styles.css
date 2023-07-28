@@ -16,13 +16,22 @@ h2, h3 {
   font-size: 28px;
   line-height: 32px;
   color: black;
-
-
 }
+
+h3 {
+  font-weight: lighter;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  line-height: 26px;
+  color: black;
+}
+
+
+
 body {
   margin: 2em;
 }
-body, input[type="text"], button {
+body, button {
   color: #888;
   font-family: Cambria, Georgia;
 }
@@ -99,66 +108,86 @@ body, input[type="text"], button {
   line-height: 20px;
   height: 48px;
   border-style: none;
-  padding: 0 20px;
+  padding: 0px 20px;
 
-  margin: 3px;
+  margin: 9px 3px 3px 3px;
 }
 .button-save{
-  background: #FFE44D;
+  background: #9cee80;
 }
 
 .button-save:hover{
-  background: #f0d748;
+  background: #7ad05e;
   transform: scale(1.01);
 }
 
 .button-cancel{
-  background: #ff6389;
+  background: #f68ca6;
 }
 
 .button-cancel:hover{
-  background: #fb5076;
+  background: #ea6a8a;
   transform: scale(1.01);
 }
 
-form .input-text{
+.button-delete{
+  background: #e42a5a;
+}
 
-  height: 48px;
-  margin-left: 32px;
+.button-delete:hover{
+  background: #a62041;
+  transform: scale(1.01);
+}
+
+.input-text{
+  font-family: 'Nunito', sans-serif;
+  height: 36px;
+  margin-left: 20px;
   margin-right: 32px;
+  margin-bottom: 8px;
   border-radius: 12px;
   border: 1px solid #CFD8DC;
-  padding: 7px 16px;
-  font-family: 'Nunito', sans-serif;
+  padding: 2px 12px;
+
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
   box-sizing: border-box;
 }
-form .input-text:focus{
+.input-text:focus{
   border: 1px solid #FFE44D;
   outline: none;
 }
-form .input-text:hover{
+.input-text:hover{
   transform: scale(1.01);
   border: 1px solid #FFE44D;
 }
 .flex {
   display: flex;
+  align-items: center;
 }
 
+
 .common-box{
-//position: absolute;
-//top: 0; left: 0; bottom: 0; right: 0;
+
   /*width: 420px;*/
   /*height: 426px;*/
-  border: 1px solid black;
+  border: 1px solid #CFD8DC;
   margin: 10px;
   padding: 15px;
   border-radius: 20px;
-  box-shadow: 0px 6px 5px rgba(40, 41, 61, 0.2), 0px 5px 5px rgba(96, 97, 112, 0.2);
+  box-shadow: 0px 1px 3px rgba(40, 41, 61, 0.24), 0px 4px 6px rgba(96, 97, 112, 0.24);
+
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: stretch;
+}
+
+.title-edit-w {
+  width: 350px;
+}
+.price-edit-w {
+  width: 150px;
 }
 

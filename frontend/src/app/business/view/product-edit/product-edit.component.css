@@ -1,9 +1,3 @@
-.title-edit-w {
-  width: 350px;
-}
-.price-edit-w {
-  width: 150px;
-}
 .row-box {
   display: flex;
   justify-content: space-between; /* Равномерно распределяем элементы по горизонтали */

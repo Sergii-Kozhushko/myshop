@@ -17,18 +17,22 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 public class ProductCategory {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-   private String name;
+    private String name;
 
-   @Column(name = "parent_category_id")
-   private Long parentId;
+    @Column(name = "parent_category_id")
+    private Long parentId;
 
-   @Column(name = "created_at", nullable = false, updatable = false)
-   private Date createdAt;
-   @Column(name = "updated_at", nullable = false)
-   private Date updatedAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Date createdAt;
+    @Column(name = "updated_at", nullable = false)
+    private Date updatedAt;
+
+    @EqualsAndHashCode.Exclude
+    @Column(name = "is_active")
+    private Boolean active;
 
 }

@@ -1,29 +1,29 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/v0.1.0/C001createSchema.sql
+      file: db/changelog/v0.1.0/c001-create-schema.sql
   - include:
-      file: db/changelog/v0.1.0/C002createTableProductCategory.sql
+      file: db/changelog/v0.1.0/c002-create-product-category.sql
   - include:
-      file: db/changelog/v0.1.0/C003createTableProduct.sql
+      file: db/changelog/v0.1.0/c003-create-product.sql
   - include:
-      file: db/changelog/v0.1.0/C004createTableCustomer.sql
+      file: db/changelog/v0.1.0/c004-create-customer.sql
   - include:
-      file: db/changelog/v0.1.0/C005createTableDecInvoice.sql
+      file: db/changelog/v0.1.0/c005-create-decinvoice.sql
   - include:
-      file: db/changelog/v0.1.0/C006createTableDecInvoiceProducts.sql
+      file: db/changelog/v0.1.0/c006-create-decinvoice-products.sql
   - include:
-      file: db/changelog/v0.1.0/C007createTableSupplier.sql
+      file: db/changelog/v0.1.0/c007-create-supplier.sql
   - include:
-      file: db/changelog/v0.1.0/C008createTableIncInvoice.sql
+      file: db/changelog/v0.1.0/c008-create-incinvoice.sql
   - include:
-      file: db/changelog/v0.1.0/i001insertDataProductCategory.sql
+      file: db/changelog/v0.1.0/i001-insert-product-category.sql
   - include:
-      file: db/changelog/v0.1.0/i002insertDataProduct.sql
+      file: db/changelog/v0.1.0/i002-insert-product.sql
   - include:
-      file: db/changelog/v0.1.0/i003insertDataCustomer.sql
+      file: db/changelog/v0.1.0/i003-insert-customer.sql
   - include:
-      file: db/changelog/v0.1.0/i004insertDataDecInvoice.sql
+      file: db/changelog/v0.1.0/i004-insert-dec-invoice.sql
   - include:
-      file: db/changelog/v0.1.0/i005insertDataDecInvoiceProducts.sql
+      file: db/changelog/v0.1.0/i005-insert-dec-invoice-products.sql
   - include:
-      file: db/changelog/v0.1.0/i006insertDataSupplier.sql
+      file: db/changelog/v0.1.0/i006-insert-supplier.sql

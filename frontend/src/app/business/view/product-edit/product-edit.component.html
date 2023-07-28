@@ -38,7 +38,9 @@
 
 
     <div class="row-box-buttons">
-      <button class="button button-save" type="button" (click)="save()">Save</button>
+      <button *ngIf="!editedProduct.id" class="button button-save" type="button" (click)="save()">Add</button>
+      <button *ngIf="editedProduct.id" class="button button-save" type="button" (click)="save()">Save</button>
+      <button *ngIf="editedProduct.id" class="button button-delete" type="button" (click)="delete()">Delete</button>
       <button class="button button-cancel" type="button" (click)="cancel()">Cancel</button>
     </div>
   </form>

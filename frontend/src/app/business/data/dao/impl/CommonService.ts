@@ -1,8 +1,12 @@
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {catchError, Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {CommonDAO} from '../interface/CommonDAO';
 import {environment} from '../../../../../environments/environment';
 import {HttpMethod, Operation} from '../../../../model/RequestBFF';
+import {Product} from '../../../../model/Models';
+import {Router} from '@angular/router';
+import {MessageService} from '../../../service/message.service';
+import {tap} from 'rxjs/operators';
 
 
 // базовые методы доступа к данным, одинаковые для всех классов,
@@ -18,7 +22,9 @@ export class CommonService<T> implements CommonDAO<T> {
   private readonly url: string;
 
   constructor(url: string,  // базовый URL для доступа к данным
-              private httpClient: HttpClient // для выполнения HTTP запросов
+              private httpClient: HttpClient,
+              private router: Router,
+              private messageService: MessageService// для выполнения HTTP запросов
   ) {
     this.url = url;
   }
@@ -33,12 +39,23 @@ export class CommonService<T> implements CommonDAO<T> {
     return this.httpClient.post<T>(environment.bffURI + '/operation', operation); // единый адрес вызова BFF
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: number): void {
     const operation = new Operation();
     operation.url = this.url + '/delete/' + id;
     operation.body = id;
     operation.httpMethod = HttpMethod.DELETE;
-    return this.httpClient.post<T>(environment.bffURI + '/operation', operation);
+    this.httpClient.post(environment.bffURI + '/operation', operation)
+      .pipe(
+        tap(() => {
+          // Send a success message to the message service
+          this.messageService.add('Product updated successfully.');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.handleError(error);
+          // Верните пустой массив или другое значение по умолчанию в случае ошибки
+          return [];
+        })
+      ).subscribe();
   }
 
   findById(id: number): Observable<T> {
@@ -54,16 +71,48 @@ export class CommonService<T> implements CommonDAO<T> {
     operation.url = this.url + '/all';
     operation.body = ' ';
     operation.httpMethod = HttpMethod.GET;
-    return this.httpClient.post<T[]>(environment.bffURI + '/operation', operation);
+    return this.httpClient.post<T[]>(environment.bffURI + '/operation', operation).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.handleError(error);
+        // Верните пустой массив или другое значение по умолчанию в случае ошибки
+        return [];
+      })
+    );
   }
 
-  update(t: T): Observable<any> {
+  update(t: T): void {
     const operation = new Operation();
     operation.url = this.url + '/update';
     operation.body = t;
     operation.httpMethod = HttpMethod.PUT;
-    console.log('performing update' + t + 'host: ' + environment.bffURI + '/operation');
-    return this.httpClient.post(environment.bffURI + '/operation', operation);
+    this.httpClient.post(environment.bffURI + '/operation', operation)
+      .pipe(
+        tap(() => {
+          // Send a success message to the message service
+          this.messageService.add('Product updated successfully.');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.handleError(error);
+          // Верните пустой массив или другое значение по умолчанию в случае ошибки
+          return [];
+        })
+      ).subscribe();
+
+  }
+
+  handleError(error: HttpErrorResponse): void {
+    console.log('Status:', error.status);
+
+    if (error.status === 400) {
+      this.router.navigate(['login']);
+    }
+
+    // Получаем сообщение об ошибке из тела ответа сервера, если оно есть
+    const errorMessage = error.error && error.error.message ? error.error.message : 'Unknown error occurred';
+    console.log('Error Message:', errorMessage);
+
+    // Добавляем сообщение об ошибке в messageService
+    this.messageService.add('Error updating product. Status: ' + error.status + '. Message: ' + errorMessage);
   }
 
 

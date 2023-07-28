@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.javabegin.oauth2.backend.dto.DataResult;
@@ -22,7 +22,6 @@ import ru.javabegin.oauth2.backend.utils.CookieUtils;
 
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /*
@@ -99,7 +98,7 @@ public class BFFController {
     // перенаправляет запрос в Resource Server и добавляет в него access token,
     // куки передадутся автоматически браузером по имени домена
     @PostMapping("/data")
-    public ResponseEntity<DataResult> data(@RequestBody SearchValues searchValues, @CookieValue("AT") String accessToken) {
+    public ResponseEntity<DataResult> operation(@RequestBody SearchValues searchValues, @CookieValue("AT") String accessToken) {
 
         // как пример - сюда можно передавать любые критерии поиска
         System.out.println("searchText = " + searchValues.getSearchText());
@@ -119,48 +118,11 @@ public class BFFController {
     }
 
     // универсальный метод, который перенаправляет любой запрос из frontend на Resource Server и добавляет в него токен из кука
-    @PostMapping("/list-operation")
-    public ResponseEntity<List<Object>> listData(@RequestBody Operation operation, @CookieValue("AT") String accessToken) {
 
-        // заголовок авторизации с access token
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken); // слово Bearer будет добавлено автоматически
-        headers.setContentType(MediaType.APPLICATION_JSON); // чтобы передать searchValues в формате JSON
 
-        HttpEntity<Object> request;
-
-        // специальный контейнер для передачи объекта внутри запроса
-        if (operation.getBody() != null) {
-            request = new HttpEntity<>(operation.getBody(), headers);
-        }else {
-            request = new HttpEntity<>(headers);
-        }
-
-        // получение бизнес-данных пользователя (ответ обернется в DataResult)
-        ResponseEntity<List<Object>> response = restTemplate.exchange(operation.getUrl(),
-                operation.getHttpMethod(),
-                request,
-                new ParameterizedTypeReference<List<Object>>() {
-                });
-
-        return response;
-    }
-
-    @PostMapping("/checkauth")
-    public ResponseEntity<Object> checkAuth(@CookieValue("AT") String accessToken){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken); // слово Bearer будет добавлено автоматически
-        headers.setContentType(MediaType.APPLICATION_JSON); // чтобы передать searchValues в формате JSON
-
-        HttpEntity<Object> request = new HttpEntity<>(headers);
-
-        ResponseEntity<Object> result = restTemplate.exchange(resourceServerURL + "/utils/checkauth", HttpMethod.POST, request, Object.class);
-
-        return result;
-    }
 
     @PostMapping("/operation")
-    public ResponseEntity<Object> data(@RequestBody Operation operation, @CookieValue("AT") String accessToken) {
+    public ResponseEntity<Object> operation(@RequestBody Operation operation, @CookieValue("AT") String accessToken) {
 
         // заголовок авторизации с access token
         HttpHeaders headers = new HttpHeaders();
@@ -177,9 +139,24 @@ public class BFFController {
         }
 
         // получение бизнес-данных пользователя (ответ обернется в DataResult)
-        ResponseEntity<Object> response = restTemplate.exchange(operation.getUrl(), operation.getHttpMethod(), request, Object.class);
 
-        return response;
+
+
+        try {
+            // Вызываем метод на бекенде через BFF
+            ResponseEntity<Object> response = restTemplate.exchange(operation.getUrl(), operation.getHttpMethod(), request, Object.class);
+
+            // Если запрос прошел успешно, просто возвращаем ответ от бекенда
+            return response;
+        } catch (HttpClientErrorException ex) {
+            // Обрабатываем ошибку с 4xx кодом, полученную от бекенда
+            return ResponseEntity.status(ex.getRawStatusCode())
+                    .body(ex.getResponseBodyAsString());
+        } catch (Exception ex) {
+            // Логика обработки других ошибок
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Internal Server Error");
+        }
     }
 
 

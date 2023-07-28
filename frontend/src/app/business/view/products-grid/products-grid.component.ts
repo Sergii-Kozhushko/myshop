@@ -3,7 +3,8 @@ import {CategoryService} from '../../data/dao/impl/CategoryService';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../data/dao/impl/ProductService';
 import {Category, Product} from '../../../model/Models';
-import {ExchangeDataService} from '../../data/dao/impl/ExchangeDataService';
+import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {MessageService} from '../../service/message.service';
 
 
 @Component({
@@ -14,42 +15,39 @@ import {ExchangeDataService} from '../../data/dao/impl/ExchangeDataService';
 export class ProductsGridComponent implements OnInit {
   products: Product[];
   categories: Category[];
-  selectedCategoryId = 0;
-  public selectedCategoryName = '';
+  selectedCategory: Category = new Category(0, 'All categories', 0);
   editedProductId = 0;
 
 
   constructor(public productService: ProductService,
               private categoryService: CategoryService,
               private route: ActivatedRoute,
-              private readonly exchangeDataService: ExchangeDataService) {
+              private readonly exchangeDataService: ExchangeDataService,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    this.getAllProducts();
-    this.getAllCategories();
-
+    this.fetchAllProducts();
+    this.fetchAllCategories();
 
     // подписываемся на обновления выбранной категории
     this.exchangeDataService.getSelectedCategory()
       .subscribe((newCategory) => {
-        this.selectedCategoryId = newCategory;
-        this.selectedCategoryName = this.categories
-          .find(category => category.id === newCategory).name;
-
-        this.getProductsBySelectedCategory();
+        this.selectedCategory = newCategory;
+        this.fetchProductsBySelectedCategory();
       });
   }
 
 
-  getAllProducts(): void {
+  fetchAllProducts(): void {
     this.productService.findAll()
       .subscribe(products => {
         this.products = products;
       }); // асинхронный вызов
   }
 
-  getAllCategories(): void {
+  // fill list of categories for product-grid component
+  fetchAllCategories(): void {
     this.categoryService.findAll()
       .subscribe(categories => {
         this.categories = categories;
@@ -57,13 +55,39 @@ export class ProductsGridComponent implements OnInit {
   }
 
 
-  getProductsBySelectedCategory(): void {
-    this.productService.findProductsByCategory(this.selectedCategoryId)
+  fetchProductsBySelectedCategory(): void {
+    if (this.selectedCategory.id === 0){
+      this.fetchAllProducts();
+      return;
+    }
+    this.productService.findProductsByCategory(this.selectedCategory.id)
       .subscribe(products => this.products = products);
   }
+
   editProduct(productId: number): void {
     this.editedProductId = productId;
     this.exchangeDataService.setEditedProduct(this.products.find(p => p.id === productId));
+  }
+
+  deleteCategory(): void {
+    if (this.products.length) {
+      this.messageService.add('Category must be empty before delete');
+      return;
+    }
+    this.categoryService.delete(this.selectedCategory.id);
+    this.messageService.add(`Category '${this.selectedCategory.name}' successfully deleted`);
+    // this.selectedCategory.id = 0;
+    // this.selectedCategory.name = 'All categories';
+
+    this.exchangeDataService.setSelectedCategory(new Category(0, 'All categories', 0));
+    this.fetchAllProducts();
+  }
+
+  saveCategory(): void {
+    if (!this.selectedCategory.name) {
+      this.messageService.add('Can not save category with empty name');
+      return;
+    }
   }
 
 

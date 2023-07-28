@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/v0.2.0/u001-add-is-active-to-product-category.sql
+  - include:
+      file: db/changelog/v0.2.0/u002-set-sport-category-notactive.sql
+

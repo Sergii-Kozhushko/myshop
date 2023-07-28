@@ -48,7 +48,7 @@ public class ProductController {
     @GetMapping("/getbycategory/{categoryId}")
     public ResponseEntity<List<Product>> getProductByCategoryId(@PathVariable("categoryId") Integer categoryId
     ) throws Exception {
-
+        
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
