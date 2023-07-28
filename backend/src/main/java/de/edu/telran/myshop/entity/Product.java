@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
-
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
@@ -28,19 +27,18 @@ public class Product extends BaseEntity {
 
     private BigDecimal price;
 
-    @Column(name="wholesale_price")
+    @Column(name = "wholesale_price")
     private BigDecimal wholesalePrice;
 
     private Integer quantity;
 
     @EqualsAndHashCode.Exclude
-    @Column(name="is_active")
+    @Column(name = "is_active")
     private Boolean active;
 
 
-
     @ManyToOne
-    @JoinColumn(name="category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory category;
 
 

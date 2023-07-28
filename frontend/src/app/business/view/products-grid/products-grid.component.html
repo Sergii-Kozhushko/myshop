@@ -1,16 +1,22 @@
+<div class="common-box" xmlns="http://www.w3.org/1999/html">
+  <h3 *ngIf="selectedCategory.id===0">Current category: All categories</h3>
+  <div *ngIf="selectedCategory.id !== 0" class="flex">
+    <h3>Current category:</h3>
+    <input type="text" id="category-name-edit"
+           [(ngModel)]="selectedCategory.name"
 
-
-<div class="common-box">
-  <h3>Current category: {{selectedCategoryName}}</h3>
+           class="input-text title-edit-w"
+    >
+  </div>
   <table border="2px dotted">
     <thead>
-      <tr>
-        <th class="center">Id</th>
-        <th>Title</th>
-        <th class="center">Price</th>
-        <th class="center">Wholesale price</th>
-        <th class="center">Quantity</th>
-      </tr>
+    <tr>
+      <th class="center">Id</th>
+      <th>Title</th>
+      <th class="center">Price</th>
+      <th class="center">Wholesale price</th>
+      <th class="center">Quantity</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -26,4 +32,12 @@
     </tr>
     </tbody>
   </table>
+  <div>
+    <button *ngIf="selectedCategory.id !== 0" class="button button-delete" type="button"
+            (click)="deleteCategory()">Delete Category
+    </button>
+    <button *ngIf="selectedCategory.id !== 0" class="button button-save" type="button"
+            (click)="saveCategory()">Save
+    </button>
+  </div>
 </div>

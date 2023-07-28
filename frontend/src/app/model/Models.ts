@@ -16,13 +16,15 @@ export class Product {
   price: number;
   wholesalePrice: number;
   quantity: number;
+  active: boolean;
 
 
-  constructor(id: number, name: string, price: number, wholesalePrice: number, quantity: number) {
+  constructor(id: number, name: string, price: number, wholesalePrice: number, quantity: number, active: boolean) {
     this.id = id;
     this.name = name;
     this.price = price;
     this.wholesalePrice = wholesalePrice;
     this.quantity = quantity;
+    this.active = active;
   }
 }

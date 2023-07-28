@@ -1,12 +1,13 @@
 <div class="common-box">
   <ul class="categories">
     <li *ngFor="let category of categories">
-      <a routerLink="/products/{{category.id}}" routerLinkActive="cat-link-active"
-         (click)="selectCategory(category.id)">
+      <a routerLink="/products/"
+         [ngClass]="{'cat-link-active': category === selectedCategory}"
+
+         (click)="selectCategory(category)">
         <span class="badge">{{category.id}}</span> {{category.name}}
       </a>
-      <button class="delete" title="delete hero"
-              (click)="delete(category)">x</button>
+
     </li>
 
   </ul>

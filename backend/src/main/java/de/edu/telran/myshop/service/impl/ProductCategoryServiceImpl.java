@@ -26,7 +26,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public List<ProductCategory> getAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.findByActiveTrue();
     }
 
     public ProductCategory getById(Integer categoryId) {
@@ -35,6 +35,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         }
         return categoryRepository.findById(categoryId).get();
     }
+
 
     @Override
     @Transactional

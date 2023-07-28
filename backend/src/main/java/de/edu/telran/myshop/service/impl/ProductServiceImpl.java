@@ -41,12 +41,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(final Product product) {
-        if (product.getId() == null) {
+        if (product.getId() == null || product.getId() == 0) {
             throw new InvalidProductParameterException(ErrorMassage.PRODUCT_UPDATE_EMPTY_ID);
         }
         // check if Product exists
         productRepository.findById(product.getId()).orElseThrow(() ->
-                new ProductNotFoundException(ErrorMassage.PRODUCT_UPDATE_ERROR));
+                new ProductNotFoundException(ErrorMassage.PRODUCT_ID_NOT_FOUND));
 
         if (product.getName() == null) {
             throw new ProductNameEmptyException(ErrorMassage.PRODUCT_UPDATE_ERROR);
