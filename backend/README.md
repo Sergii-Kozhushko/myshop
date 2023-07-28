@@ -9,6 +9,7 @@ Demo final project. Telran School, Kozhushko Sergii
 - install and run PostgreSQL if you have
 - Change db user and password for PostgreSQL DB
 - JDK OpenJDK 17.0.7
+- Install Keycloak 18.0.0 Server and add real-export.json configuration
 
 ### Description
 

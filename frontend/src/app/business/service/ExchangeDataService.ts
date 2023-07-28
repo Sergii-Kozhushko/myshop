@@ -8,8 +8,21 @@ import {Category, Product} from '../../model/Models';
 export class ExchangeDataService {
   public selectedCategory$: Subject<Category> = new Subject<Category>();
   public editedProduct$: Subject<Product> = new Subject<Product>();
-  private messages$: Subject<string[]> = new Subject<string[]>();
+  public messages$: Subject<string[]> = new Subject<string[]>();
+  // key - force product-grid component to update product list
+  public updateProductsInGrid$: Subject<boolean> = new Subject<boolean>();
 
+
+
+
+  getUpdateProductsInGrid(): Subject<boolean> {
+    return this.updateProductsInGrid$;
+  }
+
+  setUpdateProductsInGrid(value: boolean): void {
+    this.updateProductsInGrid$.next(value);
+    // this.updateProductsInGrid$.next(false);
+  }
 
   getMessages(): Subject<string[]> {
     return this.messages$;

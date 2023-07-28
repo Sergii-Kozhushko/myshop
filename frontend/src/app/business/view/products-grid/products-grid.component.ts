@@ -36,6 +36,13 @@ export class ProductsGridComponent implements OnInit {
         this.selectedCategory = newCategory;
         this.fetchProductsBySelectedCategory();
       });
+    // update products: signal from other components
+    this.exchangeDataService.getUpdateProductsInGrid()
+      .subscribe(update => {
+        this.fetchProductsBySelectedCategory();
+        console.log("signal to update products");
+
+      });
   }
 
 
@@ -56,7 +63,7 @@ export class ProductsGridComponent implements OnInit {
 
 
   fetchProductsBySelectedCategory(): void {
-    if (this.selectedCategory.id === 0){
+    if (this.selectedCategory.id === 0) {
       this.fetchAllProducts();
       return;
     }

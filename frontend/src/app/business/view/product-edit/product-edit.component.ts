@@ -34,6 +34,7 @@ export class ProductEditComponent implements OnInit {
         this.editedProduct = product;
 
       });
+
   }
 
   clearEditedProduct(): void {
@@ -63,9 +64,12 @@ export class ProductEditComponent implements OnInit {
   }
 
   delete(): void {
-    this.productService.delete(this.editedProduct.id);
-    this.messageService.add(`Product '${this.editedProduct.name} (${this.editedProduct.name})' was deleted successfully`);
+    this.editedProduct.active = false;
+    this.productService.update(this.editedProduct);
+    this.messageService.add(`Product '${this.editedProduct.name} (${this.editedProduct.id})' was deleted soft successfully`);
     this.clearEditedProduct();
+    // дать сигналу компоненту грид - обновить товары в категории
+    this.exchangeDataService.setUpdateProductsInGrid(true);
   }
 
 }
