@@ -6,13 +6,20 @@
     </div>
     <div class="row-box">
       <label>Id</label>
-      <input type="text" id="product-id" name="" class="input-text title-edit-w bgc-lgrey"
+      <input type="text" id="product-id" name="" class="input-text price-edit-w bgc-lgrey"
              value="{{editedProduct.id}}" readonly>
     </div>
     <div class="row-box">
       <label>Title</label>
       <input type="text" id="product-name" name="" class="input-text title-edit-w"
              [(ngModel)]="editedProduct.name">
+    </div>
+    <div class="row-box">
+      <label>Category</label>
+      <select [(ngModel)]="editedProduct.category.id" name="product-category" class="select-category" >
+        <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
+      </select>
+
     </div>
     <div class="row-box">
       <label>Retail Price, EUR</label>

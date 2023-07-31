@@ -8,6 +8,7 @@
 package de.edu.telran.myshop.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -21,7 +22,6 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 public class Product extends BaseEntity {
 
-
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -32,14 +32,13 @@ public class Product extends BaseEntity {
 
     private Integer quantity;
 
-    @EqualsAndHashCode.Exclude
+    //@EqualsAndHashCode.Exclude
     @Column(name = "is_active")
     private Boolean active;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory category;
-
-
 }

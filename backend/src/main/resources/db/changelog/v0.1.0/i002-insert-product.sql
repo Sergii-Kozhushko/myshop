@@ -1,6 +1,6 @@
 --liquibase formatted sql
 --changeset sergii:v0.1.0-i02
-INSERT INTO product
+INSERT INTO myshop.product
 (name,
  price,
  wholesale_price,
@@ -18,4 +18,4 @@ VALUES ('Computer', 1200.30, 800, 2, 1, true),
        ('Sport Ball Adidas original', 20.5, 8.80, 3000, 4, true),
        ('Sport equipment 1', 120.5, 100, 2, 4, true);
 
--- rollback DELETE FROM product WHERE first_name IN ('Computer', 'Lamp', 'Chair', 'Mobile phone');
+-- rollback DELETE FROM myshop.product WHERE first_name IN ('Computer', 'Lamp', 'Chair', 'Mobile phone');

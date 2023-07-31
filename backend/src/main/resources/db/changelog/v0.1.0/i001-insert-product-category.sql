@@ -1,6 +1,6 @@
 --liquibase formatted sql
 --changeset sergii:v0.1.0-i01
-INSERT INTO product_category
+INSERT INTO myshop.product_category
 (id, name,
  parent_category_id)
 VALUES (1, 'It-technics', 0),
@@ -8,7 +8,7 @@ VALUES (1, 'It-technics', 0),
        (3, 'Mobile phones', 0),
        (4, 'Sport', 0);
 -- If parent_category_id = 0 than it is root category
-INSERT INTO product_category
+INSERT INTO myshop.product_category
 (id, name,
  parent_category_id)
 VALUES (101, 'Dell', 1),
@@ -17,4 +17,4 @@ VALUES (101, 'Dell', 1),
        (103, 'Samsung', 1);
 
 
--- rollback DELETE FROM product_category WHERE name IN ('Dell', 'Apple', 'Furniture brand1', 'Samsung');
+-- rollback DELETE FROM myshop.product_category WHERE name IN ('Dell', 'Apple', 'Furniture brand1', 'Samsung');

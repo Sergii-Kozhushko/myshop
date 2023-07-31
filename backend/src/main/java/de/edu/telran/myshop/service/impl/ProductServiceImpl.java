@@ -8,9 +8,11 @@
 package de.edu.telran.myshop.service.impl;
 
 import de.edu.telran.myshop.dto.CreateProductDto;
+import de.edu.telran.myshop.dto.UpdateProductDto;
 import de.edu.telran.myshop.entity.Product;
 import de.edu.telran.myshop.exception.*;
 import de.edu.telran.myshop.mapper.ProductMapper;
+import de.edu.telran.myshop.mapper.UpdateProductMapper;
 import de.edu.telran.myshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import de.edu.telran.myshop.service.interfaces.*;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -27,10 +30,17 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final UpdateProductMapper updateProductMapper;
+    private final EntityManager entityManager;
+
 
     @Override
+    @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        // if parameter is null - it return all products
+        entityManager.clear();
+        productRepository.findByActiveTrue().stream().forEach(System.out::println);
+        return productRepository.findByActiveTrue();
     }
 
     @Override
@@ -40,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Product updateProduct(final Product product) {
         if (product.getId() == null || product.getId() == 0) {
             throw new InvalidProductParameterException(ErrorMassage.PRODUCT_UPDATE_EMPTY_ID);
@@ -51,8 +62,20 @@ public class ProductServiceImpl implements ProductService {
         if (product.getName() == null) {
             throw new ProductNameEmptyException(ErrorMassage.PRODUCT_UPDATE_ERROR);
         }
-        return productRepository.saveAndFlush(product);
+        Product result = productRepository.save(product);
+
+        return result;
     }
+
+
+//    @Transactional
+//    public Product updateProduct2(final UpdateProductDto product) {
+//
+//        return productRepository.save(updateProductMapper.toEntity(product));
+//
+//
+//    }
+
 
     @Override
     public Product getProductById(final Long productId) {
@@ -62,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> getProductsByCategory(final Integer categoryId) {
-        return productRepository.findByCategory(categoryId);
+        return productRepository.findByCategoryAndActiveTrue(categoryId);
     }
 
     @Override

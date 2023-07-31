@@ -39,8 +39,10 @@ export class ProductsGridComponent implements OnInit {
     // update products: signal from other components
     this.exchangeDataService.getUpdateProductsInGrid()
       .subscribe(update => {
+        console.log('got signal to update products');
         this.fetchProductsBySelectedCategory();
-        console.log("signal to update products");
+
+
 
       });
   }
@@ -64,6 +66,7 @@ export class ProductsGridComponent implements OnInit {
 
   fetchProductsBySelectedCategory(): void {
     if (this.selectedCategory.id === 0) {
+      console.log('fetch all products');
       this.fetchAllProducts();
       return;
     }

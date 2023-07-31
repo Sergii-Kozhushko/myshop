@@ -48,7 +48,6 @@ export class CommonService<T> implements CommonDAO<T> {
       .pipe(
         tap(() => {
           // Send a success message to the message service
-          this.messageService.add('Product updated successfully.');
         }),
         catchError((error: HttpErrorResponse) => {
           this.handleError(error);
@@ -57,6 +56,8 @@ export class CommonService<T> implements CommonDAO<T> {
         })
       ).subscribe();
   }
+
+
 
   findById(id: number): Observable<T> {
     const operation = new Operation();
@@ -85,13 +86,15 @@ export class CommonService<T> implements CommonDAO<T> {
     operation.url = this.url + '/update';
     operation.body = t;
     operation.httpMethod = HttpMethod.PUT;
+    console.log(t);
+
     this.httpClient.post(environment.bffURI + '/operation', operation)
       .pipe(
         tap(() => {
           // Send a success message to the message service
-          this.messageService.add('Product updated successfully.');
         }),
         catchError((error: HttpErrorResponse) => {
+          console.log('Metka1');
           this.handleError(error);
           // Верните пустой массив или другое значение по умолчанию в случае ошибки
           return [];

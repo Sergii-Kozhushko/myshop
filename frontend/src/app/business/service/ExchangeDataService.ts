@@ -11,8 +11,15 @@ export class ExchangeDataService {
   public messages$: Subject<string[]> = new Subject<string[]>();
   // key - force product-grid component to update product list
   public updateProductsInGrid$: Subject<boolean> = new Subject<boolean>();
+  public categories$: Subject<Category[]> = new Subject<Category[]>();
 
+  getCategories(): Subject<Category[]> {
+    return this.categories$;
+  }
 
+  setCategories(cat: Category[]): void {
+    this.categories$.next(cat);
+  }
 
 
   getUpdateProductsInGrid(): Subject<boolean> {

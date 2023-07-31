@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ExchangeDataService} from '../../service/ExchangeDataService';
-import {Product} from '../../../model/Models';
+import {Category, Product} from '../../../model/Models';
 import {ProductService} from '../../data/dao/impl/ProductService';
 import {Router} from '@angular/router';
 import {MessageService} from '../../service/message.service';
@@ -18,8 +18,10 @@ export class ProductEditComponent implements OnInit {
     price: 0,
     wholesalePrice: 0,
     quantity: 0,
-    active: true
+    active: true,
+    category: null
   };
+  categories: Category[];
 
 
   constructor(private exchangeDataService: ExchangeDataService,
@@ -34,6 +36,11 @@ export class ProductEditComponent implements OnInit {
         this.editedProduct = product;
 
       });
+    this.exchangeDataService.getCategories()
+      .subscribe((categories) => {
+        this.categories = categories;
+
+      });
 
   }
 
@@ -44,15 +51,14 @@ export class ProductEditComponent implements OnInit {
       price: 0,
       wholesalePrice: 0,
       quantity: 0,
-      active: true
+      active: true,
+      category: null
     };
-
   }
 
   save(): void {
-
+    console.log('cat id=' + this.editedProduct.category.id);
     this.productService.update(this.editedProduct);
-
     this.clearEditedProduct();
     this.exchangeDataService.setEditedProduct(this.editedProduct);
 
@@ -65,8 +71,9 @@ export class ProductEditComponent implements OnInit {
 
   delete(): void {
     this.editedProduct.active = false;
+    // this.productService.delete(this.editedProduct.id);
     this.productService.update(this.editedProduct);
-    this.messageService.add(`Product '${this.editedProduct.name} (${this.editedProduct.id})' was deleted soft successfully`);
+    this.messageService.add(`Product '${this.editedProduct.name} (id: ${this.editedProduct.id})' was deleted successfully. Soft`);
     this.clearEditedProduct();
     // дать сигналу компоненту грид - обновить товары в категории
     this.exchangeDataService.setUpdateProductsInGrid(true);

@@ -9,6 +9,7 @@ package de.edu.telran.myshop.controller.rest;
 
 import de.edu.telran.myshop.dto.CreateProductDto;
 import de.edu.telran.myshop.dto.TestDataResultDto;
+import de.edu.telran.myshop.dto.UpdateProductDto;
 import de.edu.telran.myshop.entity.Product;
 import de.edu.telran.myshop.search.ProductSearchValues;
 import de.edu.telran.myshop.service.impl.ProductServiceImpl;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -40,15 +42,18 @@ public class ProductController {
     }
 
     @GetMapping("/all")
+    @Transactional
     public ResponseEntity<List<Product>> getAllProducts() {
-
-        return ResponseEntity.ok(productService.getAllProducts());
+        List<Product> result = productService.getAllProducts();
+        result.stream().forEach(System.out::println);
+        return ResponseEntity.ok(result);
+        //return ResponseEntity.ok(productService.getAllProducts());
     }
 
     @GetMapping("/getbycategory/{categoryId}")
     public ResponseEntity<List<Product>> getProductByCategoryId(@PathVariable("categoryId") Integer categoryId
     ) throws Exception {
-        
+
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
@@ -93,10 +98,12 @@ public class ProductController {
     }
 
     @PutMapping("/update")
+    @Transactional
     public ResponseEntity<Product> updateProduct(@RequestBody final Product product
     ) throws Exception {
 
         return ResponseEntity.ok(productService.updateProduct(product));
     }
+
 
 }

@@ -42,6 +42,7 @@ export class ProductsCatComponent implements OnInit{
     this.categoryService.findAll()
       .subscribe(categories => {
         this.categories = categories;
+        this.exchangeDataService.setCategories(categories);
       }); // асинхронный вызов
     // this.categories = this.categoryService.getAllCategories();//  а это был бы синхронный вызов
   }
@@ -54,9 +55,10 @@ export class ProductsCatComponent implements OnInit{
     this.categoryService.add(new Category(null, name, 0))
       .subscribe(category => {
         this.categories.push(category);
+        this.exchangeDataService.setCategories(this.categories);
       });
   }
 
 
-  protected readonly isError = isError;
+  // protected readonly isError = isError;
 }

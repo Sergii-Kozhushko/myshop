@@ -137,10 +137,7 @@ public class BFFController {
         }else {
             request = new HttpEntity<>(headers);
         }
-
         // получение бизнес-данных пользователя (ответ обернется в DataResult)
-
-
 
         try {
             // Вызываем метод на бекенде через BFF
@@ -155,7 +152,7 @@ public class BFFController {
         } catch (Exception ex) {
             // Логика обработки других ошибок
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Internal Server Error");
+                    .body(ex.getMessage());
         }
     }
 
@@ -170,7 +167,7 @@ public class BFFController {
 
         // параметры запроса (в формате ключ-значение)
         MultiValueMap<String, String> mapForm = new LinkedMultiValueMap<>();
-        mapForm.add("grant_type", grantTypeRefresh);
+         mapForm.add("grant_type", grantTypeRefresh);
         mapForm.add("client_id", clientId);
         mapForm.add("client_secret", clientSecret);
         mapForm.add("refresh_token", oldRefreshToken);
