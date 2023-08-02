@@ -10,40 +10,35 @@ package de.edu.telran.myshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 @Data
 @Builder
 @Entity
+@Table(name = "dec_invoice")
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product extends BaseEntity {
+public class DecInvoice extends BaseEntity {
 
-    @Column(name = "name", nullable = false)
-    private String name;
 
-    private BigDecimal price;
+    private String code;
 
-    @Column(name = "wholesale_price")
-    private BigDecimal wholesalePrice;
+    private BigDecimal discount;
 
-    private Integer quantity = 0;
+    @Column(name = "sale_condition")
+    private String saleCondition;
 
     @EqualsAndHashCode.Exclude
     @Column(name = "is_active")
-    private Boolean active = true;
+    private Boolean isActive = true;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private ProductCategory category;
-
-
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private Customer customer;
 }

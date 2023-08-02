@@ -27,13 +27,13 @@ import { OptionsComponent } from './business/view/options/options.component';
 import { FooterComponent } from './business/view/footer/footer.component';
 import { ProductsCatComponent } from './business/view/products-cat/products-cat.component';
 import { ProductsGridComponent } from './business/view/products-grid/products-grid.component';
-import {CATEGORY_URL_TOKEN} from './business/data/dao/impl/CategoryService';
-import {PRODUCT_URL_TOKEN} from './business/data/dao/impl/ProductService';
+import {CATEGORY_URL_TOKEN} from './business/data/dao/impl/category.service';
+import {PRODUCT_URL_TOKEN} from './business/data/dao/impl/product.service';
 import {ExchangeDataService} from './business/service/ExchangeDataService';
 import { ProductEditComponent } from './business/view/product-edit/product-edit.component';
-
-
-
+import { CustomerEditComponent } from './business/view/customer-edit/customer-edit.component';
+import {CustomersGridComponent} from './business/view/customers-grid/customers-grid.component';
+import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
 
 /*
 
@@ -56,12 +56,14 @@ import { ProductEditComponent } from './business/view/product-edit/product-edit.
     ProductsComponent,
     PurchasesComponent,
     SalesComponent,
-     CustomersComponent,
     OptionsComponent,
     FooterComponent,
     ProductsCatComponent,
     ProductsGridComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    CustomersComponent,
+    CustomerEditComponent,
+    CustomersGridComponent
 
   ],
   imports: [
@@ -95,6 +97,10 @@ import { ProductEditComponent } from './business/view/product-edit/product-edit.
     {
       provide: PRODUCT_URL_TOKEN,
       useValue: environment.resourceServerURL + '/product'
+    },
+    {
+      provide: CUSTOMER_URL_TOKEN,
+      useValue: environment.resourceServerURL + '/customer'
     },
 
     /* нужно указывать для корректной работы диалоговых окон */

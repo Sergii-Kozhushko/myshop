@@ -1,10 +1,11 @@
 import {Input, Component, OnInit, OnChanges, SimpleChanges} from '@angular/core';
-import {CategoryService} from '../../data/dao/impl/CategoryService';
+import {CategoryService} from '../../data/dao/impl/category.service';
 import {ActivatedRoute} from '@angular/router';
-import {ProductService} from '../../data/dao/impl/ProductService';
+import {ProductService} from '../../data/dao/impl/product.service';
 import {Category, Product} from '../../../model/Models';
 import {ExchangeDataService} from '../../service/ExchangeDataService';
 import {MessageService} from '../../service/message.service';
+import {DateUtils} from '../../utils/DateUtils';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class ProductsGridComponent implements OnInit {
   editedProductId = 0;
 
 
+
+
   constructor(public productService: ProductService,
               private categoryService: CategoryService,
               private route: ActivatedRoute,
@@ -29,12 +32,13 @@ export class ProductsGridComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllProducts();
     this.fetchAllCategories();
-    this.selectedCategory.id = 0;
+
 
     // подписываемся на обновления выбранной категории
     this.exchangeDataService.getSelectedCategory()
       .subscribe((newCategory) => {
         this.selectedCategory = newCategory;
+        console.log(newCategory);
         this.fetchProductsBySelectedCategory();
       });
     // update products: signal from other components

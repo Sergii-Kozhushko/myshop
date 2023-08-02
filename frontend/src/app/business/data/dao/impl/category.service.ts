@@ -1,7 +1,7 @@
 import {Inject, Injectable, InjectionToken, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Category} from '../../../../model/Models';
-import {CommonService} from './CommonService';
+import {CommonService} from './common.service';
 import {CategoryDAO} from '../interface/CategoryDAO';
 import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';

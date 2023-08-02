@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -43,7 +44,7 @@ public class CustomerController {
         // preparing data for page view
         String sortDirection = customerSearchValues.getSortDirection();
         Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0 ||
-                        sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
 
         Sort sort = Sort.by(direction, customerSearchValues.getSortColumn(), ID_COLUMN);
         Integer pageNumber = customerSearchValues.getPageNumber() != null ? customerSearchValues.getPageNumber() : 0;
@@ -57,8 +58,10 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
+    @Transactional
     public ResponseEntity<Customer> createCustomer(@RequestBody final CreateCustomerDto customerDto)
             throws URISyntaxException {
+        
         return ResponseEntity
                 .created(new URI(MAIN_PATH))
                 .body(customerService.create(customerDto));

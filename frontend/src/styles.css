@@ -154,7 +154,7 @@ body, button {
   margin-left: 20px;
   margin-right: 32px;
   margin-bottom: 8px;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid #CFD8DC;
   padding: 2px 12px;
 
@@ -169,8 +169,31 @@ body, button {
 }
 .input-text:hover{
   transform: scale(1.01);
-  border: 1px solid #FFE44D;
+  border: 1px solid #171716;
 }
+.edit-item-checkbox {
+  margin-left: 20px;
+  margin-right: 32px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  height: 36px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+.edit-item-checkbox:checked {
+  background-color: #007bff; /* Фоновый цвет при нажатии на чекбокс (при выбранном состоянии) */
+}
+.edit-item-checkbox:checked::before {
+  content: '\2713'; /* Символ галочки Unicode */
+  color: #fff; /* Цвет галочки */
+  font-size: 16px; /* Размер шрифта галочки */
+  position: absolute;
+  top: 50%; /* Положение галочки по вертикали */
+  left: 50%; /* Положение галочки по горизонтали */
+  transform: translate(-50%, -50%); /* Смещение галочки на середину элемента */
+}
+
 
 .select-category {
   font-family: 'Nunito', sans-serif;
@@ -211,10 +234,72 @@ body, button {
   justify-content: stretch;
 }
 
-.title-edit-w {
+.edit-item-field-width-big {
   width: 350px;
 }
-.price-edit-w {
-  width: 150px;
+.edit-item-field-width-small {
+  width: 120px;
 }
+.edit-item-field-width-med {
+  width: 220px;
+}
+
+.items-container{
+  display: flex;
+  width: 100%;
+  border: 0px solid #403f3f;
+  padding: 1em;
+}
+.items-cat{
+  width:20%;
+  border: 0px solid #403f3f;
+}
+.items-grid{
+  width:80%;
+  border: 0px solid #403f3f;
+}
+.item-edit{
+
+}
+.item-grid-cell {
+  padding: 5px;
+
+}
+.item-grid-table {
+  border: 1px solid;
+}
+.center{
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+th {
+  padding: 5px;
+}
+
+thead tr {
+  border-bottom: 1px solid;
+}
+.bgc-lgrey {
+  background-color: #e1e0e0;
+}
+.edit-item-row-box {
+  display: flex;
+  justify-content: space-between; /* Равномерно распределяем элементы по горизонтали */
+  align-items: end;/* Выравниваем элементы по вертикали по центру */
+  padding: 3px;
+}
+.edit-item-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 28px;
+  line-height: 32px;
+  color: black;
+}
+
 

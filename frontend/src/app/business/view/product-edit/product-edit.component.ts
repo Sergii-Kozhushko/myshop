@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ExchangeDataService} from '../../service/ExchangeDataService';
 import {Category, Product} from '../../../model/Models';
-import {ProductService} from '../../data/dao/impl/ProductService';
+import {ProductService} from '../../data/dao/impl/product.service';
 import {Router} from '@angular/router';
 import {MessageService} from '../../service/message.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -19,19 +19,21 @@ export class ProductEditComponent implements OnInit {
   constructor(private exchangeDataService: ExchangeDataService,
               private productService: ProductService,
               private router: Router,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.exchangeDataService.getEditedProduct()
       .subscribe((product) => {
         this.editedProduct = product;
+        this.cdRef.detectChanges();
 
 
       });
     this.exchangeDataService.getCategories()
       .subscribe((categories) => {
-        console.log('cat length=' + categories.length);
+
         this.categories = categories;
       });
     this.clearEditedProduct();
@@ -55,7 +57,7 @@ export class ProductEditComponent implements OnInit {
     this.messageService.add(`Updated product '${this.editedProduct.name}'`);
     this.clearEditedProduct();
     this.exchangeDataService.setEditedProduct(this.editedProduct);
-    this.exchangeDataService.setUpdateProductsInGrid(true);
+    this.exchangeDataService.setUpdateProductsInGrid();
   }
 
   addNew(): void {
@@ -63,12 +65,12 @@ export class ProductEditComponent implements OnInit {
       this.messageService.add('Can\'t add product with empty name');
       return;
     }
-    console.log('try to send add operation to back');
+
     this.productService.add(this.editedProduct).subscribe(result => {
     });
     this.messageService.add(`Product '${this.editedProduct.name}' added successfully`);
     this.clearEditedProduct();
-    this.exchangeDataService.setUpdateProductsInGrid(true);
+    this.exchangeDataService.setUpdateProductsInGrid();
   }
 
   cancel(): void {
@@ -83,7 +85,7 @@ export class ProductEditComponent implements OnInit {
     this.messageService.add(`Product '${this.editedProduct.name} (id: ${this.editedProduct.id})' was deleted successfully. Soft`);
     this.clearEditedProduct();
     // дать сигналу компоненту грид - обновить товары в категории
-    this.exchangeDataService.setUpdateProductsInGrid(true);
+    this.exchangeDataService.setUpdateProductsInGrid();
   }
 
 }

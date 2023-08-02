@@ -36,7 +36,7 @@ public class Customer extends BaseEntity {
     private String email;
 
     @Column(name = "discount")
-    private BigDecimal discountValue;
+    private Integer discountValue;
 
     @Column(name = "discount_card")
     private String discountCardNumber;

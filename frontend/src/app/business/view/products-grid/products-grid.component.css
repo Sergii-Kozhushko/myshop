@@ -1,18 +1,2 @@
-.product-grid-cell{
-  padding: 5px;
-}
-.center{
-  text-align: center;
-}
 
-tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
 
-/* Стиль для нечетных строк в теле таблицы */
-tbody tr:nth-child(odd) {
-  background-color: #fff;
-}
-thead th {
-  padding: 5px;
-}

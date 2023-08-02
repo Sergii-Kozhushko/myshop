@@ -42,7 +42,8 @@ const routes: Routes = [
   {path: 'purchases', component: PurchasesComponent},
   {path: 'sales', component: SalesComponent },
   {path: 'products', component: ProductsComponent},
-  { path: 'products/:cid/:pid?', component: ProductsComponent },
+  { path: 'products/:pid?', component: ProductsComponent },
+  { path: 'customers/:cid?', component: CustomersComponent },
 
   {path: 'customers', component: CustomersComponent},
   {path: 'options', component: OptionsComponent},

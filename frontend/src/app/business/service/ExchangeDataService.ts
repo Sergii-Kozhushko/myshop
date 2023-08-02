@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
-import {Category, Product} from '../../model/Models';
+import {Category, Customer, Product} from '../../model/Models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,26 @@ export class ExchangeDataService {
   private updateCategoriesLeft$: Subject<boolean> = new Subject<boolean>();
   // all categories list
   private categories$: Subject<Category[]> = new Subject<Category[]>();
+
+  private updateCustomersInGrid$: Subject<boolean> = new Subject<boolean>();
+  private editedCustomer$: Subject<Customer> = new Subject<Customer>();
+
+
+  public setEditedCustomer(value: Customer): void {
+    this.editedCustomer$.next(value);
+  }
+
+  getEditedCustomer(): Observable<Customer> {
+    return this.editedCustomer$.asObservable();
+  }
+  getUpdateCustomersInGrid(): Subject<boolean> {
+    return this.updateCustomersInGrid$;
+  }
+
+  setUpdateCustomersInGrid(): void {
+    this.updateCustomersInGrid$.next(false);
+    this.updateCustomersInGrid$.next(true);
+  }
 
   getCategories(): Subject<Category[]> {
     return this.categories$;
@@ -36,7 +56,7 @@ export class ExchangeDataService {
     return this.updateProductsInGrid$;
   }
 
-  setUpdateProductsInGrid(value: boolean): void {
+  setUpdateProductsInGrid(): void {
     this.updateProductsInGrid$.next(false);
     this.updateProductsInGrid$.next(true);
     // this.updateProductsInGrid$.next(false);

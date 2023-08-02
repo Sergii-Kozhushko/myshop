@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS myshop.dec_invoice
     customer_id    int,
     discount       numeric(4, 2),
     sale_condition varchar(255),
-    is_active      smallint    NOT NULL        DEFAULT 1,
+    is_active      boolean     NOT NULL        DEFAULT true,
     created_at     timestamp without time zone DEFAULT now(),
     updated_at     timestamp without time zone DEFAULT now(),
     CONSTRAINT dec_invoice_pkey PRIMARY KEY (id),

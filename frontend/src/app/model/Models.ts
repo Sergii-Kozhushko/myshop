@@ -39,5 +39,7 @@ export class Customer {
   email: string;
   discountValue: number;
   discountCardNumber: string;
-  dateOfBirth: object;
+  dateBirth?: Date;
+  acceptSMSList: boolean;
+  // ? - property optional
 }

@@ -1,7 +1,7 @@
 import {Inject, Injectable, InjectionToken, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Product} from '../../../../model/Models';
-import {CommonService} from './CommonService';
+import {CommonService} from './common.service';
 import {ProductDAO} from '../interface/ProductDAO';
 import {HttpMethod, Operation} from '../../../../model/RequestBFF';
 import {Observable} from 'rxjs';

@@ -1,46 +1,46 @@
 <div>
 
   <form class="common-box">
-    <div class="row-box">
-      <span class="edit-product-title">{{ editedProduct.id === 0 ? 'Add' : 'Edit' }} Product</span>
+    <div class="edit-item-row-box">
+      <span class="edit-item-title">{{ editedProduct.id === 0 ? 'Add' : 'Edit' }} Product</span>
     </div>
-    <div class="row-box">
+    <div class="edit-item-row-box">
       <label>Id</label>
-      <input type="text" id="product-id" name="" class="input-text price-edit-w bgc-lgrey"
+      <input type="text" id="product-id" name="" class="input-text edit-item-field-width-small bgc-lgrey"
              value="{{editedProduct.id}}" readonly>
     </div>
-    <div class="row-box">
+    <div class="edit-item-row-box">
       <label>Title</label>
-      <input type="text" id="product-name" name="" class="input-text title-edit-w"
+      <input type="text" id="product-name" name="" class="input-text edit-item-field-width-big"
              [(ngModel)]="editedProduct.name">
     </div>
-    <div class="row-box">
+    <div class="edit-item-row-box">
       <label>Category</label>
       <select [(ngModel)]="editedProduct.category.id" name="product-category" class="select-category" >
         <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
       </select>
 
     </div>
-    <div class="row-box">
+    <div class="edit-item-row-box">
       <label>Retail Price, EUR</label>
-      <input type="text" id="product-price" placeholder="0,00" name="retail_price"
-             class="input-text price-edit-w"
+      <input type="text" id="product-price" placeholder="0.00" name="retail_price"
+             class="input-text edit-item-field-width-small"
              [(ngModel)]="editedProduct.price"
       >
     </div>
-    <div class="row-box">
+    <div class="edit-item-row-box">
       <label>Wholesale Price, EUR</label>
       <input type="text" id="product-wprice" placeholder="0.00"
-             class="input-text price-edit-w"
+             class="input-text edit-item-field-width-small"
              pattern="^[0-9]*\.?[0-9]+$"
              inputmode="numeric"
              [(ngModel)]="editedProduct.wholesalePrice"
       >
     </div>
-    <div class="row-box">
+    <div class="edit-item-row-box">
       <label>Start Quantity</label>
       <input type="number" id="product-quantity" placeholder="0"
-             class="input-text price-edit-w"
+             class="input-text edit-item-field-width-small"
              [(ngModel)]="editedProduct.quantity"
       >
     </div>

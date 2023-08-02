@@ -1,3 +1,46 @@
 <div class="common-box">
+  <h3 >Customer list</h3>
 
+  <table class="item-grid-table" >
+    <thead>
+    <tr>
+      <th class="center">Id</th>
+      <th>Name</th>
+      <th class="center">E-mail</th>
+      <th class="center">Phone</th>
+      <th class="center">Address</th>
+      <th class="center">Discount, %</th>
+      <th class="center">Discount Card No</th>
+      <th class="center">Date of birth</th>
+      <th class="center">Accept sms-list</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let customer of customers">
+      <td class="item-grid-cell center">{{customer.id}}</td>
+      <td class="item-grid-cell">
+        <a (click)="editCustomer(customer.id)"
+           routerLink="/customers/{{customer.id}}">{{customer.name}}</a>
+      </td>
+      <td class="item-grid-cell center">{{customer.email}}</td>
+      <td class="item-grid-cell center">{{customer.phone}}</td>
+      <td class="item-grid-cell center">
+        {{ customer.address.length > 20 ? customer.address.substring(0, 20)+'...':customer.address }}</td>
+      <td class="item-grid-cell center">{{customer.discountValue}}</td>
+      <td class="item-grid-cell center">{{customer.discountCardNumber}}</td>
+      <td class="item-grid-cell center">{{ customer.dateBirth | date:'dd.MM.yyyy' }}</td>
+      <td class="item-grid-cell center">{{customer.acceptSMSList}}</td>
+
+    </tr>
+    </tbody>
+  </table>
+  <div>
+
+
+
+
+
+
+  </div>
 </div>

@@ -1,14 +1,14 @@
 <div class="common-box">
-  <h3 *ngIf="selectedCategory.id===0">Current category: All categories</h3>
-  <div *ngIf="selectedCategory.id !== 0" class="flex">
+  <h3 *ngIf="selectedCategory.id===undefined">Current category: None, All products</h3>
+  <div *ngIf="selectedCategory.id!==undefined" class="flex">
     <h3>Current category:</h3>
     <input type="text" id="category-name-edit"
            [(ngModel)]="selectedCategory.name"
 
-           class="input-text title-edit-w"
+           class="input-text edit-item-field-width-big"
     >
   </div>
-  <table border="2px dotted">
+  <table class="item-grid-table">
     <thead>
     <tr>
       <th class="center">Id</th>
@@ -21,28 +21,28 @@
     <tbody>
 
     <tr *ngFor="let product of products">
-      <td class="product-grid-cell center">{{product.id}}</td>
-      <td class="product-grid-cell">
+      <td class="item-grid-cell center">{{product.id}}</td>
+      <td class="item-grid-cell">
         <a (click)="editProduct(product.id)"
-           routerLink="/products">{{product.name}}</a>
+           routerLink="/products/{{product.id}}">{{product.name}}</a>
       </td>
-      <td class="product-grid-cell center">{{product.price}}</td>
-      <td class="product-grid-cell center">{{product.wholesalePrice}}</td>
-      <td class="product-grid-cell center">{{product.quantity}}</td>
+      <td class="item-grid-cell center">{{product.price}}</td>
+      <td class="item-grid-cell center">{{product.wholesalePrice}}</td>
+      <td class="item-grid-cell center">{{product.quantity}}</td>
     </tr>
     </tbody>
   </table>
   <div>
 
-    <button *ngIf="selectedCategory.id !== 0" class="button button-save" type="button"
+    <button *ngIf="selectedCategory.id !== undefined" class="button button-save" type="button"
             (click)="saveCategory()">Save
     </button>
 
-<!--    <button class="button button-save" type="button" id="button-cadd"-->
-<!--            (click)="addCategory()">Add Category-->
-<!--    </button>-->
+    <!--    <button class="button button-save" type="button" id="button-cadd"-->
+    <!--            (click)="addCategory()">Add Category-->
+    <!--    </button>-->
 
-    <button *ngIf="selectedCategory.id !== 0" class="button button-delete" type="button"
+    <button *ngIf="selectedCategory.id !== undefined" class="button button-delete" type="button"
             (click)="deleteCategory()">Delete Category
     </button>
   </div>

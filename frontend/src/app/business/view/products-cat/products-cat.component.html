@@ -8,6 +8,9 @@
         <span class="badge">{{category.id}}</span> {{category.name}}
       </a>
     </li>
+    <li><a
+      [ngClass]="{'cat-link-active': selectedCategory=== allCategory}"
+      routerLink="/products/" (click)="selectAllCategory()">-- All Products</a></li>
   </ul>
   <button class="button button-save" (click)="addCategory()">Add Category</button>
 </div>

@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from '../../../oauth2/bff/keycloak.service';
 import {ActivatedRoute} from '@angular/router';
 import {ExchangeDataService} from '../../service/ExchangeDataService';
-import {CategoryService} from '../../data/dao/impl/CategoryService';
+import {CategoryService} from '../../data/dao/impl/category.service';
+import {Category} from '../../../model/Models';
 
 @Component({
   selector: 'app-products',
@@ -25,6 +26,8 @@ export class ProductsComponent implements OnInit {
 
     this.categoryService.findAll()
       .subscribe(categories => {
+
+
         this.exchangeDataService.setCategories(categories);
       });
 

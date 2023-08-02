@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Category} from '../../../model/Models';
-import {CategoryService} from '../../data/dao/impl/CategoryService';
+import {CategoryService} from '../../data/dao/impl/category.service';
 import {ActivatedRoute} from '@angular/router';
 import {ExchangeDataService} from '../../service/ExchangeDataService';
 
@@ -13,6 +13,7 @@ import {ExchangeDataService} from '../../service/ExchangeDataService';
 export class ProductsCatComponent implements OnInit {
   categories: Category[];
   selectedCategory: Category;
+  allCategory = new Category('--All products', 0);
 
   // @Output() categorySelected = new EventEmitter<number>();
 
@@ -24,14 +25,16 @@ export class ProductsCatComponent implements OnInit {
   ngOnInit(): void {
     // this.selectedCategory = + this.route.snapshot.paramMap.get('cid'); // получить параметр из адресной строки
     // подписываемся на обновления выбранной категории
+    this.selectedCategory = this.allCategory;
     this.exchangeDataService.getSelectedCategory()
       .subscribe((newCategory) => {
         this.selectedCategory = newCategory;
       });
+    // Subject categories is filled in parent 'Products' component for all children
     this.exchangeDataService.getCategories()
       .subscribe(categories => {
 
-        this.categories = categories;
+          this.categories = categories;
         }
       );
     this.exchangeDataService.getUpdateCategoriesLeft()
@@ -44,6 +47,12 @@ export class ProductsCatComponent implements OnInit {
   selectCategory(category: Category): void {
     this.exchangeDataService.setSelectedCategory(category);
   }
+
+  selectAllCategory(): void {
+
+    this.exchangeDataService.setSelectedCategory(this.allCategory);
+  }
+
 
   getCategories(): void {
     this.categoryService.findAll()

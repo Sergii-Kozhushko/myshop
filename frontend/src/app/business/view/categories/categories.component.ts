@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CategoryService} from '../../data/dao/impl/CategoryService';
+import {CategoryService} from '../../data/dao/impl/category.service';
 // import {constructor} from 'path';
 import {Category} from '../../../model/Models';
 
