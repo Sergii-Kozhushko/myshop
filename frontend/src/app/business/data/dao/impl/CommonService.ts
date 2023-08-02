@@ -32,11 +32,23 @@ export class CommonService<T> implements CommonDAO<T> {
   // основной смысл всех методов - просто вызвать BBF и передать туда параметры
 
   add(t: T): Observable<T> {
+    console.log('operation starts');
     const operation = new Operation();
     operation.url = this.url + '/add'; // это адрес, который BFF будет вызывать у Resource Server, добавляя к запросу access token
     operation.body = t; // вложенный объект (конвертируется в JSON автоматически)
     operation.httpMethod = HttpMethod.POST; // у Resource Server должен быть именно такой тип метода
-    return this.httpClient.post<T>(environment.bffURI + '/operation', operation); // единый адрес вызова BFF
+    return this.httpClient.post<T>(environment.bffURI + '/operation', operation)
+      .pipe(
+        tap(() => {
+          // Send a success message to the message service
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.handleError(error);
+          // Верните пустой массив или другое значение по умолчанию в случае ошибки
+          return [];
+        }));
+
+
   }
 
   delete(id: number): void {
@@ -56,7 +68,6 @@ export class CommonService<T> implements CommonDAO<T> {
         })
       ).subscribe();
   }
-
 
 
   findById(id: number): Observable<T> {
@@ -86,7 +97,6 @@ export class CommonService<T> implements CommonDAO<T> {
     operation.url = this.url + '/update';
     operation.body = t;
     operation.httpMethod = HttpMethod.PUT;
-    console.log(t);
 
     this.httpClient.post(environment.bffURI + '/operation', operation)
       .pipe(
@@ -94,10 +104,9 @@ export class CommonService<T> implements CommonDAO<T> {
           // Send a success message to the message service
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Metka1');
           this.handleError(error);
           // Верните пустой массив или другое значение по умолчанию в случае ошибки
-          return [];
+          return 'error';
         })
       ).subscribe();
 

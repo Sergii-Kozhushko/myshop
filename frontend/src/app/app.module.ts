@@ -56,7 +56,7 @@ import { ProductEditComponent } from './business/view/product-edit/product-edit.
     ProductsComponent,
     PurchasesComponent,
     SalesComponent,
-    CustomersComponent,
+     CustomersComponent,
     OptionsComponent,
     FooterComponent,
     ProductsCatComponent,
@@ -80,7 +80,7 @@ import { ProductEditComponent } from './business/view/product-edit/product-edit.
     {
       provide: BACKEND_URL,
       useValue: environment.resourceServerURL
-       // базовый URL веб сервиса + '/user'
+      // базовый URL веб сервиса + '/user'
     },
 
     {

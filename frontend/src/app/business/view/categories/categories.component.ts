@@ -31,7 +31,7 @@ export class CategoriesComponent implements OnInit {
     if (!name) {
       return;
     }
-    this.categoryService.add(new Category(null, name, 0))
+    this.categoryService.add(new Category(name, 0))
        .subscribe(category => {
          this.categories.push(category);
        });

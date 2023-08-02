@@ -2,7 +2,7 @@
 
   <form class="common-box">
     <div class="row-box">
-      <span class="edit-product-title">Edit or Add Product</span>
+      <span class="edit-product-title">{{ editedProduct.id === 0 ? 'Add' : 'Edit' }} Product</span>
     </div>
     <div class="row-box">
       <label>Id</label>
@@ -30,8 +30,10 @@
     </div>
     <div class="row-box">
       <label>Wholesale Price, EUR</label>
-      <input type="text" id="product-wprice" placeholder="0,00"
+      <input type="text" id="product-wprice" placeholder="0.00"
              class="input-text price-edit-w"
+             pattern="^[0-9]*\.?[0-9]+$"
+             inputmode="numeric"
              [(ngModel)]="editedProduct.wholesalePrice"
       >
     </div>
@@ -45,7 +47,7 @@
 
 
     <div class="row-box-buttons">
-      <button *ngIf="!editedProduct.id" class="button button-save" type="button" (click)="save()">Add</button>
+      <button *ngIf="!editedProduct.id" class="button button-save" type="button" (click)="addNew()">Add</button>
       <button *ngIf="editedProduct.id" class="button button-save" type="button" (click)="save()">Save</button>
       <button *ngIf="editedProduct.id" class="button button-delete" type="button" (click)="delete()">Delete</button>
       <button class="button button-cancel" type="button" (click)="cancel()">Cancel</button>

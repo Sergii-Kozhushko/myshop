@@ -36,15 +36,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p where " +
             "(:category_id is null or p.category.id=:category_id)" +
-            " and :is_Active=true"
+            " and p.active=true ORDER BY p.name ASC"
     )
-    List<Product> findByCategory(@Param("category_id") Integer category_id);
+    List<Product> findByCategoryIdAndActiveTrue(@Param("category_id") Integer category_id);
 
-    @Transactional
-    @Query("SELECT p FROM Product p JOIN FETCH p.category WHERE p.active = true")
+    @Query("SELECT p FROM Product p JOIN FETCH p.category WHERE p.active = true ORDER BY p.name")
     List<Product> findByActiveTrue();
-
-    List<Product> findByCategoryAndActiveTrue(Integer id);
-
-
 }

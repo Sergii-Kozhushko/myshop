@@ -3,8 +3,7 @@ export class Category {
   name: string;
   parentId: number;
 
-  constructor(id: number, name: string, parentId: number) {
-    this.id = id;
+  constructor(name: string, parentId: number) {
     this.name = name;
     this.parentId = parentId;
   }
@@ -22,7 +21,7 @@ export class Product {
   category: Category;
 
   constructor(id: number, name: string, price: number, wholesalePrice: number,
-              quantity: number, active: boolean, category: Category = new Category(0, '', 0)) {
+              quantity: number, active: boolean, category: Category = new Category('', 0)) {
     this.id = id;
     this.name = name;
     this.price = price;
@@ -31,4 +30,14 @@ export class Product {
     this.active = active;
     this.category = category;
   }
+}
+export class Customer {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  discountValue: number;
+  discountCardNumber: string;
+  dateOfBirth: object;
 }

@@ -39,8 +39,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProducts() {
         // if parameter is null - it return all products
         entityManager.clear();
-        productRepository.findByActiveTrue().stream().forEach(System.out::println);
+        // productRepository.findByActiveTrue().stream().forEach(System.out::println);
         return productRepository.findByActiveTrue();
+
     }
 
     @Override
@@ -68,15 +69,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-//    @Transactional
-//    public Product updateProduct2(final UpdateProductDto product) {
-//
-//        return productRepository.save(updateProductMapper.toEntity(product));
-//
-//
-//    }
-
-
     @Override
     public Product getProductById(final Long productId) {
         return productRepository
@@ -85,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> getProductsByCategory(final Integer categoryId) {
-        return productRepository.findByCategoryAndActiveTrue(categoryId);
+        return productRepository.findByCategoryIdAndActiveTrue(categoryId);
     }
 
     @Override

@@ -16,24 +16,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
-@RequestMapping(ProductFrontController.MAIN_PATH)
-@RequiredArgsConstructor
+//@Controller
+//@RequestMapping(ProductFrontController.MAIN_PATH)
+//@RequiredArgsConstructor
 public class ProductFrontController {
-   private final ProductServiceImpl productService;
-   private final ProductCategoryServiceImpl productCategoryService;
-   public static final String MAIN_PATH = "/front/product";
-
-   @GetMapping("/all")
-   public String getAllProducts(Model model,
-                                @RequestParam(required = false, name="cid") Integer category_id) {
-      model.addAttribute("products", productService.getProductsByCategory(category_id));
-      model.addAttribute("categories", productCategoryService.getAllCategories());
-      model.addAttribute("current_category", productCategoryService.getById(category_id));
-      return "products";
-   }
-
-
+//   private final ProductServiceImpl productService;
+//   private final ProductCategoryServiceImpl productCategoryService;
+//   public static final String MAIN_PATH = "/front/product";
+//
+//   @GetMapping("/all")
+//   public String getAllProducts(Model model,
+//                                @RequestParam(required = false, name="cid") Integer category_id) {
+//      model.addAttribute("products", productService.getProductsByCategory(category_id));
+//      model.addAttribute("categories", productCategoryService.getAllCategories());
+//      model.addAttribute("current_category", productCategoryService.getById(category_id));
+//      return "products";
+//   }
+//
 
 
 }

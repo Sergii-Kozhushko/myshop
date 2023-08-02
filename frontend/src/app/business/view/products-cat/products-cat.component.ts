@@ -3,14 +3,14 @@ import {Category} from '../../../model/Models';
 import {CategoryService} from '../../data/dao/impl/CategoryService';
 import {ActivatedRoute} from '@angular/router';
 import {ExchangeDataService} from '../../service/ExchangeDataService';
-import {isError} from 'util';
+
 
 @Component({
   selector: 'app-products-cat',
   templateUrl: './products-cat.component.html',
   styleUrls: ['./products-cat.component.css']
 })
-export class ProductsCatComponent implements OnInit{
+export class ProductsCatComponent implements OnInit {
   categories: Category[];
   selectedCategory: Category;
 
@@ -27,10 +27,17 @@ export class ProductsCatComponent implements OnInit{
     this.exchangeDataService.getSelectedCategory()
       .subscribe((newCategory) => {
         this.selectedCategory = newCategory;
-
       });
+    this.exchangeDataService.getCategories()
+      .subscribe(categories => {
 
-    this.getCategories();
+        this.categories = categories;
+        }
+      );
+    this.exchangeDataService.getUpdateCategoriesLeft()
+      .subscribe(flag => {
+        this.getCategories();
+      });
   }
 
 
@@ -52,13 +59,22 @@ export class ProductsCatComponent implements OnInit{
     if (!name) {
       return;
     }
-    this.categoryService.add(new Category(null, name, 0))
+    this.categoryService.add(new Category(name, 0))
       .subscribe(category => {
         this.categories.push(category);
         this.exchangeDataService.setCategories(this.categories);
       });
   }
 
+  addCategory(): void {
+    this.categoryService.add(new Category('New category', 0))
+      .subscribe(category => {
+        this.categories.push(category);
+        this.categories.sort((a, b) => a.name.localeCompare(b.name));
+        this.exchangeDataService.setCategories(this.categories);
+      });
 
-  // protected readonly isError = isError;
+  }
+
+
 }

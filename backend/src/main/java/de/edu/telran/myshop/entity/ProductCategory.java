@@ -10,12 +10,14 @@ package de.edu.telran.myshop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 @Entity
 @Table(name = "product_category")
 @Data
 @EqualsAndHashCode
+@NoArgsConstructor
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,7 @@ public class ProductCategory {
     private String name;
 
     @Column(name = "parent_category_id")
-    private Long parentId;
+    private Integer parentId;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
@@ -33,6 +35,20 @@ public class ProductCategory {
 
     @EqualsAndHashCode.Exclude
     @Column(name = "is_active")
-    private Boolean active;
+    private Boolean active = true;
 
+    public ProductCategory(String name, Integer parentId, Boolean active) {
+        this.name = name;
+        this.parentId = parentId;
+        this.active = active;
+    }
+
+    public ProductCategory(String name, Integer parentId) {
+        this.name = name;
+        this.parentId = parentId;
+    }
+
+    public ProductCategory(String name) {
+        this.name = name;
+    }
 }

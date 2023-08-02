@@ -12,15 +12,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./product-edit.component.css']
 })
 export class ProductEditComponent implements OnInit {
-  public editedProduct: Product = {
-    id: 0,
-    name: '',
-    price: 0,
-    wholesalePrice: 0,
-    quantity: 0,
-    active: true,
-    category: null
-  };
+  public editedProduct: Product;
   categories: Category[];
 
 
@@ -35,16 +27,18 @@ export class ProductEditComponent implements OnInit {
       .subscribe((product) => {
         this.editedProduct = product;
 
+
       });
     this.exchangeDataService.getCategories()
       .subscribe((categories) => {
+        console.log('cat length=' + categories.length);
         this.categories = categories;
-
       });
-
+    this.clearEditedProduct();
   }
 
   clearEditedProduct(): void {
+    let cat = new Category('Select category', 0);
     this.editedProduct = {
       id: 0,
       name: '',
@@ -52,16 +46,29 @@ export class ProductEditComponent implements OnInit {
       wholesalePrice: 0,
       quantity: 0,
       active: true,
-      category: null
+      category: cat
     };
   }
 
   save(): void {
-    console.log('cat id=' + this.editedProduct.category.id);
     this.productService.update(this.editedProduct);
+    this.messageService.add(`Updated product '${this.editedProduct.name}'`);
     this.clearEditedProduct();
     this.exchangeDataService.setEditedProduct(this.editedProduct);
+    this.exchangeDataService.setUpdateProductsInGrid(true);
+  }
 
+  addNew(): void {
+    if (!this.editedProduct.name.trim()) {
+      this.messageService.add('Can\'t add product with empty name');
+      return;
+    }
+    console.log('try to send add operation to back');
+    this.productService.add(this.editedProduct).subscribe(result => {
+    });
+    this.messageService.add(`Product '${this.editedProduct.name}' added successfully`);
+    this.clearEditedProduct();
+    this.exchangeDataService.setUpdateProductsInGrid(true);
   }
 
   cancel(): void {

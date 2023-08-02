@@ -1,6 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MessageService} from '../../service/message.service';
 import {BACKEND_URL, DEV_MODE} from '../../service/backend.service';
+import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
+import {KeycloakService} from '../../../oauth2/bff/keycloak.service';
+import {Router} from '@angular/router';
  //import {logCumulativeDurations} from '@angular-devkit/build-angular/src/builders/browser-esbuild/profiling';
 
 
@@ -14,7 +17,11 @@ export class DashboardComponent implements OnInit {
   // heroes: Hero[] = [];
 
   constructor(private messageService: MessageService,
-              @Inject(DEV_MODE) private devMode) { }
+              @Inject(DEV_MODE) private devMode,
+              private spinnerService: SpinnerService,
+              private keycloakService: KeycloakService,
+              private router: Router
+              ) { }
   ngOnInit(): void {
     console.log('Dashboard works');
     if (this.devMode) {

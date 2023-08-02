@@ -1,5 +1,6 @@
 package de.edu.telran.myshop;
 
+import de.edu.telran.myshop.entity.ProductCategory;
 import de.edu.telran.myshop.security.SpringSecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ public class MyshopApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MyshopApplication.class, args);
+
     }
 
 }

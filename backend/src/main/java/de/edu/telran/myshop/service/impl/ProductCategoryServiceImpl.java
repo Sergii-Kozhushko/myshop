@@ -26,7 +26,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public List<ProductCategory> getAllCategories() {
-        return categoryRepository.findByActiveTrue();
+//        ProductCategory category1 = new ProductCategory(100, "Category 1", 0, true);
+//        categoryRepository.save(category1);
+
+        return categoryRepository.findByActiveTrueOrderByNameAsc();
     }
 
     public ProductCategory getById(Integer categoryId) {

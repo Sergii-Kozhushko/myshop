@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS myshop.customer
     created_at      timestamp without time zone DEFAULT now(),
     updated_at      timestamp without time zone DEFAULT now(),
     date_of_birth   timestamp without time zone,
-    accept_sms_list smallint                    DEFAULT 1,
+    accept_sms_list boolean      NOT NULL       DEFAULT false,
     CONSTRAINT customer_pkey PRIMARY KEY (id)
 )
 -- rollback DROP TABLE myshop.customer;

@@ -26,8 +26,12 @@ export class ProductService extends CommonService<Product> implements ProductDAO
   }
 
   findProductsByCategory(categoryId: number): Observable<any> { // из backend получаем тип Page, поэтому указываем any
+    if (!categoryId){
+      return this.findAll();
+
+    }
     const operation = new Operation();
-    operation.url = this.baseUrl + '/getbycategory/' + categoryId;
+    operation.url = this.baseUrl + '/bycategory/' + categoryId;
     operation.httpMethod = HttpMethod.GET;
     return this.http.post(environment.bffURI + '/operation', operation);
   }

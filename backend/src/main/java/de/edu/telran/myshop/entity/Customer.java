@@ -21,8 +21,11 @@ import java.util.Date;
 
 
 @Data
+@Builder
 @Entity
-@EqualsAndHashCode(callSuper = true) //
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer extends BaseEntity {
 
     @Column(nullable = false)
@@ -31,16 +34,17 @@ public class Customer extends BaseEntity {
     private String address;
     private String phone;
     private String email;
+
     @Column(name = "discount")
     private BigDecimal discountValue;
+
     @Column(name = "discount_card")
     private String discountCardNumber;
-    @Column(name="date_of_birth")
+    @Column(name = "date_of_birth")
     private Date dateBirth;
 
-    // I use shortint in db for boolean type, because it is more stable
+
     @EqualsAndHashCode.Exclude
-    @Type(type = "org.hibernate.type.NumericBooleanType") //automatic conversion to boolean
-    @Column(name="accept_sms_list")
-    Boolean acceptSMSList;
+    @Column(name = "accept_sms_list")
+    Boolean acceptSMSList = false;
 }

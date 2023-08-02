@@ -1,4 +1,4 @@
-<div class="common-box" xmlns="http://www.w3.org/1999/html">
+<div class="common-box">
   <h3 *ngIf="selectedCategory.id===0">Current category: All categories</h3>
   <div *ngIf="selectedCategory.id !== 0" class="flex">
     <h3>Current category:</h3>
@@ -33,11 +33,17 @@
     </tbody>
   </table>
   <div>
-    <button *ngIf="selectedCategory.id !== 0" class="button button-delete" type="button"
-            (click)="deleteCategory()">Delete Category
-    </button>
+
     <button *ngIf="selectedCategory.id !== 0" class="button button-save" type="button"
             (click)="saveCategory()">Save
+    </button>
+
+<!--    <button class="button button-save" type="button" id="button-cadd"-->
+<!--            (click)="addCategory()">Add Category-->
+<!--    </button>-->
+
+    <button *ngIf="selectedCategory.id !== 0" class="button button-delete" type="button"
+            (click)="deleteCategory()">Delete Category
     </button>
   </div>
 </div>

@@ -6,12 +6,14 @@ import {Category, Product} from '../../model/Models';
   providedIn: 'root',
 })
 export class ExchangeDataService {
-  public selectedCategory$: Subject<Category> = new Subject<Category>();
-  public editedProduct$: Subject<Product> = new Subject<Product>();
-  public messages$: Subject<string[]> = new Subject<string[]>();
+  private selectedCategory$: Subject<Category> = new Subject<Category>();
+  private editedProduct$: Subject<Product> = new Subject<Product>();
+  private messages$: Subject<string[]> = new Subject<string[]>();
   // key - force product-grid component to update product list
-  public updateProductsInGrid$: Subject<boolean> = new Subject<boolean>();
-  public categories$: Subject<Category[]> = new Subject<Category[]>();
+  private updateProductsInGrid$: Subject<boolean> = new Subject<boolean>();
+  private updateCategoriesLeft$: Subject<boolean> = new Subject<boolean>();
+  // all categories list
+  private categories$: Subject<Category[]> = new Subject<Category[]>();
 
   getCategories(): Subject<Category[]> {
     return this.categories$;
@@ -21,13 +23,22 @@ export class ExchangeDataService {
     this.categories$.next(cat);
   }
 
+  getUpdateCategoriesLeft(): Subject<boolean> {
+    return this.updateCategoriesLeft$;
+  }
+
+  setUpdateCategoriesLeft(): void {
+    this.updateCategoriesLeft$.next(false);
+    this.updateCategoriesLeft$.next(true);
+  }
 
   getUpdateProductsInGrid(): Subject<boolean> {
     return this.updateProductsInGrid$;
   }
 
   setUpdateProductsInGrid(value: boolean): void {
-    this.updateProductsInGrid$.next(value);
+    this.updateProductsInGrid$.next(false);
+    this.updateProductsInGrid$.next(true);
     // this.updateProductsInGrid$.next(false);
   }
 

@@ -15,7 +15,7 @@ import {MessageService} from '../../service/message.service';
 export class ProductsGridComponent implements OnInit {
   products: Product[];
   categories: Category[];
-  selectedCategory: Category = new Category(0, 'All categories', 0);
+  selectedCategory: Category = new Category('All categories', 0);
   editedProductId = 0;
 
 
@@ -29,6 +29,7 @@ export class ProductsGridComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllProducts();
     this.fetchAllCategories();
+    this.selectedCategory.id = 0;
 
     // подписываемся на обновления выбранной категории
     this.exchangeDataService.getSelectedCategory()
@@ -39,12 +40,10 @@ export class ProductsGridComponent implements OnInit {
     // update products: signal from other components
     this.exchangeDataService.getUpdateProductsInGrid()
       .subscribe(update => {
-        console.log('got signal to update products');
+
         this.fetchProductsBySelectedCategory();
-
-
-
       });
+
   }
 
 
@@ -65,8 +64,7 @@ export class ProductsGridComponent implements OnInit {
 
 
   fetchProductsBySelectedCategory(): void {
-    if (this.selectedCategory.id === 0) {
-      console.log('fetch all products');
+    if (!this.selectedCategory || this.selectedCategory.id === 0) {
       this.fetchAllProducts();
       return;
     }
@@ -89,15 +87,23 @@ export class ProductsGridComponent implements OnInit {
     // this.selectedCategory.id = 0;
     // this.selectedCategory.name = 'All categories';
 
-    this.exchangeDataService.setSelectedCategory(new Category(0, 'All categories', 0));
+    this.exchangeDataService.setSelectedCategory(new Category('All categories', 0));
     this.fetchAllProducts();
   }
 
   saveCategory(): void {
     if (!this.selectedCategory.name) {
-      this.messageService.add('Can not save category with empty name');
+      this.messageService.add('Can\'t save category with empty name');
       return;
     }
+    this.categoryService.update(this.selectedCategory);
+    this.messageService.add(`Category \'${this.selectedCategory.name}\' was updated successfully`);
+    // this.exchangeDataService.setUpdateProductsInGrid(true);
+    this.exchangeDataService.setUpdateCategoriesLeft();
+  }
+
+  addCategory(): void {
+
   }
 
 

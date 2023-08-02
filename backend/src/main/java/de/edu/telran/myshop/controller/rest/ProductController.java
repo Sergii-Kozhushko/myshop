@@ -42,15 +42,15 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    @Transactional
+
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> result = productService.getAllProducts();
-        result.stream().forEach(System.out::println);
+
         return ResponseEntity.ok(result);
         //return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    @GetMapping("/getbycategory/{categoryId}")
+    @GetMapping("/bycategory/{categoryId}")
     public ResponseEntity<List<Product>> getProductByCategoryId(@PathVariable("categoryId") Integer categoryId
     ) throws Exception {
 
@@ -76,8 +76,10 @@ public class ProductController {
     }
 
     @PostMapping("/add")
+
     public ResponseEntity<Product> createProduct(@RequestBody final CreateProductDto product)
             throws URISyntaxException {
+        
         return ResponseEntity
                 .created(new URI(MAIN_PATH))
                 .body(productService.createProduct(product));

@@ -18,8 +18,11 @@ import java.util.Date;
 
 
 @Data
+@Builder
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product extends BaseEntity {
 
     @Column(name = "name", nullable = false)
@@ -32,13 +35,15 @@ public class Product extends BaseEntity {
 
     private Integer quantity;
 
-    //@EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name = "is_active")
-    private Boolean active;
+    private Boolean active = true;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory category;
+
+
 }

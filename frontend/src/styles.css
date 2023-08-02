@@ -139,6 +139,15 @@ body, button {
   transform: scale(1.01);
 }
 
+.button-logout{
+  background: #ffcd4e;
+}
+
+.button-logout:hover{
+  background: #c79f3a;
+  transform: scale(1.01);
+}
+
 .input-text{
   font-family: 'Nunito', sans-serif;
   height: 36px;
