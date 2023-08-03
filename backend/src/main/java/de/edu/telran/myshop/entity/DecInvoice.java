@@ -13,6 +13,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Data
@@ -32,6 +33,8 @@ public class DecInvoice extends BaseEntity {
     @Column(name = "sale_condition")
     private String saleCondition;
 
+    private BigDecimal sum;
+
     @EqualsAndHashCode.Exclude
     @Column(name = "is_active")
     private Boolean isActive = true;
@@ -41,4 +44,12 @@ public class DecInvoice extends BaseEntity {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "decInvoice", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<DecInvoiceProduct> products;
+
+
 }
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id", referencedColumnName = "decinvoice_id")
+//    private List<DecInvoiceProduct> items;

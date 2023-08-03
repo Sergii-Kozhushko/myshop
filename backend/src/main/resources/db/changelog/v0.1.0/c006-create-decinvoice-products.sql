@@ -3,11 +3,11 @@
 CREATE TABLE IF NOT EXISTS myshop.dec_invoice_products
 (
     id            bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    product_id    int,
-    decinvoice_id int,
+    product_id    bigint,
+    decinvoice_id bigint,
     quantity      int,
     price         numeric(12, 2),
-    discount      numeric(12, 2),
+
     CONSTRAINT dec_invoicep_pkey PRIMARY KEY (id),
     CONSTRAINT fk_product FOREIGN KEY (product_id)
         REFERENCES myshop.product (id) MATCH SIMPLE,
