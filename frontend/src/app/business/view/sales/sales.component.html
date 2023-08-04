@@ -1,1 +1,81 @@
-<p>sales works!</p>
+<div id="customers-main" class="items-container">
+
+  <div id="customers-grid" class="items-grid">
+    <div class="common-box">
+      <h3>Sales list</h3>
+      <table class="item-grid-table">
+        <thead>
+        <tr>
+          <th class="center">Id</th>
+          <th>
+            <a routerLink="/sales/" (click)="changeSortMode('Code')">Code
+              {{sortField === 'Code' && sortMode == 'Desc' ? '↓' : ''}}
+              {{sortField === 'Code' && sortMode == 'Asc' ? '↑' : ''}}
+            </a>
+          </th>
+
+
+          <th class="center"><a routerLink="/sales/" (click)="changeSortMode('Date created')">Date created
+            {{sortField === 'Date created' && sortMode == 'Desc' ? '↓' : ''}}
+            {{sortField === 'Date created' && sortMode == 'Asc' ? '↑' : ''}}
+          </a></th>
+          <th class="center"><a routerLink="/sales/" (click)="changeSortMode('Sum')">Sum, EUR
+            {{sortField === 'Sum' && sortMode == 'Desc' ? '↓' : ''}}
+            {{sortField === 'Sum' && sortMode == 'Asc' ? '↑' : ''}}
+          </a>
+
+          </th>
+          <th class="center">
+            <a routerLink="/sales/" (click)="changeSortMode('Customer')">Customer
+              {{sortField === 'Customer' && sortMode == 'Desc' ? '↓' : ''}}
+              {{sortField === 'Customer' && sortMode == 'Asc' ? '↑' : ''}}
+            </a>
+          </th>
+          <th class="center">
+            <a routerLink="/sales/" (click)="changeSortMode('Discount')">Discount
+              {{sortField === 'Discount' && sortMode == 'Desc' ? '↓' : ''}}
+              {{sortField === 'Discount' && sortMode == 'Asc' ? '↑' : ''}}
+            </a>
+          </th>
+          <th class="center">
+            <a routerLink="/sales/" (click)="changeSortMode('Sale condition')">Sale condition
+              {{sortField === 'Sale condition' && sortMode == 'Desc' ? '↓' : ''}}
+              {{sortField === 'Sale condition' && sortMode == 'Asc' ? '↑' : ''}}
+            </a>
+          </th>
+
+
+          <th class="center">is Active</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let sale of sales">
+          <td class="item-grid-cell center">{{sale.id}}</td>
+          <td class="item-grid-cell">
+            <a (click)="edit()"
+               routerLink="/sales/edit/{{sale.id}}">{{sale.code}}</a>
+          </td>
+          <td class="item-grid-cell center">{{ sale.createdAt | date:'dd.MM.yyyy HH:mm' }}</td>
+          <td class="item-grid-cell center">{{sale.sum}}</td>
+          <td class="item-grid-cell center">{{sale.customer.name}}</td>
+          <td class="item-grid-cell center">{{sale.discount}}</td>
+          <td class="item-grid-cell center">
+            {{ sale.saleCondition }}</td>
+          <td class="item-grid-cell center">{{sale.isActive}}</td>
+          <!--          <td class="item-grid-cell center">{{ customer.dateBirth | date:'dd.MM.yyyy' }}</td>-->
+
+
+        </tr>
+        </tbody>
+
+      </table>
+      <div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

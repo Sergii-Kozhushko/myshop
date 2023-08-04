@@ -31,6 +31,7 @@ export class Product {
     this.category = category;
   }
 }
+
 export class Customer {
   id: number;
   name: string;
@@ -39,7 +40,33 @@ export class Customer {
   email: string;
   discountValue: number;
   discountCardNumber: string;
-  dateBirth?: Date;
+  dateBirth?: Date; // ? - property optional
   acceptSMSList: boolean;
-  // ? - property optional
+}
+
+export class DecInvoice {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  code: string;
+  discount: number;
+  saleCondition: string;
+  sum: number;
+  isActive: boolean;
+  customer: Customer;
+  products?: DecInvoiceProduct[];
+}
+
+export class DecInvoiceProduct {
+  id: number;
+  product: Product;
+  decInvoice: DecInvoice;
+  quantity: number;
+  price: number;
+
+  constructor(product: Product, quantity: number, price: number) {
+    this.product = product;
+    this.quantity = quantity;
+    this.price = price;
+  }
 }

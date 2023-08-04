@@ -116,8 +116,7 @@ export class LoginComponent implements OnInit {
       }
     }).subscribe({
       next: ((response: any) => {
-        console.log("BBBBBBBBBBBBBBBBBBBBBBBBB");
-        console.log('Запрос на токены выполнен успешно');
+
         // если запрос на получение токенов в BFF выполнился успешно -
         // значит токены будут сохранены в безопасные куки и будут автоматически
         // отправляться с каждым запросом на BFF

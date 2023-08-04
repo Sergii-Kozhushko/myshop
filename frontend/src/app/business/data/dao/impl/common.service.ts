@@ -72,9 +72,9 @@ export class CommonService<T> implements CommonDAO<T> {
 
   findById(id: number): Observable<T> {
     const operation = new Operation();
-    operation.url = this.url + '/id';
-    operation.body = id;
-    operation.httpMethod = HttpMethod.POST;
+    operation.url = this.url + '/get/' + id;
+    // operation.body = id;
+    operation.httpMethod = HttpMethod.GET;
     return this.httpClient.post<T>(environment.bffURI + '/operation', operation);
   }
 

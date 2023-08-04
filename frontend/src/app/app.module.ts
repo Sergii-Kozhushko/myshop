@@ -34,6 +34,9 @@ import { ProductEditComponent } from './business/view/product-edit/product-edit.
 import { CustomerEditComponent } from './business/view/customer-edit/customer-edit.component';
 import {CustomersGridComponent} from './business/view/customers-grid/customers-grid.component';
 import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
+import {DECINVOICE_URL_TOKEN} from './business/data/dao/impl/decinvoice.service';
+import { SaleEditComponent } from './business/view/sale-edit/sale-edit.component';
+import {CommonModule} from '@angular/common';
 
 /*
 
@@ -63,7 +66,8 @@ import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
     ProductEditComponent,
     CustomersComponent,
     CustomerEditComponent,
-    CustomersGridComponent
+    CustomersGridComponent,
+    SaleEditComponent
 
   ],
   imports: [
@@ -76,6 +80,7 @@ import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    CommonModule
   ],
   providers: [ // инициализация системных объектов с нужными параметрами
 
@@ -101,6 +106,10 @@ import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
     {
       provide: CUSTOMER_URL_TOKEN,
       useValue: environment.resourceServerURL + '/customer'
+    },
+    {
+      provide: DECINVOICE_URL_TOKEN,
+      useValue: environment.resourceServerURL + '/decinvoice'
     },
 
     /* нужно указывать для корректной работы диалоговых окон */

@@ -1,1 +1,125 @@
-<p>sales-edit works!</p>
+<div id="products-main" class="sale-edit-container border-test">
+  <!-- SALE DATA -->
+  <div class="common-box">
+    <div class="edit-item-row-box">
+      <input *ngIf="editedSale" id="sale-birth" placeholder="dd.mm.yyyy"
+             class="input-text edit-item-field-width-small" name="sale-birth"
+
+             [(ngModel)]="editedSale.createdAt"
+             (ngModelChange)="updateDate()"
+             #saleDateInput
+      />
+    </div>
+  </div>
+  <!-- SALE DATA -->
+
+  <div class="cat-and-products border-test">
+
+    <!-- CATEGORIES -->
+    <div id="sale-edit-cats">
+      <div class="common-box">
+        <ul class="categories">
+          <li *ngFor="let category of categories">
+            <a routerLink="/sale-edit/"
+               [ngClass]="{'cat-link-active': category === selectedCategory}"
+
+               (click)="selectCategory(category)">
+              <span class="badge">{{category.id}}</span> {{category.name}}
+            </a>
+          </li>
+          <li><a
+            [ngClass]="{'cat-link-active': selectedCategory=== allCategory}"
+            routerLink="/sale-edit/" (click)="selectAllCategory()">-- All Products</a></li>
+        </ul>
+
+      </div>
+    </div>
+    <!-- CATEGORIES END -->
+
+    <div class="border-test">
+      <div id="products-grid" class="sale-edit-product-grid">
+
+        <!-- PRODUCTS START -->
+        <div class="common-box">
+          <div class="flex">
+            <h3>Current category:
+              {{ selectedCategory.id === undefined ? 'None, All products' : selectedCategory.name}}</h3>
+          </div>
+          <table class="item-grid-table">
+            <thead>
+            <tr>
+              <th class="center">Id</th>
+              <th>Title</th>
+              <th class="center">Price</th>
+              <th class="center">Wholesale price</th>
+              <th class="center">Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let product of products">
+              <td class="item-grid-cell center">{{product.id}}</td>
+              <td class="item-grid-cell">
+                <a (click)="addProductToDocument(product.id)"
+                   routerLink="/sale-edit/">{{product.name}}</a>
+              </td>
+              <td class="item-grid-cell center">{{product.price}}</td>
+              <td class="item-grid-cell center">{{product.wholesalePrice}}</td>
+              <td class="item-grid-cell center">{{product.quantity}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- PRODUCTS END -->
+
+      </div>
+    </div>
+  </div>
+
+  <div class="border-test">
+
+    <!-- ITEMS START -->
+    <div class="common-box">
+      <div class="flex">
+        <h3>Items in Sale:</h3>
+      </div>
+      <table class="item-grid-table" *ngIf="editedSale">
+        <thead>
+        <tr>
+          <th class="center">No</th>
+          <th>Product name</th>
+          <th class="center">Quantity</th>
+          <th class="center">Price, EUR</th>
+          <th class="center">Sum, EUR</th>
+          <th class="center">Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr
+          *ngFor="let item of itemsInSale; let i = index">
+          <td class="item-grid-cell center">{{ i + 1 }}</td>
+          <td class="item-grid-cell">
+            {{item.product.name}}
+          </td>
+          <td class="item-grid-cell center">{{item.quantity}}</td>
+          <td class="item-grid-cell center">{{item.price}}</td>
+          <td class="item-grid-cell center">{{item.quantity * item.price}}</td>
+          <td class="item-grid-cell center">
+            <button type="button" (click)="removeItem(i)">x</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- ITEMS END -->
+  </div>
+
+  <div class="sale-edit-buttons  border-test">
+    <button class="button button-save" type="button" (click)="save()">Save</button>
+    <button class="button button-cancel" type="button" (click)="cancel()">Cancel</button>
+  </div>
+
+
+</div>
+

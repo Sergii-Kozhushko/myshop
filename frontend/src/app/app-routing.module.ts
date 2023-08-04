@@ -11,6 +11,7 @@ import {SalesComponent} from './business/view/sales/sales.component';
 import {CustomersComponent} from './business/view/customers/customers.component';
 import {OptionsComponent} from './business/view/options/options.component';
 import { ProductsGridComponent } from './business/view/products-grid/products-grid.component';
+import {SaleEditComponent} from './business/view/sale-edit/sale-edit.component';
 
 
 /*
@@ -41,6 +42,7 @@ const routes: Routes = [
 
   {path: 'purchases', component: PurchasesComponent},
   {path: 'sales', component: SalesComponent },
+  {path: 'sales/edit/:sid', component: SaleEditComponent },
   {path: 'products', component: ProductsComponent},
   { path: 'products/:pid?', component: ProductsComponent },
   { path: 'customers/:cid?', component: CustomersComponent },
