@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {ExchangeDataService} from '../../service/exchange.data.service';
 import {Category, Product} from '../../../model/Models';
 import {ProductService} from '../../data/dao/impl/product.service';
 import {Router} from '@angular/router';

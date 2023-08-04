@@ -151,7 +151,7 @@ body, button {
 .input-text{
   font-family: 'Nunito', sans-serif;
   height: 36px;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: 32px;
   margin-bottom: 8px;
   border-radius: 8px;
@@ -195,7 +195,7 @@ body, button {
 }
 
 
-.select-category {
+.select-item {
   font-family: 'Nunito', sans-serif;
   height: 36px;
   margin-left: 20px;
@@ -257,6 +257,11 @@ body, button {
 }
 .cat-link-active {
   color: red;
+  font-size: 18px;
+}
+.cat-link-active:hover {
+  color: red;
+
 }
 
 .items-grid{
@@ -305,6 +310,19 @@ thead tr {
   font-size: 28px;
   line-height: 32px;
   color: black;
+}
+
+.container-document-fields{
+ border: 1px solid #CFD8DC;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0px 1px 3px rgba(40, 41, 61, 0.24), 0px 4px 6px rgba(96, 97, 112, 0.24);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 

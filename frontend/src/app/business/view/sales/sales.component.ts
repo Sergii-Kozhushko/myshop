@@ -5,7 +5,7 @@ import {DecInvoice} from '../../../model/Models';
 import {CustomerService} from '../../data/dao/impl/customer.service';
 import {CategoryService} from '../../data/dao/impl/category.service';
 import {ActivatedRoute} from '@angular/router';
-import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {ExchangeDataService} from '../../service/exchange.data.service';
 import {MessageService} from '../../service/message.service';
 import {DecinvoiceService} from '../../data/dao/impl/decinvoice.service';
 

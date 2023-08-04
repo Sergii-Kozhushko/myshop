@@ -46,12 +46,8 @@ const routes: Routes = [
   {path: 'products', component: ProductsComponent},
   { path: 'products/:pid?', component: ProductsComponent },
   { path: 'customers/:cid?', component: CustomersComponent },
-
   {path: 'customers', component: CustomersComponent},
   {path: 'options', component: OptionsComponent},
-
-
-
 ];
 
 

@@ -24,7 +24,7 @@ export class CommonService<T> implements CommonDAO<T> {
   constructor(url: string,  // базовый URL для доступа к данным
               private httpClient: HttpClient,
               private router: Router,
-              private messageService: MessageService// для выполнения HTTP запросов
+              protected messageService: MessageService// для выполнения HTTP запросов
   ) {
     this.url = url;
   }

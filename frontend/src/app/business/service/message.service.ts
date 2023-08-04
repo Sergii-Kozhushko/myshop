@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {ExchangeDataService} from './ExchangeDataService';
+import {ExchangeDataService} from './exchange.data.service';
 import {formatDate} from '@angular/common';
 
 @Injectable({

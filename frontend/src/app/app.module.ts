@@ -13,30 +13,31 @@ import {environment} from '../environments/environment';
 import {BACKEND_URL, DEV_MODE} from './business/service/backend.service';
 import {DashboardComponent} from './business/view/dashboard/dashboard.component';
 
-import { MessagesComponent } from './business/view/messages/messages.component';
-import { CategoriesComponent } from './business/view/categories/categories.component';
-import { MainpageComponent } from './business/view/mainpage/mainpage.component';
-import { LogoComponent } from './business/view/logo/logo.component';
-import { HeaderComponent } from './business/view/header/header.component';
-import { TopNavComponent } from './business/view/top-nav/top-nav.component';
-import { ProductsComponent } from './business/view/products/products.component';
-import { PurchasesComponent } from './business/view/purchases/purchases.component';
-import { SalesComponent } from './business/view/sales/sales.component';
-import { CustomersComponent } from './business/view/customers/customers.component';
-import { OptionsComponent } from './business/view/options/options.component';
-import { FooterComponent } from './business/view/footer/footer.component';
-import { ProductsCatComponent } from './business/view/products-cat/products-cat.component';
-import { ProductsGridComponent } from './business/view/products-grid/products-grid.component';
+import {MessagesComponent} from './business/view/messages/messages.component';
+import {CategoriesComponent} from './business/view/categories/categories.component';
+import {MainpageComponent} from './business/view/mainpage/mainpage.component';
+import {LogoComponent} from './business/view/logo/logo.component';
+import {HeaderComponent} from './business/view/header/header.component';
+import {TopNavComponent} from './business/view/top-nav/top-nav.component';
+import {ProductsComponent} from './business/view/products/products.component';
+import {PurchasesComponent} from './business/view/purchases/purchases.component';
+import {SalesComponent} from './business/view/sales/sales.component';
+import {CustomersComponent} from './business/view/customers/customers.component';
+import {OptionsComponent} from './business/view/options/options.component';
+import {FooterComponent} from './business/view/footer/footer.component';
+import {ProductsCatComponent} from './business/view/products-cat/products-cat.component';
+import {ProductsGridComponent} from './business/view/products-grid/products-grid.component';
 import {CATEGORY_URL_TOKEN} from './business/data/dao/impl/category.service';
 import {PRODUCT_URL_TOKEN} from './business/data/dao/impl/product.service';
-import {ExchangeDataService} from './business/service/ExchangeDataService';
-import { ProductEditComponent } from './business/view/product-edit/product-edit.component';
-import { CustomerEditComponent } from './business/view/customer-edit/customer-edit.component';
+import {ExchangeDataService} from './business/service/exchange.data.service';
+import {ProductEditComponent} from './business/view/product-edit/product-edit.component';
+import {CustomerEditComponent} from './business/view/customer-edit/customer-edit.component';
 import {CustomersGridComponent} from './business/view/customers-grid/customers-grid.component';
 import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
 import {DECINVOICE_URL_TOKEN} from './business/data/dao/impl/decinvoice.service';
-import { SaleEditComponent } from './business/view/sale-edit/sale-edit.component';
-import {CommonModule} from '@angular/common';
+import {SaleEditComponent} from './business/view/sale-edit/sale-edit.component';
+import {CommonModule, DatePipe} from '@angular/common';
+import {MessageService} from './business/service/message.service';
 
 /*
 
@@ -124,7 +125,8 @@ import {CommonModule} from '@angular/common';
       useClass: SpinnerInterceptor,
       multi: true
     },
-    ExchangeDataService
+    ExchangeDataService,
+    MessageService
 
   ],
   entryComponents: [ // https://angular.io/guide/entry-components

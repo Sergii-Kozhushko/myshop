@@ -4,7 +4,7 @@
   justify-content: center;
 }
 .border-test {
-  border: 2px solid black;
+  border: 0px solid black;
 }
 .sale-edit-container{
   display: flex;
@@ -15,11 +15,12 @@
   padding: 1em;
 }
 .sale-edit-product-grid{
-  width:100%;
+  width:700px;
   border: 0px solid #403f3f;
 }
 .sale-edit-buttons {
   display: flex;
   justify-content: center;
 }
+
 

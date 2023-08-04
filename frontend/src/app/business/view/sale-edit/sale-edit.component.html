@@ -1,16 +1,50 @@
 <div id="products-main" class="sale-edit-container border-test">
   <!-- SALE DATA -->
-  <div class="common-box">
-    <div class="edit-item-row-box">
-      <input *ngIf="editedSale" id="sale-birth" placeholder="dd.mm.yyyy"
-             class="input-text edit-item-field-width-small" name="sale-birth"
-
-             [(ngModel)]="editedSale.createdAt"
-             (ngModelChange)="updateDate()"
-             #saleDateInput
+  <div class="container-document-fields">
+    <h2>Sales document #{{editedSale.id}} edit</h2>
+  </div>
+  <form class="container-document-fields">
+    <div>
+      <label>Id: </label>
+      <input *ngIf="editedSale"
+             type="text"
+             id="sale-id" name="sale-id"
+             class="input-text edit-item-field-width-small bgc-lgrey"
+             value="{{editedSale.id}}"
+             readonly
       />
     </div>
-  </div>
+    <div>
+      <label>Date: </label><input *ngIf="editedSale"
+                                  type="text"
+                                  id="sale-date" placeholder="dd.mm.yyyy"
+                                  class="input-text edit-item-field-width-med" name="sale-date"
+
+                                  value="{{ editedSale.createdAt | date:'dd.MM.yyyy' }}"
+                                  #saleDateInput
+    />
+    </div>
+
+    <div>
+      <label>Code: </label>
+      <input *ngIf="editedSale"
+             type="text"
+             id="sale-code" placeholder="dd.mm.yyyy"
+             class="input-text edit-item-field-width-med" name="sale-code"
+             [(ngModel)]="editedSale.code"
+      />
+    </div>
+
+    <div>
+      <label>Customer</label>
+      <select *ngIf="editedSale" [(ngModel)]="editedSale.customer.id" name="sale-customer" class="select-item">
+        <option *ngFor="let customer of customers" [ngValue]="customer.id">{{customer.name}}</option>
+      </select>
+
+    </div>
+
+
+  </form>
   <!-- SALE DATA -->
 
   <div class="cat-and-products border-test">
@@ -18,18 +52,22 @@
     <!-- CATEGORIES -->
     <div id="sale-edit-cats">
       <div class="common-box">
-        <ul class="categories">
+        <ul class="categories" *ngIf="editedSale">
           <li *ngFor="let category of categories">
-            <a routerLink="/sale-edit/"
-               [ngClass]="{'cat-link-active': category === selectedCategory}"
-
-               (click)="selectCategory(category)">
+            <a
+              [ngClass]="{'cat-link-active': category === selectedCategory}"
+              [routerLink]="['/sales/edit/', this.editedSale.id]"
+              (click)="selectCategory(category)">
               <span class="badge">{{category.id}}</span> {{category.name}}
             </a>
           </li>
           <li><a
             [ngClass]="{'cat-link-active': selectedCategory=== allCategory}"
-            routerLink="/sale-edit/" (click)="selectAllCategory()">-- All Products</a></li>
+            [routerLink]="['/sales/edit/', this.editedSale.id]"
+
+            (click)="selectAllCategory()">-- All Products
+          </a>
+          </li>
         </ul>
 
       </div>
@@ -41,7 +79,7 @@
 
         <!-- PRODUCTS START -->
         <div class="common-box">
-          <div class="flex">
+          <div>
             <h3>Current category:
               {{ selectedCategory.id === undefined ? 'None, All products' : selectedCategory.name}}</h3>
           </div>
@@ -78,10 +116,10 @@
 
   <div class="border-test">
 
-    <!-- ITEMS START -->
+    <!-- ITEM LIST START -->
     <div class="common-box">
       <div class="flex">
-        <h3>Items in Sale:</h3>
+        <h3>Items in Document:</h3>
       </div>
       <table class="item-grid-table" *ngIf="editedSale">
         <thead>
@@ -95,7 +133,6 @@
         </tr>
         </thead>
         <tbody>
-
         <tr
           *ngFor="let item of itemsInSale; let i = index">
           <td class="item-grid-cell center">{{ i + 1 }}</td>
@@ -112,7 +149,7 @@
         </tbody>
       </table>
     </div>
-    <!-- ITEMS END -->
+    <!-- ITEMS LIST END -->
   </div>
 
   <div class="sale-edit-buttons  border-test">

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from '../../../oauth2/bff/keycloak.service';
 import {ActivatedRoute} from '@angular/router';
-import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {ExchangeDataService} from '../../service/exchange.data.service';
 import {CategoryService} from '../../data/dao/impl/category.service';
 import {Category} from '../../../model/Models';
 

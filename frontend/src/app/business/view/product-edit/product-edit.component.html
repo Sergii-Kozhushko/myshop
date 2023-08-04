@@ -16,7 +16,7 @@
     </div>
     <div class="edit-item-row-box">
       <label>Category</label>
-      <select [(ngModel)]="editedProduct.category.id" name="product-category" class="select-category" >
+      <select [(ngModel)]="editedProduct.category.id" name="product-category" class="select-item" >
         <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
       </select>
 

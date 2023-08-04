@@ -1,11 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Subject, Observable} from 'rxjs';
+import {Injectable, OnInit} from '@angular/core';
+import {Subject, Observable, BehaviorSubject} from 'rxjs';
 import {Category, Customer, Product} from '../../model/Models';
+import {CustomerService} from '../data/dao/impl/customer.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ExchangeDataService {
+export class ExchangeDataService implements OnInit {
+
   private selectedCategory$: Subject<Category> = new Subject<Category>();
   private editedProduct$: Subject<Product> = new Subject<Product>();
   private messages$: Subject<string[]> = new Subject<string[]>();
@@ -17,7 +19,26 @@ export class ExchangeDataService {
 
   private updateCustomersInGrid$: Subject<boolean> = new Subject<boolean>();
   private editedCustomer$: Subject<Customer> = new Subject<Customer>();
+  private customers$: BehaviorSubject<Customer[]> = new BehaviorSubject<Customer[]>([]);
 
+
+  constructor(private customerService: CustomerService) {
+
+
+  }
+
+  ngOnInit(): void {
+
+
+  }
+
+  getCustomers(): Subject<Customer[]> {
+    return this.customers$;
+  }
+
+  setCustomers(c: Customer[]): void {
+    this.customers$.next(c);
+  }
 
   public setEditedCustomer(value: Customer): void {
     this.editedCustomer$.next(value);
@@ -26,6 +47,7 @@ export class ExchangeDataService {
   getEditedCustomer(): Observable<Customer> {
     return this.editedCustomer$.asObservable();
   }
+
   getUpdateCustomersInGrid(): Subject<boolean> {
     return this.updateCustomersInGrid$;
   }

@@ -20,8 +20,11 @@ export class Product {
   active: boolean;
   category: Category;
 
-  constructor(id: number, name: string, price: number, wholesalePrice: number,
-              quantity: number, active: boolean, category: Category = new Category('', 0)) {
+  constructor(id: number, name?: string, price?: number, wholesalePrice?: number,
+              quantity?: number, active?: boolean, category?: Category) {
+    if (this.category === undefined) {
+      this.category = new Category('', 0);
+    }
     this.id = id;
     this.name = name;
     this.price = price;
@@ -30,6 +33,7 @@ export class Product {
     this.active = active;
     this.category = category;
   }
+
 }
 
 export class Customer {
@@ -55,6 +59,11 @@ export class DecInvoice {
   isActive: boolean;
   customer: Customer;
   products?: DecInvoiceProduct[];
+
+
+  constructor(id: number) {
+    this.id = id;
+  }
 }
 
 export class DecInvoiceProduct {

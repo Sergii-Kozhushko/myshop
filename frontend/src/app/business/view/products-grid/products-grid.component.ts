@@ -3,7 +3,7 @@ import {CategoryService} from '../../data/dao/impl/category.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../data/dao/impl/product.service';
 import {Category, Product} from '../../../model/Models';
-import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {ExchangeDataService} from '../../service/exchange.data.service';
 import {MessageService} from '../../service/message.service';
 import {DateUtils} from '../../utils/DateUtils';
 

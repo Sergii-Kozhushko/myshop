@@ -5,9 +5,11 @@ import {CustomerDAO} from '../interface/CustomerDAO';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
+import {ExchangeDataService} from '../../../service/exchange.data.service';
 
 
 export const CUSTOMER_URL_TOKEN = new InjectionToken<string>('url');
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +18,17 @@ export class CustomerService extends CommonService<Customer> implements Customer
   constructor(@Inject(CUSTOMER_URL_TOKEN) private baseUrl, // уникальный url для запросов
               private http: HttpClient,
               router: Router,
-              messageService: MessageService) {
+              protected messageService: MessageService,
+              private exchangeDataService: ExchangeDataService) {
     super(baseUrl, http, router, messageService);
+  }
+
+  refreshCustomerList(): void {
+    // load customers list from backend. We will use it for all app-pages
+    this.findAll()
+      .subscribe(list => {
+        this.exchangeDataService.setCustomers(list);
+        this.messageService.add('Customer list uploaded from backend server');
+      });
   }
 }

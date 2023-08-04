@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Category} from '../../../model/Models';
 import {CategoryService} from '../../data/dao/impl/category.service';
 import {ActivatedRoute} from '@angular/router';
-import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {ExchangeDataService} from '../../service/exchange.data.service';
 
 
 @Component({

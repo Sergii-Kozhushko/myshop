@@ -1,15 +1,14 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DecinvoiceService} from '../../data/dao/impl/decinvoice.service';
-import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {ExchangeDataService} from '../../service/exchange.data.service';
 import {MessageService} from '../../service/message.service';
 import {Category, Customer, DecInvoice, DecInvoiceProduct, Product} from '../../../model/Models';
-import {constructor} from 'path';
+
 import {CategoryService} from '../../data/dao/impl/category.service';
 import {ProductService} from '../../data/dao/impl/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DecinvoiceProductService} from '../../data/dao/impl/decinvoice-product.service';
-import {logger} from 'codelyzer/util/logger';
-import {DatePipe} from '@angular/common';
+
 
 @Component({
   selector: 'app-sales-edit',
@@ -17,14 +16,17 @@ import {DatePipe} from '@angular/common';
   styleUrls: ['./sale-edit.component.css']
 })
 export class SaleEditComponent implements OnInit {
+
   editedSale: DecInvoice;
+
   customers: Customer[];
   categories: Category[];
   products: Product[];
   allCategory = new Category('--All products', 0);
   selectedCategory: Category = this.allCategory;
   itemsInSale: DecInvoiceProduct[];
-  @ViewChild('saleDateInput', {static: true}) saleDateInput: ElementRef<HTMLInputElement>;
+  @ViewChild('saleDateInput') saleDateInput: ElementRef<HTMLInputElement>;
+
 
   constructor(
     private categoryService: CategoryService,
@@ -35,23 +37,25 @@ export class SaleEditComponent implements OnInit {
     private decInvoiceProductService: DecinvoiceProductService,
     private readonly exchangeDataService: ExchangeDataService,
     private messageService: MessageService,
-    private datePipe: DatePipe) {
+  ) {
   }
 
   ngOnInit(): void {
-    // this.selectedCategory = + this.route.snapshot.paramMap.get('cid'); // получить параметр из адресной строки
-    // подписываемся на обновления выбранной категории
 
-    // load edited decinvoice and it's items
+    this.exchangeDataService.getCustomers()
+      .subscribe(list => {
+          console.log('************' + list.length);
+          this.customers = list;
+        }
+      );
+
+    // load edited decinvoice and it's items from query parameter
     this.route.paramMap.subscribe(params => {
-      const sid = +params.get('sid');
 
-      this.decInvoiceService.findById(sid)
+      this.decInvoiceService.findById(+params.get('sid'))
         .subscribe(sale => {
 
           this.editedSale = sale;
-
-
           if (this.editedSale === undefined) {
             this.messageService.add('Unknown dec invoice id');
             this.router.navigate(['sales']).then(r => {
@@ -60,14 +64,9 @@ export class SaleEditComponent implements OnInit {
           }
           this.decInvoiceProductService.findProductsByDecInvoice(this.editedSale.id)
             .subscribe(items => {
-
               this.itemsInSale = items;
               this.itemsInSale.forEach(i => console.log(i));
-
-
             });
-
-
         });
     });
 
@@ -128,18 +127,23 @@ export class SaleEditComponent implements OnInit {
   }
 
   save(): void {
-    // const saleDateValue = this.saleDateInput.nativeElement.value;
-    // console.log('date=' + this.saleDateInput);
-    // const [day, month, year] = saleDateValue.split('.');
-    // this.editedSale.createdAt = new Date(`${year}-${month}-${day}`);
-    // this.editedSale.updatedAt = new Date();
+
+    const saleDateValue = this.saleDateInput.nativeElement.value;
+    const [day, month, year] = saleDateValue.split('.');
+    this.editedSale.createdAt = new Date(`${year}-${month}-${day}`);
+    this.editedSale.updatedAt = new Date();
+
     this.decInvoiceService.update(this.editedSale);
 
+
     this.decInvoiceProductService.deleteAllItems(this.editedSale.id);
-    this.itemsInSale.forEach(i => i.decInvoice = this.editedSale);
+    this.itemsInSale
+      .forEach(value => value.decInvoice = new DecInvoice(this.editedSale.id) );
     this.decInvoiceProductService.addItems(this.itemsInSale);
-    // this.router.navigate(['sales']);
-    this.messageService.add('Sales document successfully saved');
+
+    this.router.navigate(['sales']).then(r =>
+      this.messageService.add(`Sales document #'${this.editedSale.id}' was updated successfully.`)
+    );
 
   }
 
@@ -148,8 +152,9 @@ export class SaleEditComponent implements OnInit {
   }
 
   updateDate(): void {
-    const formattedDate = this.datePipe.transform(this.editedSale.createdAt, 'dd.MM.yyyy');
-    this.saleDateInput.nativeElement.value = formattedDate;
+    // const formattedDate = this.datePipe.transform(this.editedSale.createdAt, 'dd.MM.yyyy');
+    // this.saleDateInput.nativeElement.value = this.editedSale.createdAt + ' 2';
   }
+
 
 }

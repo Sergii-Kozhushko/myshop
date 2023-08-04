@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {Category, Customer, Product} from '../../../model/Models';
-import {ExchangeDataService} from '../../service/ExchangeDataService';
+import {ExchangeDataService} from '../../service/exchange.data.service';
 import {ProductService} from '../../data/dao/impl/product.service';
 import {Router} from '@angular/router';
 import {MessageService} from '../../service/message.service';
