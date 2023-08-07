@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
 import {SupplierService} from '../../data/dao/impl/supplier.service';
 import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
 import {MatDialog} from '@angular/material/dialog';
-import {DeleteSupplierComponent} from '../../dialog/delete-supplier/delete-supplier.component';
 import {DeleteDialogComponent} from '../../dialog/delete-dialog/delete-dialog.component';
 
 

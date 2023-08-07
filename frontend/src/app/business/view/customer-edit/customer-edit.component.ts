@@ -4,7 +4,7 @@ import {ExchangeDataService} from '../../service/exchange.data.service';
 
 import {MessageService} from '../../service/message.service';
 import {CustomerService} from '../../data/dao/impl/customer.service';
-import {DeleteSupplierComponent} from '../../dialog/delete-supplier/delete-supplier.component';
+
 import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -23,7 +23,7 @@ export class CustomerEditComponent implements OnInit {
               private customerService: CustomerService,
               private messageService: MessageService,
               private spinnerService: SpinnerService,
-              // private dialog: MatDialog
+               private dialog: MatDialog
   ) {
     this.clearEditedCustomer();
   }

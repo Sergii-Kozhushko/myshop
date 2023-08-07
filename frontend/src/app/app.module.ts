@@ -42,7 +42,6 @@ import {SUPPLIER_URL_TOKEN} from './business/data/dao/impl/supplier.service';
 import { SuppliersComponent } from './business/view/suppliers/suppliers.component';
 import { SupplierEditComponent } from './business/view/supplier-edit/supplier-edit.component';
 import {SALE_URL_TOKEN} from './business/data/dao/impl/sale.service';
-import { DeleteSupplierComponent } from './business/dialog/delete-supplier/delete-supplier.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { HeaderTopComponent } from './business/view/header-top/header-top.component';
@@ -81,7 +80,7 @@ import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-di
     SupplyEditComponent,
     SuppliersComponent,
     SupplierEditComponent,
-    DeleteSupplierComponent,
+
     HeaderTopComponent,
     DeleteDialogComponent
 
