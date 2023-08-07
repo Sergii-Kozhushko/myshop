@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+// import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-delete-supplier',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class DeleteSupplierComponent {
 
+
+  // constructor(public dialogRef: MatDialogRef<DeleteSupplierComponent>,
+  //             @Inject(MAT_DIALOG_DATA) public data: any) {
+  // }
 }

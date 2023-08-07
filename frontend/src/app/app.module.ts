@@ -34,7 +34,7 @@ import {CustomerEditComponent} from './business/view/customer-edit/customer-edit
 import {CustomersGridComponent} from './business/view/customers-grid/customers-grid.component';
 import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
 import {SaleEditComponent} from './business/view/sale-edit/sale-edit.component';
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule, DatePipe, NgOptimizedImage} from '@angular/common';
 import {MessageService} from './business/service/message.service';
 import {SUPPLY_URL_TOKEN} from './business/data/dao/impl/Supply.service';
 import { SupplyEditComponent } from './business/view/supply-edit/supply-edit.component';
@@ -42,6 +42,10 @@ import {SUPPLIER_URL_TOKEN} from './business/data/dao/impl/supplier.service';
 import { SuppliersComponent } from './business/view/suppliers/suppliers.component';
 import { SupplierEditComponent } from './business/view/supplier-edit/supplier-edit.component';
 import {SALE_URL_TOKEN} from './business/data/dao/impl/sale.service';
+import { DeleteSupplierComponent } from './business/dialog/delete-supplier/delete-supplier.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import { HeaderTopComponent } from './business/view/header-top/header-top.component';
 
 /*
 
@@ -74,7 +78,9 @@ import {SALE_URL_TOKEN} from './business/data/dao/impl/sale.service';
     SaleEditComponent,
     SupplyEditComponent,
     SuppliersComponent,
-    SupplierEditComponent
+    SupplierEditComponent,
+    DeleteSupplierComponent,
+    HeaderTopComponent
 
   ],
   imports: [
@@ -87,7 +93,10 @@ import {SALE_URL_TOKEN} from './business/data/dao/impl/sale.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    CommonModule
+    CommonModule,
+    // MatDialogModule,
+    // MatButtonModule,
+     NgOptimizedImage
   ],
   providers: [ // инициализация системных объектов с нужными параметрами
 

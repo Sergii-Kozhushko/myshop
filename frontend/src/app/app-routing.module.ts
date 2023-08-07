@@ -50,7 +50,7 @@ const routes: Routes = [
   {path: 'sales', component: SalesComponent },
   {path: 'sales/edit/:sid', component: SaleEditComponent },
   {path: 'products', component: ProductsComponent},
-  { path: 'products/:pid?', component: ProductsComponent },
+   { path: 'products/:pid?', component: ProductsComponent },
   { path: 'customers/:cid?', component: CustomersComponent },
   {path: 'customers', component: CustomersComponent},
   {path: 'options', component: OptionsComponent},

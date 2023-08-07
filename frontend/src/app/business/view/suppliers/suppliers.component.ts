@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+
 import {Sale, Supply, Supplier} from '../../../model/Models';
 import {SupplyService} from '../../data/dao/impl/Supply.service';
 import {ExchangeDataService} from '../../service/exchange.data.service';
@@ -6,6 +7,9 @@ import {MessageService} from '../../service/message.service';
 import {Router} from '@angular/router';
 import {SupplierService} from '../../data/dao/impl/supplier.service';
 import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
+import {MatDialog} from '@angular/material/dialog';
+import {DeleteSupplierComponent} from '../../dialog/delete-supplier/delete-supplier.component';
+
 
 @Component({
   selector: 'app-suppliers',
@@ -24,9 +28,25 @@ export class SuppliersComponent implements OnInit {
     private readonly exchangeDataService: ExchangeDataService,
     private messageService: MessageService,
     private router: Router,
-    private spinnerService: SpinnerService) {
+    private spinnerService: SpinnerService,
+    private dialog: MatDialog) {
   }
 
+  // openConfirmationDialog(): void {
+  //   const dialogRef = this.dialog.open(DeleteSupplierComponent, {
+  //     width: '250px',
+  //     data: {
+  //       title: 'Подтверждение',
+  //       message: 'Вы уверены, что хотите продолжить?',
+  //     },
+  //   });
+  //
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       // Выполните действия после подтверждения
+  //     }
+  //   });
+  // }
   ngOnInit(): void {
     this.addItemInit();
 
@@ -99,6 +119,9 @@ export class SuppliersComponent implements OnInit {
   }
 
   delete(): void {
+     // this.openConfirmationDialog();
+    return;
+
     this.editedDocument.active = false;
     this.spinnerService.show();
 

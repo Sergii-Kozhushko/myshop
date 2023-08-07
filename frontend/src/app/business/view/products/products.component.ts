@@ -24,12 +24,12 @@ export class ProductsComponent implements OnInit {
     // this.selectedCategory = +this.route.snapshot.paramMap.get('cid');
     // this.selectedProduct = +this.route.snapshot.paramMap.get('pid');
 
-    this.categoryService.findAll()
-      .subscribe(categories => {
-
-
-        this.exchangeDataService.setCategories(categories);
-      });
+    // this.categoryService.findAll()
+    //   .subscribe(categories => {
+    //
+    //
+    //     this.exchangeDataService.setCategories(categories);
+    //   });
 
 
   }

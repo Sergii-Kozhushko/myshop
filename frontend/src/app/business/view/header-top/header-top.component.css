@@ -1,0 +1,23 @@
+.header-top-container {
+  display: flex;
+  align-items: center ;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  border-radius: 0px;
+  margin: 0px;
+  padding: 0px;
+  flex-direction: row;
+  gap: 700px;
+  border: 1px solid black;
+}
+
+.htop-icons-container {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.htop-icon{
+  margin: 20px 0px;
+}

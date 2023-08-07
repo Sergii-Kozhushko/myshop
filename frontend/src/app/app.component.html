@@ -2,7 +2,8 @@
 
 <div class="app-box-container" >
 <!--  <div class="app-box">-->
-<app-header *ngIf="cookieEnabled"></app-header>
+  <app-header-top *ngIf="cookieEnabled"></app-header-top>
+  <app-header *ngIf="cookieEnabled"></app-header>
 
 <p *ngIf="!cookieEnabled"> Cookies отключены. Включите в настройках браузера - после этого обновите страницу.</p>
 
