@@ -96,6 +96,7 @@
             <h3>Current category:
               {{ selectedCategory.id === undefined ? 'None, All products' : selectedCategory.name}}</h3>
           </div>
+          <div class="products-table-box">
           <table class="item-grid-table">
             <thead>
             <tr>
@@ -108,7 +109,7 @@
             </thead>
             <tbody>
 
-            <tr *ngFor="let product of currentProducts">
+            <tr *ngFor="let product of currentProducts | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
               <td class="item-grid-cell center">{{product.id}}</td>
               <td class="item-grid-cell">
                 <a *ngIf="editedDocument" (click)="addProductToDocument(product.id)"
@@ -122,6 +123,10 @@
             </tr>
             </tbody>
           </table>
+          </div>
+          <div class="pagination">
+            <pagination-controls (pageChange)="currentPage = $event; "></pagination-controls>
+          </div>
         </div>
         <!-- PRODUCTS END -->
 

@@ -17,12 +17,14 @@ import {logger} from 'codelyzer/util/logger';
   styleUrls: ['./sale-edit.component.css']
 })
 export class SaleEditComponent implements OnInit {
-
   editedSale: Sale;
-
   customers: Customer[];
   categories: Category[];
   products: Product[];
+  currentPage: number = 1;
+  itemsPerPage: number = 20;
+  totalPages: number;
+
   suppliers: Supplier[];
   allCategory = new Category('--All products', 0);
   selectedCategory: Category = this.allCategory;

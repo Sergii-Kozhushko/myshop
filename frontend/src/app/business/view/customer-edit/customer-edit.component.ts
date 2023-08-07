@@ -4,6 +4,9 @@ import {ExchangeDataService} from '../../service/exchange.data.service';
 
 import {MessageService} from '../../service/message.service';
 import {CustomerService} from '../../data/dao/impl/customer.service';
+import {DeleteSupplierComponent} from '../../dialog/delete-supplier/delete-supplier.component';
+import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-edit',
@@ -18,7 +21,10 @@ export class CustomerEditComponent implements OnInit {
 
   constructor(private exchangeDataService: ExchangeDataService,
               private customerService: CustomerService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private spinnerService: SpinnerService,
+              // private dialog: MatDialog
+  ) {
     this.clearEditedCustomer();
   }
 
@@ -29,6 +35,7 @@ export class CustomerEditComponent implements OnInit {
         console.log(customer);
         this.editedCustomer = customer;
       });
+    this.clearEditedCustomer();
     // this.exchangeDataService.getCategories()
     //   .subscribe((categories) => {
     //     console.log('cat length=' + categories.length);
@@ -52,16 +59,18 @@ export class CustomerEditComponent implements OnInit {
 
   addNew(): void {
     if (!this.editedCustomer.name.trim()) {
-      this.messageService.add('Can\'t add product with empty name');
+      this.messageService.add('Can\'t add customer with empty name');
 
       return;
     }
 
+
     this.customerService.add(this.editedCustomer).subscribe(result => {
+      this.messageService.add(`Customer '${this.editedCustomer.name}' added successfully`);
+      this.clearEditedCustomer();
+      this.exchangeDataService.setUpdateCustomersInGrid();
     });
-    this.messageService.add(`Customer '${this.editedCustomer.name}' added successfully`);
-    this.clearEditedCustomer();
-    this.exchangeDataService.setUpdateCustomersInGrid();
+
 
   }
 
@@ -83,12 +92,32 @@ export class CustomerEditComponent implements OnInit {
   }
 
   delete(): void {
+    // const dialogRef = this.dialog.open(DeleteSupplierComponent, {
+    //   width: '350px',
+    //   data: {
+    //     title: 'Delete Customer?',
+    //     message: 'Are you sure you want to continue?',
+    //   }
+    // });
 
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.spinnerService.show();
+    //     setTimeout(() => {
+          this.spinnerService.hide();
+          this.customerService.delete(this.editedCustomer.id);
+          this.exchangeDataService.setUpdateCustomersInGrid();
+          this.messageService.add(`Customer ${this.editedCustomer.name} was deleted successfully`);
+          this.clearEditedCustomer();
+    //     }, 2000);
+    //   }
+    // });
   }
 
   cancel(): void {
     this.clearEditedCustomer();
     this.exchangeDataService.setEditedCustomer(this.editedCustomer);
+
   }
 
 }

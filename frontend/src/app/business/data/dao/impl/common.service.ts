@@ -32,7 +32,7 @@ export class CommonService<T> implements CommonDAO<T> {
   // основной смысл всех методов - просто вызвать BBF и передать туда параметры
 
   add(t: T): Observable<T> {
-    console.log('operation starts');
+
     const operation = new Operation();
     operation.url = this.url + '/add'; // это адрес, который BFF будет вызывать у Resource Server, добавляя к запросу access token
     operation.body = t; // вложенный объект (конвертируется в JSON автоматически)
@@ -47,7 +47,6 @@ export class CommonService<T> implements CommonDAO<T> {
           // Верните пустой массив или другое значение по умолчанию в случае ошибки
           return [];
         }));
-
 
   }
 

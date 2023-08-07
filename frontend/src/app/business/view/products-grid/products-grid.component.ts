@@ -5,6 +5,7 @@ import {ProductService} from '../../data/dao/impl/product.service';
 import {Category, Product} from '../../../model/Models';
 import {ExchangeDataService} from '../../service/exchange.data.service';
 import {MessageService} from '../../service/message.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @Component({
@@ -14,11 +15,15 @@ import {MessageService} from '../../service/message.service';
 })
 export class ProductsGridComponent implements OnInit {
   products: Product[];
+  currentPage: number = 1;
+  itemsPerPage: number = 20;
+  totalPages: number;
+
+
+
   categories: Category[];
   selectedCategory: Category = new Category('All categories', 0);
   editedProductId = 0;
-
-
 
 
   constructor(public productService: ProductService,
@@ -48,6 +53,7 @@ export class ProductsGridComponent implements OnInit {
       });
 
   }
+
 
 
   fetchAllProducts(): void {

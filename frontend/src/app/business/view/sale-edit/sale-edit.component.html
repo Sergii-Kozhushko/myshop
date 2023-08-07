@@ -66,7 +66,7 @@
 
 
     <div class="categories">
-      <h3 >Categories</h3>
+      <h3>Categories</h3>
       <table class="item-grid-table" *ngIf="editedSale">
         <tbody>
         <tr *ngFor="let category of categories" class="categories-items">
@@ -75,7 +75,7 @@
               [ngClass]="{'cat-link-active': category === selectedCategory}"
               [routerLink]="['/sales/edit/', this.editedSale.id]"
               (click)="selectCategory(category)">
-               {{category.name}}
+              {{category.name}}
             </a>
           </td>
         </tr>
@@ -102,31 +102,36 @@
             <h3>Current category:
               {{ selectedCategory.id === undefined ? 'None, All products' : selectedCategory.name}}</h3>
           </div>
-          <table class="item-grid-table">
-            <thead>
-            <tr>
-              <th class="center">Id</th>
-              <th>Title</th>
-              <th class="center">Retail Price</th>
-              <th class="center">Wholesale price</th>
-              <th class="center">Quantity</th>
-            </tr>
-            </thead>
-            <tbody>
+          <div class="products-table-box">
+            <table class="item-grid-table">
+              <thead>
+              <tr>
+                <th class="center">Id</th>
+                <th>Title</th>
+                <th class="center">Retail Price</th>
+                <th class="center">Wholesale price</th>
+                <th class="center">Quantity</th>
+              </tr>
+              </thead>
+              <tbody>
 
-            <tr *ngFor="let product of products">
-              <td class="item-grid-cell center">{{product.id}}</td>
-              <td class="item-grid-cell">
-                <a (click)="addProductToDocument(product.id)"
-                   [routerLink]="['/sales/edit/', this.editedSale.id]"
-                >{{product.name}}</a>
-              </td>
-              <td class="item-grid-cell center">{{product.price}}</td>
-              <td class="item-grid-cell center">{{product.wholesalePrice}}</td>
-              <td class="item-grid-cell center">{{product.quantity}}</td>
-            </tr>
-            </tbody>
-          </table>
+              <tr *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+                <td class="item-grid-cell center">{{product.id}}</td>
+                <td class="item-grid-cell">
+                  <a (click)="addProductToDocument(product.id)"
+                     [routerLink]="['/sales/edit/', this.editedSale.id]"
+                  >{{product.name}}</a>
+                </td>
+                <td class="item-grid-cell center">{{product.price}}</td>
+                <td class="item-grid-cell center">{{product.wholesalePrice}}</td>
+                <td class="item-grid-cell center">{{product.quantity}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <pagination-controls (pageChange)="currentPage = $event; "></pagination-controls>
+          </div>
         </div>
         <!-- PRODUCTS END -->
 

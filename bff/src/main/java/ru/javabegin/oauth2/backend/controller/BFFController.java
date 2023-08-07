@@ -71,6 +71,9 @@ public class BFFController {
     @Value("${keycloak.granttype.refresh}")
     private String grantTypeRefresh;
 
+    @Value("${app.log.level}")
+    private String logLevel;
+
     // класс-утилита для работы с куками
     private final CookieUtils cookieUtils;
 
@@ -141,6 +144,12 @@ public class BFFController {
 
         try {
             // Вызываем метод на бекенде через BFF
+            if (logLevel.equals("debug")) {
+                System.out.println("Url=" + operation.getUrl());
+                System.out.println("Http Method=" + operation.getHttpMethod());
+                System.out.println("Request: " + request);
+            }
+
             ResponseEntity<Object> response = restTemplate.exchange(operation.getUrl(), operation.getHttpMethod(), request, Object.class);
 
             // Если запрос прошел успешно, просто возвращаем ответ от бекенда

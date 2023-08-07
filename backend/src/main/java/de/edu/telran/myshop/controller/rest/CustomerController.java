@@ -59,12 +59,12 @@ public class CustomerController {
 
     @PostMapping("/add")
     @Transactional
-    public ResponseEntity<Customer> createCustomer(@RequestBody final CreateCustomerDto customerDto)
+    public ResponseEntity<Customer> createCustomer(@RequestBody final Customer customer)
             throws URISyntaxException {
-        
+
         return ResponseEntity
                 .created(new URI(MAIN_PATH))
-                .body(customerService.create(customerDto));
+                .body(customerService.create(customer));
     }
 
     @DeleteMapping("/delete/{id}")

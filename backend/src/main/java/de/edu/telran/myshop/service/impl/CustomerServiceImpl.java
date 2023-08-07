@@ -14,6 +14,7 @@ import de.edu.telran.myshop.exception.ErrorMassage;
 import de.edu.telran.myshop.exception.InvalidCustomerParameterException;
 import de.edu.telran.myshop.mapper.CustomerMapper;
 import de.edu.telran.myshop.repository.CustomerRepository;
+import de.edu.telran.myshop.service.interfaces.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerServiceImpl implements de.edu.telran.myshop.service.interfaces.CustomerService {
+public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
     private final EntityManager entityManager;
@@ -38,8 +39,8 @@ public class CustomerServiceImpl implements de.edu.telran.myshop.service.interfa
 
     @Override
     @Transactional
-    public Customer create(final CreateCustomerDto createCustomerDto) {
-        return customerRepository.saveAndFlush(customerMapper.toEntity(createCustomerDto));
+    public Customer create(final Customer createCustomer) {
+        return customerRepository.saveAndFlush(createCustomer);
     }
 
     @Override

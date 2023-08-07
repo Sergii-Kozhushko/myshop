@@ -46,6 +46,7 @@ import { DeleteSupplierComponent } from './business/dialog/delete-supplier/delet
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { HeaderTopComponent } from './business/view/header-top/header-top.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 /*
 
@@ -79,7 +80,7 @@ import { HeaderTopComponent } from './business/view/header-top/header-top.compon
     SupplyEditComponent,
     SuppliersComponent,
     SupplierEditComponent,
-    DeleteSupplierComponent,
+     DeleteSupplierComponent,
     HeaderTopComponent
 
   ],
@@ -94,9 +95,10 @@ import { HeaderTopComponent } from './business/view/header-top/header-top.compon
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CommonModule,
-    // MatDialogModule,
-    // MatButtonModule,
-     NgOptimizedImage
+     // MatDialogModule,
+     // MatButtonModule,
+     NgOptimizedImage,
+    NgxPaginationModule,
   ],
   providers: [ // инициализация системных объектов с нужными параметрами
 

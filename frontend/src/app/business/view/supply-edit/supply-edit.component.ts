@@ -20,6 +20,10 @@ export class SupplyEditComponent implements OnInit {
   categories: Category[];
   allProducts: Product[];
   currentProducts: Product[];
+  currentPage = 1;
+  itemsPerPage = 20;
+  totalPages: number;
+
   suppliers: Supplier[];
   allCategory = new Category('--All products', 0);
   selectedCategory: Category = this.allCategory;

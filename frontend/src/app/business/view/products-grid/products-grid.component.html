@@ -7,7 +7,8 @@
            class="input-text edit-item-field-width-big"
     >
   </div>
-  <table class="item-grid-table products-table-width">
+  <div class="products-table-box">
+  <table class="item-grid-table">
     <thead>
     <tr>
       <th class="center">Id</th>
@@ -19,30 +20,37 @@
     </thead>
     <tbody>
 
-    <tr *ngFor="let product of products">
+    <tr *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
       <td class="item-grid-cell center">{{product.id}}</td>
       <td class="item-grid-cell">
         <a (click)="editProduct(product.id)"
            routerLink="/products/">
-          {{product.name.length > 20 ? product.name.substring(0, 20)+'..':product.name}}
-          </a>
+          {{product.name.length > 20 ? product.name.substring(0, 20) + '..' : product.name}}
+        </a>
       </td>
       <td class="item-grid-cell center">{{product.price}}</td>
       <td class="item-grid-cell center">{{product.wholesalePrice}}</td>
       <td class="item-grid-cell center">{{product.quantity}}</td>
     </tr>
+
     </tbody>
   </table>
+  </div>
+  <div class="pagination">
+    <pagination-controls (pageChange)="currentPage = $event; "></pagination-controls>
+  </div>
   <div class="row-box-buttons">
 
 
     <a routerLink="/products/" *ngIf="selectedCategory.id" (click)="saveCategory()">
-      <div class="button">Save↘</div></a>
+      <div class="button">Save↘</div>
+    </a>
 
     <!--    <button class="button button-save" type="button" id="button-cadd"-->
     <!--            (click)="addCategory()">Add Category-->
     <!--    </button>-->
     <a routerLink="/products/" *ngIf="selectedCategory.id !== undefined" (click)="deleteCategory()">
-      <div class="button">Delete Category↘</div></a>
+      <div class="button">Delete Category↘</div>
+    </a>
   </div>
 </div>

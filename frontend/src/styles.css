@@ -432,6 +432,11 @@ th {
 
 }
 
+.products-table-box{
+  width: 600px;
+  height: 700px;
+}
+
 .categories-items {
   display: flex; /* Добавляем flexbox распределение */
   align-items: flex-start;

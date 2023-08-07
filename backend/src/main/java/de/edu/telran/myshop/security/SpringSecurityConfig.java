@@ -29,24 +29,21 @@ public class SpringSecurityConfig {
     private String clientURL; // клиентский URL
 
     // создается спец. бин, который отвечает за настройки запросов по http (метод вызывается автоматически) Spring контейнером
-    //@Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         // конвертер для настройки spring security
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         // подключаем конвертер ролей
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KCRoleConverter());
-
-
         // все сетевые настройки
         http.
                 authorizeRequests()
-
+                .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/admin/*").hasRole("admin") // CRUD для работы с пользователями
                 .antMatchers("/user/*").hasRole("user") // действия самого пользователям (регистрация и пр.)
                 .antMatchers("/category/*").hasRole("user")
 
-                .anyRequest().authenticated() // остальной API будет доступен только аутентифицированным пользователям
+//                .anyRequest().authenticated() // остальной API будет доступен только аутентифицированным пользователям
                 .and()
 
                 .csrf().disable() // отключаем встроенную защиту от CSRF атак, т.к. используем свою, из OAUTH2
