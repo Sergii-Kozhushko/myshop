@@ -6,12 +6,16 @@ import {DashboardComponent} from './business/view/dashboard/dashboard.component'
 import {CategoriesComponent} from './business/view/categories/categories.component';
 import {AppComponent} from './app.component';
 import {ProductsComponent} from './business/view/products/products.component';
-import {PurchasesComponent} from './business/view/purchases/purchases.component';
+import {SupplyComponent} from './business/view/supply/supply.component';
 import {SalesComponent} from './business/view/sales/sales.component';
 import {CustomersComponent} from './business/view/customers/customers.component';
 import {OptionsComponent} from './business/view/options/options.component';
 import { ProductsGridComponent } from './business/view/products-grid/products-grid.component';
 import {SaleEditComponent} from './business/view/sale-edit/sale-edit.component';
+import {SupplyEditComponent} from './business/view/supply-edit/supply-edit.component';
+import {SuppliersComponent} from './business/view/suppliers/suppliers.component';
+import {Supplier} from './model/Models';
+import {SupplierEditComponent} from './business/view/supplier-edit/supplier-edit.component';
 
 
 /*
@@ -39,8 +43,10 @@ const routes: Routes = [
   {path: 'categories', component: CategoriesComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'main', component: DashboardComponent},
-
-  {path: 'purchases', component: PurchasesComponent},
+  {path: 'suppliers', component: SuppliersComponent},
+  {path: 'suppliers/edit/:sid', component: SupplierEditComponent },
+  {path: 'supply', component: SupplyComponent},
+  {path: 'supply/edit/:sid', component: SupplyEditComponent },
   {path: 'sales', component: SalesComponent },
   {path: 'sales/edit/:sid', component: SaleEditComponent },
   {path: 'products', component: ProductsComponent},

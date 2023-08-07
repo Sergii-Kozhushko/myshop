@@ -76,7 +76,7 @@ export class CustomerEditComponent implements OnInit {
     this.editedCustomer.dateBirth = new Date(`${year}-${month}-${day}`);
 
 
-    this.customerService.update(this.editedCustomer);
+    this.customerService.update(this.editedCustomer).subscribe();
     this.messageService.add(`Updated product '${this.editedCustomer.name}'`);
     this.clearEditedCustomer();
     // this.exchangeDataService.setEditedProduct(this.editedProduct);

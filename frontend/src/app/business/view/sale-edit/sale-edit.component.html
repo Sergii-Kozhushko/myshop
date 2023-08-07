@@ -1,15 +1,19 @@
-<div id="products-main" class="sale-edit-container border-test">
-  <!-- SALE DATA -->
-  <div class="container-document-fields">
-    <h2>Sales document #{{editedSale.id}} edit</h2>
+<div id="products-main" class="document-edit-container border-test">
+  <!-- DOCUMENT FIELDS -->
+  <div *ngIf="!newMode" class="container-document-fields">
+    <h2 *ngIf="editedSale">Edit sales document #{{editedSale.id}}</h2>
   </div>
+  <div *ngIf="newMode" class="container-document-fields">
+    <h2>Add new sales document</h2>
+  </div>
+
   <form class="container-document-fields">
     <div>
       <label>Id: </label>
       <input *ngIf="editedSale"
              type="text"
              id="sale-id" name="sale-id"
-             class="input-text edit-item-field-width-small bgc-lgrey"
+             class="input-text edit-item-field-width-small input-text-readonly"
              value="{{editedSale.id}}"
              readonly
       />
@@ -18,7 +22,7 @@
       <label>Date: </label><input *ngIf="editedSale"
                                   type="text"
                                   id="sale-date" placeholder="dd.mm.yyyy"
-                                  class="input-text edit-item-field-width-med" name="sale-date"
+                                  class="input-text edit-item-field-width-small" name="sale-date"
 
                                   value="{{ editedSale.createdAt | date:'dd.MM.yyyy' }}"
                                   #saleDateInput
@@ -29,7 +33,7 @@
       <label>Code: </label>
       <input *ngIf="editedSale"
              type="text"
-             id="sale-code" placeholder="dd.mm.yyyy"
+             id="sale-code"
              class="input-text edit-item-field-width-med" name="sale-code"
              [(ngModel)]="editedSale.code"
       />
@@ -38,44 +42,59 @@
     <div>
       <label>Customer</label>
       <select *ngIf="editedSale" [(ngModel)]="editedSale.customer.id" name="sale-customer" class="select-item">
+        <option value="" disabled selected>Choose client for sales invoice</option>
         <option *ngFor="let customer of customers" [ngValue]="customer.id">{{customer.name}}</option>
       </select>
 
     </div>
 
+    <div>
+      <label>Sale condition: </label>
+      <input *ngIf="editedSale"
+             type="text"
+             id="sale-condition"
+             class="input-text edit-item-field-width-med" name="sale-condition"
+             [(ngModel)]="editedSale.saleCondition"
+      />
+    </div>
+
 
   </form>
-  <!-- SALE DATA -->
+  <!-- DOCUMENT FIELDS -->
 
-  <div class="cat-and-products border-test">
+  <div class="document-edit-cat-and-products-box border-test">
 
-    <!-- CATEGORIES -->
-    <div id="sale-edit-cats">
-      <div class="common-box">
-        <ul class="categories" *ngIf="editedSale">
-          <li *ngFor="let category of categories">
+
+    <div class="categories">
+      <h3 >Categories</h3>
+      <table class="item-grid-table" *ngIf="editedSale">
+        <tbody>
+        <tr *ngFor="let category of categories" class="categories-items">
+          <td class="item-grid-cell">
             <a
               [ngClass]="{'cat-link-active': category === selectedCategory}"
               [routerLink]="['/sales/edit/', this.editedSale.id]"
               (click)="selectCategory(category)">
-              <span class="badge">{{category.id}}</span> {{category.name}}
+               {{category.name}}
             </a>
-          </li>
-          <li><a
+          </td>
+        </tr>
+        <tr class="categories-items">
+          <td class="item-grid-cell"><a
             [ngClass]="{'cat-link-active': selectedCategory=== allCategory}"
             [routerLink]="['/sales/edit/', this.editedSale.id]"
-
             (click)="selectAllCategory()">-- All Products
           </a>
-          </li>
-        </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
-      </div>
+      <div></div>
     </div>
-    <!-- CATEGORIES END -->
 
     <div class="border-test">
-      <div id="products-grid" class="sale-edit-product-grid">
+      <div id="products-grid" class="document-edit--product-grid">
 
         <!-- PRODUCTS START -->
         <div class="common-box">
@@ -88,7 +107,7 @@
             <tr>
               <th class="center">Id</th>
               <th>Title</th>
-              <th class="center">Price</th>
+              <th class="center">Retail Price</th>
               <th class="center">Wholesale price</th>
               <th class="center">Quantity</th>
             </tr>
@@ -99,7 +118,8 @@
               <td class="item-grid-cell center">{{product.id}}</td>
               <td class="item-grid-cell">
                 <a (click)="addProductToDocument(product.id)"
-                   routerLink="/sale-edit/">{{product.name}}</a>
+                   [routerLink]="['/sales/edit/', this.editedSale.id]"
+                >{{product.name}}</a>
               </td>
               <td class="item-grid-cell center">{{product.price}}</td>
               <td class="item-grid-cell center">{{product.wholesalePrice}}</td>
@@ -116,7 +136,7 @@
 
   <div class="border-test">
 
-    <!-- ITEM LIST START -->
+    <!-- ITEMS LIST START -->
     <div class="common-box">
       <div class="flex">
         <h3>Items in Document:</h3>
@@ -152,9 +172,9 @@
     <!-- ITEMS LIST END -->
   </div>
 
-  <div class="sale-edit-buttons  border-test">
-    <button class="button button-save" type="button" (click)="save()">Save</button>
-    <button class="button button-cancel" type="button" (click)="cancel()">Cancel</button>
+  <div class="document-edit--buttons  border-test">
+    <button class="button button-save" type="button" (click)="save()">Save↘</button>
+    <button class="button button-cancel" type="button" (click)="cancel()">Cancel↘</button>
   </div>
 
 

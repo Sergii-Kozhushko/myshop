@@ -3,7 +3,18 @@
   align-items: center ;
   justify-content: center;
   width: 100%;
-  border: 1px solid #403f3f;
-  padding: 1em;
+  height: 70px;
+
+
+  background: #fed229;
+
+  border-radius: 0px;
+  margin: 0 auto 0 auto;
+  padding: 0px;
+  border-top:  3px solid black;
+
+  flex-direction: row;
+
+
 }
 

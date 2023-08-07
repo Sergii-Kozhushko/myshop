@@ -1,26 +1,7 @@
-.cat-and-products {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
+
 .border-test {
   border: 0px solid black;
 }
-.sale-edit-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  border: 0px solid #403f3f;
-  padding: 1em;
-}
-.sale-edit-product-grid{
-  width:700px;
-  border: 0px solid #403f3f;
-}
-.sale-edit-buttons {
-  display: flex;
-  justify-content: center;
-}
+
 
 

@@ -1,4 +1,4 @@
-import {catchError, Observable} from 'rxjs';
+import {catchError, Observable, of} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {CommonDAO} from '../interface/CommonDAO';
 import {environment} from '../../../../../environments/environment';
@@ -71,11 +71,21 @@ export class CommonService<T> implements CommonDAO<T> {
 
 
   findById(id: number): Observable<T> {
+
     const operation = new Operation();
     operation.url = this.url + '/get/' + id;
     // operation.body = id;
     operation.httpMethod = HttpMethod.GET;
-    return this.httpClient.post<T>(environment.bffURI + '/operation', operation);
+
+    return this.httpClient.post<T>(environment.bffURI + '/operation', operation)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+
+          this.handleError(error);
+          // Верните пустой массив или другое значение по умолчанию в случае ошибки
+          return of([] as T);
+        })
+      );
   }
 
   findAll(): Observable<T[]> {
@@ -84,6 +94,10 @@ export class CommonService<T> implements CommonDAO<T> {
     operation.body = ' ';
     operation.httpMethod = HttpMethod.GET;
     return this.httpClient.post<T[]>(environment.bffURI + '/operation', operation).pipe(
+      tap(() => {
+
+        // Send a success message to the message service
+      }),
       catchError((error: HttpErrorResponse) => {
         this.handleError(error);
         // Верните пустой массив или другое значение по умолчанию в случае ошибки
@@ -92,23 +106,24 @@ export class CommonService<T> implements CommonDAO<T> {
     );
   }
 
-  update(t: T): void {
+  update(t: T): Observable<T> {
     const operation = new Operation();
     operation.url = this.url + '/update';
     operation.body = t;
     operation.httpMethod = HttpMethod.PUT;
 
-    this.httpClient.post(environment.bffURI + '/operation', operation)
+    return this.httpClient.post<T>(environment.bffURI + '/operation', operation)
       .pipe(
         tap(() => {
           // Send a success message to the message service
         }),
         catchError((error: HttpErrorResponse) => {
           this.handleError(error);
+          return of([] as T);
           // Верните пустой массив или другое значение по умолчанию в случае ошибки
-          return 'error';
+
         })
-      ).subscribe();
+      );
 
   }
 

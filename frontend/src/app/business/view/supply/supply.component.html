@@ -1,0 +1,70 @@
+<div class="common-box">
+  <h3>List of supplies</h3>
+  <table class="single-grid-table">
+    <thead>
+    <tr>
+      <th class="center">
+        <a routerLink="/supply/" (click)="changeSortMode('Id')">Id
+          {{sortField === 'Id' && sortMode == 'Desc' ? '↓' : ''}}
+          {{sortField === 'Id' && sortMode == 'Asc' ? '↑' : ''}}
+        </a>
+      </th>
+      <th class="center">
+        <a routerLink="/supply" (click)="changeSortMode('Code')">Code
+          {{sortField === 'Code' && sortMode == 'Desc' ? '↓' : ''}}
+          {{sortField === 'Code' && sortMode == 'Asc' ? '↑' : ''}}
+        </a>
+      </th>
+
+
+      <th class="center"><a routerLink="/supply" (click)="changeSortMode('Created At')">Created At
+        {{sortField === 'Created At' && sortMode == 'Desc' ? '↓' : ''}}
+        {{sortField === 'Created At' && sortMode == 'Asc' ? '↑' : ''}}
+      </a></th>
+      <th class="center"><a routerLink="/supply" (click)="changeSortMode('Updated At')">Updated At
+        {{sortField === 'Updated At' && sortMode == 'Desc' ? '↓' : ''}}
+        {{sortField === 'Updated At' && sortMode == 'Asc' ? '↑' : ''}}
+      </a></th>
+      <th class="center"><a routerLink="/supply" (click)="changeSortMode('Sum')">Sum, EUR
+        {{sortField === 'Sum' && sortMode == 'Desc' ? '↓' : ''}}
+        {{sortField === 'Sum' && sortMode == 'Asc' ? '↑' : ''}}
+      </a>
+      </th>
+
+      <th class="center"><a routerLink="/supply" (click)="changeSortMode('Is Active')">Is Active
+        {{sortField === 'Is Active' && sortMode == 'Desc' ? '↓' : ''}}
+        {{sortField === 'Is Active' && sortMode == 'Asc' ? '↑' : ''}}
+      </a>
+      </th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let supply of supplies">
+      <td class="single-grid-cell center">{{supply.id}}</td>
+      <td class="single-grid-cell">
+        <a routerLink="/supply/edit/{{supply.id}}">{{supply.code}}</a>
+      </td>
+      <td class="single-grid-cell center">
+        <a
+           routerLink="/supply/edit/{{supply.id}}">
+          {{ supply.createdAt | date:'dd.MM.yyyy HH:mm' }}
+        </a>
+      </td>
+      <td class="single-grid-cell center">
+        <a
+          routerLink="/supply/edit/{{supply.id}}">
+          {{ supply.updatedAt | date:'dd.MM.yyyy HH:mm' }}
+        </a>
+      </td>
+      <td class="single-grid-cell center">{{supply.sum | number: '1.2-2'}}</td>
+      <td class="single-grid-cell center">{{supply.isActive}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <button class="button button-save" type="button" (click)="addNew()">Add</button>
+  </div>
+</div>

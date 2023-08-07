@@ -1,12 +1,12 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Subject, Observable, BehaviorSubject} from 'rxjs';
-import {Category, Customer, Product} from '../../model/Models';
+import {Category, Customer, Product, Supplier} from '../../model/Models';
 import {CustomerService} from '../data/dao/impl/customer.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ExchangeDataService implements OnInit {
+export class ExchangeDataService{
 
   private selectedCategory$: Subject<Category> = new Subject<Category>();
   private editedProduct$: Subject<Product> = new Subject<Product>();
@@ -15,10 +15,12 @@ export class ExchangeDataService implements OnInit {
   private updateProductsInGrid$: Subject<boolean> = new Subject<boolean>();
   private updateCategoriesLeft$: Subject<boolean> = new Subject<boolean>();
   // all categories list
-  private categories$: Subject<Category[]> = new Subject<Category[]>();
+  private categories$: BehaviorSubject<Category[]> = new BehaviorSubject<Category[]>([]);
+  private products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+  private suppliers$: BehaviorSubject<Supplier[]> = new BehaviorSubject<Supplier[]>([]);
 
   private updateCustomersInGrid$: Subject<boolean> = new Subject<boolean>();
-  private editedCustomer$: Subject<Customer> = new Subject<Customer>();
+  private editedCustomer$: BehaviorSubject<Customer> = new BehaviorSubject<Customer>(new Customer());
   private customers$: BehaviorSubject<Customer[]> = new BehaviorSubject<Customer[]>([]);
 
 
@@ -27,11 +29,13 @@ export class ExchangeDataService implements OnInit {
 
   }
 
-  ngOnInit(): void {
 
-
+  getSuppliers(): Subject<Supplier[]> {
+    return this.suppliers$;
   }
-
+  setSuppliers(c: Supplier[]): void {
+    this.suppliers$.next(c);
+  }
   getCustomers(): Subject<Customer[]> {
     return this.customers$;
   }
@@ -63,6 +67,14 @@ export class ExchangeDataService implements OnInit {
 
   setCategories(cat: Category[]): void {
     this.categories$.next(cat);
+  }
+
+  getProducts(): Subject<Product[]> {
+    return this.products$;
+  }
+
+  setProducts(cat: Product[]): void {
+    this.products$.next(cat);
   }
 
   getUpdateCategoriesLeft(): Subject<boolean> {

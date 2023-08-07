@@ -53,11 +53,14 @@ export class ProductEditComponent implements OnInit {
   }
 
   save(): void {
-    this.productService.update(this.editedProduct);
-    this.messageService.add(`Updated product '${this.editedProduct.name}'`);
-    this.clearEditedProduct();
-    this.exchangeDataService.setEditedProduct(this.editedProduct);
-    this.exchangeDataService.setUpdateProductsInGrid();
+    this.productService.update(this.editedProduct).subscribe(p => {
+      this.messageService.add(`Updated product '${this.editedProduct.name}'`);
+      this.clearEditedProduct();
+      this.exchangeDataService.setEditedProduct(this.editedProduct);
+      this.exchangeDataService.setUpdateProductsInGrid();
+    });
+
+
   }
 
   addNew(): void {
@@ -81,7 +84,7 @@ export class ProductEditComponent implements OnInit {
   delete(): void {
     this.editedProduct.active = false;
     // this.productService.delete(this.editedProduct.id);
-    this.productService.update(this.editedProduct);
+    this.productService.update(this.editedProduct).subscribe();
     this.messageService.add(`Product '${this.editedProduct.name} (id: ${this.editedProduct.id})' was deleted successfully. Soft`);
     this.clearEditedProduct();
     // дать сигналу компоненту грид - обновить товары в категории

@@ -1,17 +1,34 @@
-<div class="common-box">
-  <ul class="categories">
-    <li *ngFor="let category of categories">
-      <a routerLink="/products/"
-         [ngClass]="{'cat-link-active': category === selectedCategory}"
+<div class="common-box width-350">
+  <h3 >Categories</h3>
+  <div class="categories">
+    <table class="item-grid-table">
+      <tbody>
+      <tr *ngFor="let category of categories" class="categories-items">
+        <td class="item-grid-cell">
+          <a routerLink="/products/"
+             [ngClass]="{'cat-link-active': category === selectedCategory}"
+             (click)="selectCategory(category)">
+            {{category.name.length > 30 ? category.name.substring(0, 30) + '..' : category.name}}
+          </a>
+        </td>
+      </tr>
+      <tr class="categories-items">
+        <td class="item-grid-cell"><a
+          [ngClass]="{'cat-link-active': selectedCategory=== allCategory}"
+          routerLink="/products/" (click)="selectAllCategory()">-- All Products</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
-         (click)="selectCategory(category)">
-        <span class="badge">{{category.id}}</span> {{category.name}}
+
+    <div class="products-cat-button-container">
+      <a routerLink="/products/" (click)="addCategory()">
+        <div class="button">Add↘</div>
       </a>
-    </li>
-    <li><a
-      [ngClass]="{'cat-link-active': selectedCategory=== allCategory}"
-      routerLink="/products/" (click)="selectAllCategory()">-- All Products</a></li>
-  </ul>
-  <button class="button button-save" (click)="addCategory()">Add Category</button>
+    </div>
+    <div></div>
+  </div>
+
 </div>
 

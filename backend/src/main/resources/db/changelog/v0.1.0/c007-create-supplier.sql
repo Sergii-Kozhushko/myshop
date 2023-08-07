@@ -7,7 +7,9 @@ CREATE TABLE IF NOT EXISTS myshop.supplier
     address    varchar(255),
     phone      varchar(255),
     email      varchar(255),
+    is_active  boolean      NOT NULL       DEFAULT true,
     created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now(),
     CONSTRAINT supplier_pkey PRIMARY KEY (id)
 )
 -- rollback DROP TABLE myshop.supplier;

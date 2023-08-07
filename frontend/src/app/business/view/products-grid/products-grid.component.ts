@@ -100,7 +100,7 @@ export class ProductsGridComponent implements OnInit {
       this.messageService.add('Can\'t save category with empty name');
       return;
     }
-    this.categoryService.update(this.selectedCategory);
+    this.categoryService.update(this.selectedCategory).subscribe();
     this.messageService.add(`Category \'${this.selectedCategory.name}\' was updated successfully`);
     // this.exchangeDataService.setUpdateProductsInGrid(true);
     this.exchangeDataService.setUpdateCategoriesLeft();

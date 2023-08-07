@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MessageService } from '../../service/message.service';
+import {Component} from '@angular/core';
+import {MessageService} from '../../service/message.service';
 
 @Component({
   selector: 'app-messages',
@@ -10,5 +10,11 @@ export class MessagesComponent {
 
 
   constructor(public messageService: MessageService) {
+  }
+
+  clear(event: Event): void {
+    event.preventDefault();
+    this.messageService.clear();
+
   }
 }

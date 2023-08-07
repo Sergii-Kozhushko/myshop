@@ -1,11 +1,7 @@
-
-.row-box-buttons {
-  display: flex;
-  justify-content: center; /* Равномерно распределяем элементы по горизонтали */
-  align-items: center;/* Выравниваем элементы по вертикали по центру */
-  margin-top: 10px;
-  padding-bottom: 3px;
+.product-edit-width{
+  width: 400px;
 }
+
 
 
 

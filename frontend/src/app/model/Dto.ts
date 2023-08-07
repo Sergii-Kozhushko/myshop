@@ -1,16 +1,32 @@
-import {Customer, DecInvoice, DecInvoiceProduct, Product} from './Models';
+import {Customer, Sale, SaleItem, Supply, Product} from './Models';
 
-export class DecInvoiceProductSaveDto {
+export class SaleItemSaveDto {
 
   product: Product;
-  decInvoice: DecInvoice;
+  Sale: Sale;
   quantity: number;
   price: number;
 
 
-  constructor(product: Product, decInvoice: DecInvoice, quantity: number, price: number) {
+  constructor(product: Product, Sale: Sale, quantity: number, price: number) {
     this.product = product;
-    this.decInvoice = decInvoice;
+    this.Sale = Sale;
+    this.quantity = quantity;
+    this.price = price;
+  }
+}
+
+export class SupplyItemSaveDto {
+
+  product: Product;
+  Supply: Supply;
+  quantity: number;
+  price: number;
+
+
+  constructor(product: Product, Supply: Supply, quantity: number, price: number) {
+    this.product = product;
+    this.Supply = Supply;
     this.quantity = quantity;
     this.price = price;
   }

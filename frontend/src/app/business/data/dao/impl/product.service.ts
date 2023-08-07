@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../../../environments/environment';
 import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
+import {ExchangeDataService} from '../../../service/exchange.data.service';
 
 
 // глобальная переменная для хранения URL
@@ -21,7 +22,8 @@ export class ProductService extends CommonService<Product> implements ProductDAO
   constructor(@Inject(PRODUCT_URL_TOKEN) private baseUrl, // уникальный url для запросов
               private http: HttpClient,
               router: Router,
-              messageService: MessageService) {
+              messageService: MessageService,
+              private exchangeDataService: ExchangeDataService) {
     super(baseUrl, http, router, messageService);
   }
 
@@ -34,6 +36,16 @@ export class ProductService extends CommonService<Product> implements ProductDAO
     operation.url = this.baseUrl + '/bycategory/' + categoryId;
     operation.httpMethod = HttpMethod.GET;
     return this.http.post(environment.bffURI + '/operation', operation);
+  }
+
+  refreshProductsList(): void {
+    // load categories list from backend. We will use it for all app-pages
+    this.findAll()
+      .subscribe(list => {
+
+        this.exchangeDataService.setProducts(list);
+        this.messageService.add('Products list was uploaded from backend server');
+      });
   }
 
 }

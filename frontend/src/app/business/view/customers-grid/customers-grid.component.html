@@ -1,6 +1,6 @@
 <div class="common-box">
-  <h3 >Customer list</h3>
-  <table class="item-grid-table" >
+  <h2>Customers list</h2>
+  <table class="item-grid-table">
     <thead>
     <tr>
       <th class="center">Id</th>
@@ -22,10 +22,15 @@
         <a (click)="editCustomer(customer.id)"
            routerLink="/customers/{{customer.id}}">{{customer.name}}</a>
       </td>
-      <td class="item-grid-cell center">{{customer.email}}</td>
-      <td class="item-grid-cell center">{{customer.phone}}</td>
       <td class="item-grid-cell center">
-        {{ customer.address.length > 20 ? customer.address.substring(0, 20)+'...':customer.address }}</td>
+        {{ customer.email.length > 10 ? customer.email.substring(0, 10) + '...' : customer.email }}
+      </td>
+      <td class="item-grid-cell center">
+        {{ customer.phone.length > 10 ? customer.phone.substring(0, 10) + '...' : customer.phone }}
+
+      </td>
+      <td class="item-grid-cell center">
+        {{ customer.address.length > 15 ? customer.address.substring(0, 15) + '...' : customer.address }}</td>
       <td class="item-grid-cell center">{{customer.discountValue}}</td>
       <td class="item-grid-cell center">{{customer.discountCardNumber}}</td>
       <td class="item-grid-cell center">{{ customer.dateBirth | date:'dd.MM.yyyy' }}</td>

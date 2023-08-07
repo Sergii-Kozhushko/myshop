@@ -46,9 +46,21 @@ export class Customer {
   discountCardNumber: string;
   dateBirth?: Date; // ? - property optional
   acceptSMSList: boolean;
+
 }
 
-export class DecInvoice {
+export class Supplier {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  active: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export class Sale {
   id: number;
   createdAt: Date;
   updatedAt: Date;
@@ -58,18 +70,48 @@ export class DecInvoice {
   sum: number;
   isActive: boolean;
   customer: Customer;
-  products?: DecInvoiceProduct[];
-
+  products?: SaleItem[];
 
   constructor(id: number) {
     this.id = id;
   }
 }
 
-export class DecInvoiceProduct {
+export class SaleItem {
   id: number;
   product: Product;
-  decInvoice: DecInvoice;
+  Sale: Sale;
+  quantity: number;
+  price: number;
+
+  constructor(product: Product, quantity: number, price: number) {
+    this.product = product;
+    this.quantity = quantity;
+    this.price = price;
+  }
+}
+
+export class Supply {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  code: string;
+  sum: number;
+  additionalInfo: string;
+  supplier: Supplier;
+  isActive: boolean;
+
+  // products?: SaleItem[];
+
+  constructor(id: number) {
+    this.id = id;
+  }
+}
+
+export class SupplyItem {
+  id: number;
+  product: Product;
+  Supply: Supply;
   quantity: number;
   price: number;
 

@@ -79,7 +79,7 @@ public class ProductController {
 
     public ResponseEntity<Product> createProduct(@RequestBody final CreateProductDto product)
             throws URISyntaxException {
-        
+
         return ResponseEntity
                 .created(new URI(MAIN_PATH))
                 .body(productService.createProduct(product));
@@ -98,6 +98,7 @@ public class ProductController {
 
         return ResponseEntity.ok(productService.getProductById(id));
     }
+
 
     @PutMapping("/update")
     @Transactional

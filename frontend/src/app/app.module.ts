@@ -15,12 +15,11 @@ import {DashboardComponent} from './business/view/dashboard/dashboard.component'
 
 import {MessagesComponent} from './business/view/messages/messages.component';
 import {CategoriesComponent} from './business/view/categories/categories.component';
-import {MainpageComponent} from './business/view/mainpage/mainpage.component';
 import {LogoComponent} from './business/view/logo/logo.component';
 import {HeaderComponent} from './business/view/header/header.component';
 import {TopNavComponent} from './business/view/top-nav/top-nav.component';
 import {ProductsComponent} from './business/view/products/products.component';
-import {PurchasesComponent} from './business/view/purchases/purchases.component';
+import {SupplyComponent} from './business/view/supply/supply.component';
 import {SalesComponent} from './business/view/sales/sales.component';
 import {CustomersComponent} from './business/view/customers/customers.component';
 import {OptionsComponent} from './business/view/options/options.component';
@@ -34,10 +33,15 @@ import {ProductEditComponent} from './business/view/product-edit/product-edit.co
 import {CustomerEditComponent} from './business/view/customer-edit/customer-edit.component';
 import {CustomersGridComponent} from './business/view/customers-grid/customers-grid.component';
 import {CUSTOMER_URL_TOKEN} from './business/data/dao/impl/customer.service';
-import {DECINVOICE_URL_TOKEN} from './business/data/dao/impl/decinvoice.service';
 import {SaleEditComponent} from './business/view/sale-edit/sale-edit.component';
 import {CommonModule, DatePipe} from '@angular/common';
 import {MessageService} from './business/service/message.service';
+import {SUPPLY_URL_TOKEN} from './business/data/dao/impl/Supply.service';
+import { SupplyEditComponent } from './business/view/supply-edit/supply-edit.component';
+import {SUPPLIER_URL_TOKEN} from './business/data/dao/impl/supplier.service';
+import { SuppliersComponent } from './business/view/suppliers/suppliers.component';
+import { SupplierEditComponent } from './business/view/supplier-edit/supplier-edit.component';
+import {SALE_URL_TOKEN} from './business/data/dao/impl/sale.service';
 
 /*
 
@@ -53,12 +57,11 @@ import {MessageService} from './business/service/message.service';
     DashboardComponent,
     MessagesComponent,
     CategoriesComponent,
-    MainpageComponent,
     LogoComponent,
     HeaderComponent,
     TopNavComponent,
     ProductsComponent,
-    PurchasesComponent,
+    SupplyComponent,
     SalesComponent,
     OptionsComponent,
     FooterComponent,
@@ -68,7 +71,10 @@ import {MessageService} from './business/service/message.service';
     CustomersComponent,
     CustomerEditComponent,
     CustomersGridComponent,
-    SaleEditComponent
+    SaleEditComponent,
+    SupplyEditComponent,
+    SuppliersComponent,
+    SupplierEditComponent
 
   ],
   imports: [
@@ -109,8 +115,16 @@ import {MessageService} from './business/service/message.service';
       useValue: environment.resourceServerURL + '/customer'
     },
     {
-      provide: DECINVOICE_URL_TOKEN,
-      useValue: environment.resourceServerURL + '/decinvoice'
+      provide: SUPPLIER_URL_TOKEN,
+      useValue: environment.resourceServerURL + '/supplier'
+    },
+    {
+      provide: SALE_URL_TOKEN,
+      useValue: environment.resourceServerURL + '/sale'
+    },
+    {
+      provide: SUPPLY_URL_TOKEN,
+      useValue: environment.resourceServerURL + '/supply'
     },
 
     /* нужно указывать для корректной работы диалоговых окон */

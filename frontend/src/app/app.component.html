@@ -1,11 +1,15 @@
 <div class="spinner" *ngIf="spinner && spinner.visibility | async"></div>
 
-
+<div class="app-box-container" >
+<!--  <div class="app-box">-->
 <app-header *ngIf="cookieEnabled"></app-header>
 
 <p *ngIf="!cookieEnabled"> Cookies отключены. Включите в настройках браузера - после этого обновите страницу.</p>
 
-
-<router-outlet *ngIf="cookieEnabled"></router-outlet>
+<div class="items-container min-height">
+  <router-outlet *ngIf="cookieEnabled"></router-outlet>
+</div>
 <app-messages></app-messages>
 <app-footer></app-footer>
+  </div>
+<!--</div>-->

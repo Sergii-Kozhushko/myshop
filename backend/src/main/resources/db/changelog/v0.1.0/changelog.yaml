@@ -8,13 +8,15 @@ databaseChangeLog:
   - include:
       file: db/changelog/v0.1.0/c004-create-customer.sql
   - include:
-      file: db/changelog/v0.1.0/c005-create-decinvoice.sql
+      file: db/changelog/v0.1.0/c005-create-sale.sql
   - include:
-      file: db/changelog/v0.1.0/c006-create-decinvoice-products.sql
+      file: db/changelog/v0.1.0/c006-create-sale-item.sql
   - include:
       file: db/changelog/v0.1.0/c007-create-supplier.sql
   - include:
-      file: db/changelog/v0.1.0/c008-create-incinvoice.sql
+      file: db/changelog/v0.1.0/c008-create-supply.sql
+  - include:
+      file: db/changelog/v0.1.0/c009-create-supply-item.sql
   - include:
       file: db/changelog/v0.1.0/i001-insert-product-category.sql
   - include:
@@ -22,8 +24,13 @@ databaseChangeLog:
   - include:
       file: db/changelog/v0.1.0/i003-insert-customer.sql
   - include:
-      file: db/changelog/v0.1.0/i004-insert-dec-invoice.sql
+      file: db/changelog/v0.1.0/i004-insert-sale.sql
   - include:
-      file: db/changelog/v0.1.0/i005-insert-dec-invoice-products.sql
+      file: db/changelog/v0.1.0/i005-insert-sales-products.sql
   - include:
       file: db/changelog/v0.1.0/i006-insert-supplier.sql
+  - include:
+      file: db/changelog/v0.1.0/i007-insert-supply.sql
+  - include:
+      file: db/changelog/v0.1.0/i008-insert-supply-item.sql
+

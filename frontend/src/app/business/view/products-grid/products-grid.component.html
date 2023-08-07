@@ -1,14 +1,13 @@
-<div class="common-box">
-  <h3 *ngIf="selectedCategory.id===undefined">Current category: None, All products</h3>
+<div class="common-box grid-width">
+  <h3 *ngIf="selectedCategory.id===undefined">Edit category: None, All products</h3>
   <div *ngIf="selectedCategory.id!==undefined" class="flex">
-    <h3>Current category:</h3>
+    <h3>Edit category:</h3>
     <input type="text" id="category-name-edit"
            [(ngModel)]="selectedCategory.name"
-
            class="input-text edit-item-field-width-big"
     >
   </div>
-  <table class="item-grid-table">
+  <table class="item-grid-table products-table-width">
     <thead>
     <tr>
       <th class="center">Id</th>
@@ -24,7 +23,9 @@
       <td class="item-grid-cell center">{{product.id}}</td>
       <td class="item-grid-cell">
         <a (click)="editProduct(product.id)"
-           routerLink="/products/{{product.id}}">{{product.name}}</a>
+           routerLink="/products/">
+          {{product.name.length > 20 ? product.name.substring(0, 20)+'..':product.name}}
+          </a>
       </td>
       <td class="item-grid-cell center">{{product.price}}</td>
       <td class="item-grid-cell center">{{product.wholesalePrice}}</td>
@@ -32,18 +33,16 @@
     </tr>
     </tbody>
   </table>
-  <div>
+  <div class="row-box-buttons">
 
-    <button *ngIf="selectedCategory.id !== undefined" class="button button-save" type="button"
-            (click)="saveCategory()">Save
-    </button>
+
+    <a routerLink="/products/" *ngIf="selectedCategory.id" (click)="saveCategory()">
+      <div class="button">Save↘</div></a>
 
     <!--    <button class="button button-save" type="button" id="button-cadd"-->
     <!--            (click)="addCategory()">Add Category-->
     <!--    </button>-->
-
-    <button *ngIf="selectedCategory.id !== undefined" class="button button-delete" type="button"
-            (click)="deleteCategory()">Delete Category
-    </button>
+    <a routerLink="/products/" *ngIf="selectedCategory.id !== undefined" (click)="deleteCategory()">
+      <div class="button">Delete Category↘</div></a>
   </div>
 </div>

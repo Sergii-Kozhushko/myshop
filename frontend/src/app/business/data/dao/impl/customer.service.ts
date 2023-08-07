@@ -23,12 +23,12 @@ export class CustomerService extends CommonService<Customer> implements Customer
     super(baseUrl, http, router, messageService);
   }
 
-  refreshCustomerList(): void {
+  refreshCustomersList(): void {
     // load customers list from backend. We will use it for all app-pages
     this.findAll()
       .subscribe(list => {
         this.exchangeDataService.setCustomers(list);
-        this.messageService.add('Customer list uploaded from backend server');
+        this.messageService.add('Customer list was uploaded from backend server');
       });
   }
 }

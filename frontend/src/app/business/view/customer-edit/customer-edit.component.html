@@ -1,12 +1,13 @@
 <div>
 
-  <form class="common-box">
+  <form class="common-box customer-edit-box-width">
     <div class="edit-item-row-box">
       <span class="edit-item-title">{{ editedCustomer.id === 0 ? 'Add' : 'Edit' }} Customer</span>
     </div>
     <div class="edit-item-row-box">
       <label>Id</label>
-      <input type="text" id="customer-id" name="customer-id" class="input-text edit-item-field-width-small bgc-lgrey"
+      <input type="text" id="customer-id" name="customer-id"
+             class="input-text edit-item-field-width-small input-text-readonly"
              value="{{editedCustomer.id}}" readonly>
     </div>
     <div class="edit-item-row-box">
@@ -72,10 +73,10 @@
 
 
     <div class="row-box-buttons">
-      <button *ngIf="!editedCustomer.id" class="button button-save" type="button" (click)="addNew()">Add</button>
-      <button *ngIf="editedCustomer.id" class="button button-save" type="button" (click)="save()">Save</button>
-      <button *ngIf="editedCustomer.id" class="button button-delete" type="button" (click)="delete()">Delete</button>
-      <button class="button button-cancel" type="button" (click)="cancel()">Cancel</button>
+      <button *ngIf="!editedCustomer.id" class="button" type="button" (click)="addNew()">Add↘</button>
+      <button *ngIf="editedCustomer.id" class="button" type="button" (click)="save()">Save↘</button>
+      <button *ngIf="editedCustomer.id" class="button" type="button" (click)="delete()">Delete↘</button>
+      <button class="button button-cancel" type="button" (click)="cancel()">Cancel↘</button>
     </div>
   </form>
 </div>

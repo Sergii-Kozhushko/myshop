@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {KeycloakService} from '../../../oauth2/bff/keycloak.service';
-import {constructor} from 'path';
-import {DecInvoice} from '../../../model/Models';
-import {CustomerService} from '../../data/dao/impl/customer.service';
-import {CategoryService} from '../../data/dao/impl/category.service';
-import {ActivatedRoute} from '@angular/router';
+
+
+import {Sale} from '../../../model/Models';
+import {Router} from '@angular/router';
 import {ExchangeDataService} from '../../service/exchange.data.service';
 import {MessageService} from '../../service/message.service';
-import {DecinvoiceService} from '../../data/dao/impl/decinvoice.service';
+import {SaleService} from '../../data/dao/impl/sale.service';
 
 @Component({
   selector: 'app-sales',
@@ -15,19 +13,20 @@ import {DecinvoiceService} from '../../data/dao/impl/decinvoice.service';
   styleUrls: ['./sales.component.css']
 })
 export class SalesComponent implements OnInit {
-  sales: DecInvoice[];
-  sortField = 'Date created';
+  sales: Sale[];
+  sortField = 'Created At';
   sortMode = 'Desc';
 
   constructor(
-    private decInvoiceService: DecinvoiceService,
+    private SaleService: SaleService,
     private readonly exchangeDataService: ExchangeDataService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
-    // this.fetchAllDecInvoices();
-    this.fetchAllDecInvoicesSortDateDesc();
+    // this.fetchAllSales();
+    this.fetchAllSalesSortDateDesc();
     if (this.sortMode === 'Date created') {
       this.sales.sort((a, b) =>
         this.sortMode === 'Desc' ? b.createdAt.getTime() - a.createdAt.getTime() : a.createdAt.getTime() - b.createdAt.getTime());
@@ -35,16 +34,16 @@ export class SalesComponent implements OnInit {
 
   }
 
-  fetchAllDecInvoices(): void {
-    this.decInvoiceService.findAll()
+  fetchAllSales(): void {
+    this.SaleService.findAll()
       .subscribe(sales => {
         this.sales = sales;
 
       });
   }
 
-  fetchAllDecInvoicesSortDateDesc(): void {
-    this.decInvoiceService.findDecInvoicesByDateDesc()
+  fetchAllSalesSortDateDesc(): void {
+    this.SaleService.findSalesByDateDesc()
       .subscribe(sales => {
         this.sales = sales;
         this.sales.forEach(invoice => invoice.createdAt = new Date(invoice.createdAt));
@@ -52,21 +51,29 @@ export class SalesComponent implements OnInit {
       });
   }
 
-  edit(): void {
-
-  }
 
   changeSortMode(field: string): void {
     // this.sales.forEach(invoice => console.log(invoice.createdAt));
     this.sortField = field;
     this.sortMode = this.sortMode === 'Desc' ? 'Asc' : 'Desc';
-    if (field === 'Date created') {
+
+    if (field === 'Created At') {
       this.sales.sort((a, b) =>
         this.sortMode === 'Desc' ? b.createdAt.getTime() - a.createdAt.getTime() : a.createdAt.getTime() - b.createdAt.getTime());
     }
-    if (field === 'Sum' || field === 'Discount') {
-      this.sales.sort((a, b) => this.sortMode === 'Desc' ? b.sum - a.sum : a.sum - b.sum);
+    if (field === 'Sum') {
+      this.sales.sort((a, b) =>
+        this.sortMode === 'Desc' ? b.sum - a.sum : a.sum - b.sum);
     }
+    if (field === 'Discount') {
+      this.sales.sort((a, b) =>
+        this.sortMode === 'Desc' ? b.discount - a.discount : a.discount - b.discount);
+    }
+    if (field === 'Id') {
+      this.sales.sort((a, b) =>
+        this.sortMode === 'Desc' ? b.id - a.id : a.id - b.id);
+    }
+
     if (field === 'Customer') {
       this.sales.sort((a, b) =>
         this.sortMode === 'Desc' ? a.customer.name.localeCompare(b.customer.name) : b.customer.name.localeCompare(a.customer.name));
@@ -82,9 +89,10 @@ export class SalesComponent implements OnInit {
       this.sales.sort((a, b) =>
         this.sortMode === 'Desc' ? a.code.localeCompare(b.code) : b.code.localeCompare(a.code));
     }
+  }
 
-
-
+  addNew(): void {
+    this.router.navigate(['sales/edit/0']);
   }
 
 
