@@ -445,6 +445,11 @@ th {
 
 }
 
+.dialog-buttons{
+  display: flex;
+  justify-content: center;
+}
+
 .spinner {
   width: 64px;
   height: 64px;

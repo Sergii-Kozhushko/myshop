@@ -47,6 +47,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { HeaderTopComponent } from './business/view/header-top/header-top.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-dialog.component';
+import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialog.component';
 
 /*
 
@@ -82,7 +83,8 @@ import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-di
     SupplierEditComponent,
 
     HeaderTopComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    AboutDialogComponent
 
   ],
   imports: [

@@ -7,6 +7,7 @@ import {CustomerService} from '../../data/dao/impl/customer.service';
 
 import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
 import {MatDialog} from '@angular/material/dialog';
+import {DeleteDialogComponent} from '../../dialog/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-customer-edit',
@@ -23,7 +24,7 @@ export class CustomerEditComponent implements OnInit {
               private customerService: CustomerService,
               private messageService: MessageService,
               private spinnerService: SpinnerService,
-               private dialog: MatDialog
+              private dialog: MatDialog
   ) {
     this.clearEditedCustomer();
   }
@@ -36,11 +37,7 @@ export class CustomerEditComponent implements OnInit {
         this.editedCustomer = customer;
       });
     this.clearEditedCustomer();
-    // this.exchangeDataService.getCategories()
-    //   .subscribe((categories) => {
-    //     console.log('cat length=' + categories.length);
-    //     this.categories = categories;
-    //   });
+
 
   }
 
@@ -63,7 +60,6 @@ export class CustomerEditComponent implements OnInit {
 
       return;
     }
-
 
     this.customerService.add(this.editedCustomer).subscribe(result => {
       this.messageService.add(`Customer '${this.editedCustomer.name}' added successfully`);
@@ -92,26 +88,26 @@ export class CustomerEditComponent implements OnInit {
   }
 
   delete(): void {
-    // const dialogRef = this.dialog.open(DeleteSupplierComponent, {
-    //   width: '350px',
-    //   data: {
-    //     title: 'Delete Customer?',
-    //     message: 'Are you sure you want to continue?',
-    //   }
-    // });
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: {
+        title: 'Delete Customer?',
+        message: 'Are you sure you want to continue?',
+      }
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.spinnerService.show();
-    //     setTimeout(() => {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.spinnerService.show();
+        setTimeout(() => {
           this.spinnerService.hide();
           this.customerService.delete(this.editedCustomer.id);
           this.exchangeDataService.setUpdateCustomersInGrid();
           this.messageService.add(`Customer ${this.editedCustomer.name} was deleted successfully`);
           this.clearEditedCustomer();
-    //     }, 2000);
-    //   }
-    // });
+        }, 2000);
+      }
+    });
   }
 
   cancel(): void {
