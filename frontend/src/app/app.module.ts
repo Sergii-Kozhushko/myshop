@@ -47,6 +47,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { HeaderTopComponent } from './business/view/header-top/header-top.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-dialog.component';
 
 /*
 
@@ -80,8 +81,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     SupplyEditComponent,
     SuppliersComponent,
     SupplierEditComponent,
-     DeleteSupplierComponent,
-    HeaderTopComponent
+    DeleteSupplierComponent,
+    HeaderTopComponent,
+    DeleteDialogComponent
 
   ],
   imports: [
@@ -95,8 +97,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CommonModule,
-     // MatDialogModule,
-     // MatButtonModule,
+     MatDialogModule,
+     MatButtonModule,
      NgOptimizedImage,
     NgxPaginationModule,
   ],

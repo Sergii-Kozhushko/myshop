@@ -8,6 +8,7 @@ import {SupplierService} from '../../data/dao/impl/supplier.service';
 import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteSupplierComponent} from '../../dialog/delete-supplier/delete-supplier.component';
+import {DeleteDialogComponent} from '../../dialog/delete-dialog/delete-dialog.component';
 
 
 
@@ -29,7 +30,7 @@ export class SuppliersComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private spinnerService: SpinnerService,
-    // private dialog: MatDialog
+    private dialog: MatDialog
      ) {
   }
 
@@ -120,36 +121,36 @@ export class SuppliersComponent implements OnInit {
   }
 
   delete(): void {
-    // const dialogRef = this.dialog.open(DeleteSupplierComponent, {
-    //   width: '250px',
-    //   data: {
-    //     title: 'Delete supplier?',
-    //     message: 'Are you sure you want to continue?',
-    //   },
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     // Выполните действия после подтверждения
-    //
-    //     this.editedDocument.active = false;
-    //     this.spinnerService.show();
-    //
-    //     setTimeout(() => {
-    //       // Make delay for realistic performance
-    //       this.spinnerService.hide();
-    //       this.supplierService.update(this.editedDocument).subscribe(s => {
-    //           this.messageService.add(`Soft deleted supplier # ${s.id} ${s.name}`);
-    //           this.supplierService.refreshSuppliersList();
-    //           this.addItemInit();
-    //         }
-    //       );
-    //     }, 2000);
-    //   }
-    // });
-    //
-    //
-    //
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '250px',
+      data: {
+        title: 'Delete supplier?',
+        message: 'Are you sure you want to continue?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Выполните действия после подтверждения
+
+        this.editedDocument.active = false;
+        this.spinnerService.show();
+
+        setTimeout(() => {
+          // Make delay for realistic performance
+          this.spinnerService.hide();
+          this.supplierService.update(this.editedDocument).subscribe(s => {
+              this.messageService.add(`Soft deleted supplier # ${s.id} ${s.name}`);
+              this.supplierService.refreshSuppliersList();
+              this.addItemInit();
+            }
+          );
+        }, 2000);
+      }
+    });
+
+
+
 
   }
 
