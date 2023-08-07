@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 
-import {Sale, Supply, Supplier} from '../../../model/Models';
-import {SupplyService} from '../../data/dao/impl/Supply.service';
+import {Supplier} from '../../../model/Models';
 import {ExchangeDataService} from '../../service/exchange.data.service';
 import {MessageService} from '../../service/message.service';
 import {Router} from '@angular/router';
 import {SupplierService} from '../../data/dao/impl/supplier.service';
 import {SpinnerService} from '../../../oauth2/spinner/spinner.service';
 import {MatDialog} from '@angular/material/dialog';
-import {DeleteSupplierComponent} from '../../dialog/delete-supplier/delete-supplier.component';
+// import {DeleteSupplierComponent} from '../../dialog/delete-supplier/delete-supplier.component';
 
 
 @Component({
@@ -28,8 +27,7 @@ export class SuppliersComponent implements OnInit {
     private readonly exchangeDataService: ExchangeDataService,
     private messageService: MessageService,
     private router: Router,
-    private spinnerService: SpinnerService,
-    private dialog: MatDialog) {
+    private spinnerService: SpinnerService) {
   }
 
   // openConfirmationDialog(): void {

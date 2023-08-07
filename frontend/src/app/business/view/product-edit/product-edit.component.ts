@@ -4,7 +4,6 @@ import {Category, Product} from '../../../model/Models';
 import {ProductService} from '../../data/dao/impl/product.service';
 import {Router} from '@angular/router';
 import {MessageService} from '../../service/message.service';
-import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-product-edit',

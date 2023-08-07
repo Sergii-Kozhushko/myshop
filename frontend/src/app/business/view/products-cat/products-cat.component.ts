@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Category} from '../../../model/Models';
 import {CategoryService} from '../../data/dao/impl/category.service';
 import {ActivatedRoute} from '@angular/router';
@@ -15,7 +15,7 @@ export class ProductsCatComponent implements OnInit {
   selectedCategory: Category;
   allCategory = new Category('--All products', 0);
 
-  // @Output() categorySelected = new EventEmitter<number>();
+
 
   constructor(public categoryService: CategoryService,
               private route: ActivatedRoute,

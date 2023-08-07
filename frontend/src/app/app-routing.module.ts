@@ -49,10 +49,11 @@ const routes: Routes = [
   {path: 'supply/edit/:sid', component: SupplyEditComponent },
   {path: 'sales', component: SalesComponent },
   {path: 'sales/edit/:sid', component: SaleEditComponent },
-  {path: 'products', component: ProductsComponent},
+   {path: 'products', component: ProductsComponent},
    { path: 'products/:pid?', component: ProductsComponent },
-  { path: 'customers/:cid?', component: CustomersComponent },
   {path: 'customers', component: CustomersComponent},
+  { path: 'customers/:cid?', component: CustomersComponent },
+
   {path: 'options', component: OptionsComponent},
 ];
 
