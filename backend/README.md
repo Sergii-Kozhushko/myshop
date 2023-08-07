@@ -1,6 +1,6 @@
 # MyShop Application
 
-Demo final project. Telran School, Kozhushko Sergii
+Demo final project. Telran IT School, Kozhushko Sergii
 
 ### Installation
 
