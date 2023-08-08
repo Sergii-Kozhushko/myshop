@@ -14,9 +14,15 @@ Demo final project. Telran IT School, Kozhushko Sergii
 
 ### Description
 
-https://docs.google.com/document/d/1-PM3OP52vH2KnAg11DvRNAtQgSp_aITj6i_0sMadtwA/edit
+Project description:
+https://docs.google.com/document/d/1h1l6gdgCScMxxN_wndSy8YsTHeqmgm_FY1T4GQWVrIE/edit?usp=sharing
+
+Security scheme:
+https://docs.google.com/document/d/1U3Ql3_eVqkFPlnjKt8xsAzZh3lLFTWJ0a_0d1Xql3W8/edit?usp=sharing
 
 ### API
+
+Swagger API: https://localhost:8081/swagger-ui/index.html
 
 Anonymous:
 

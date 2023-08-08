@@ -11,7 +11,7 @@
 
     <groupId>de.edu.telran</groupId>
     <artifactId>myshop</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.3.0</version>
     <name>myshop</name>
     <description>Telran final application: offline shop</description>
     <properties>
