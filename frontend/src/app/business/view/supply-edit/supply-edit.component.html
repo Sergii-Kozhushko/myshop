@@ -1,4 +1,4 @@
-<div id="supply-main" class="document-edit-container border-test">
+<div id="supply-main" class="document-edit-container" *ngIf="editedDocument">
   <!-- DOCUMENT FIELDS -->
 
   <h3 *ngIf="editedDocument.id">Edit supply document #{{editedDocument.id}}</h3>
@@ -36,28 +36,19 @@
     </div>
 
     <div>
-      <label>Supplier</label>
+      <label>Supplier:</label>
       <select *ngIf="editedDocument" [(ngModel)]="editedDocument.supplier.id" name="supply-supplier" class="select-item">
         <option value="" disabled selected>Choose supplier for supply invoice</option>
         <option *ngFor="let supplier of suppliers" [ngValue]="supplier.id">{{supplier.name}}</option>
       </select>
 
     </div>
-
-    <!--    <div>-->
-    <!--      <label>Customer</label>-->
-    <!--      <select *ngIf="editedDocument" [(ngModel)]="editedDocument.customer.id" name="supply-customer" class="select-item">-->
-    <!--        <option value="" disabled selected>Choose client for supplys invoice</option>-->
-    <!--        <option *ngFor="let customer of customers" [ngValue]="customer.id">{{customer.name}}</option>-->
-    <!--      </select>-->
-
-    <!--    </div>-->
   </form>
   <!-- DOCUMENT FIELDS END -->
 
   <div class="document-edit-cat-and-products-box border-test">
-
     <!-- CATEGORIES -->
+
     <div id="supply-edit-cats">
       <div class="common-box">
         <table class="item-grid-table">
@@ -114,7 +105,8 @@
               <td class="item-grid-cell">
                 <a *ngIf="editedDocument" (click)="addProductToDocument(product.id)"
                    [routerLink]="['/supply/edit/', this.editedDocument.id]"
-                >{{product.name}}
+                >
+                  {{product.name.length > 27 ? product.name.substring(0, 27) + '..' : product.name}}
                 </a>
               </td>
               <td class="item-grid-cell center">{{product.price}}</td>
@@ -163,7 +155,7 @@
           <td class="item-grid-cell center">{{item.price}}</td>
           <td class="item-grid-cell center">{{item.quantity * item.price}}</td>
           <td class="item-grid-cell center">
-            <button type="button" (click)="removeItem(i)">x</button>
+            <button type="button" class="button-small" (click)="removeItem(i)">x</button>
           </td>
         </tr>
         </tbody>
@@ -173,8 +165,8 @@
   </div>
 
   <div class="document-edit--buttons  border-test">
-    <button class="button button-save" type="button" (click)="save()">Save</button>
-    <button class="button button-cancel" type="button" (click)="cancel()">Cancel</button>
+    <button class="button" type="button" (click)="save()">Save↘</button>
+    <button class="button" type="button" (click)="cancel()">Cancel↘</button>
   </div>
 
 

@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router, // навигация
     private activatedRoute: ActivatedRoute, // текущий роут, который применился
-    private http: HttpClient // http запросы
+    private http: HttpClient,
+    // http запросы
   ) {
   }
 
@@ -122,7 +123,7 @@ export class LoginComponent implements OnInit {
         // отправляться с каждым запросом на BFF
 
         // и можно переходить на страницу для запроса данных
-        this.router.navigate(['main']);
+         this.router.navigate(['main']);
       }),
 
       error: (error => {

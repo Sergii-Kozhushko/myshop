@@ -1,10 +1,3 @@
-/**
- * ProductCategoryService.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 09-Jul-2023 10:22
- */
-
 package de.edu.telran.myshop.service.impl;
 
 import de.edu.telran.myshop.entity.ProductCategory;
@@ -12,10 +5,10 @@ import de.edu.telran.myshop.exception.ErrorMassage;
 import de.edu.telran.myshop.exception.ProductCategoryInvalidParameterException;
 import de.edu.telran.myshop.exception.ProductCategoryNotFoundException;
 import de.edu.telran.myshop.repository.ProductCategoryRepository;
+import de.edu.telran.myshop.service.ProductCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import de.edu.telran.myshop.service.interfaces.*;
 
 import java.util.List;
 
@@ -26,9 +19,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public List<ProductCategory> getAllCategories() {
-//        ProductCategory category1 = new ProductCategory(100, "Category 1", 0, true);
-//        categoryRepository.save(category1);
-
         return categoryRepository.findByActiveTrueOrderByNameAsc();
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface SupplyRepository extends JpaRepository<Supply, Long> {
 
-
     @Query("SELECT MAX (d.id) FROM Supply d")
     Long maxSupplyId();
 

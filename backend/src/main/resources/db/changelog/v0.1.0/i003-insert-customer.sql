@@ -30,8 +30,27 @@ VALUES ('Default Client', '', '', '', 0, '',
        ('Richard Branson', 'Virgin Island, British Virgin Islands', '+1 000-111-2222', 'richard@virgin.com', 13,
         'VIR001', date '1950-07-18', true),
        ('Elvis Presley', 'Graceland, Memphis, TN', '+1 777-777-7777', 'elvis@rocknroll.com', 0, 'EP001',
-        date '1935-01-08', false)
-;
+        date '1935-01-08', false),
+       ('John Smith', '123 Main St, Anytown, USA', '+1 555-123-4567', 'john@example.com', 10, 'JS123',
+        date '1985-07-12', true),
+       ('Emily Johnson', '456 Elm Ave, Somewhere, USA', '+1 555-987-6543', 'emily@example.com', 15, 'EJ456',
+        date '1990-03-25', false),
+       ('David Williams', '789 Oak Rd, Nowhere, USA', '+1 555-222-3333', 'david@example.com', 7, 'DW789',
+        date '1978-11-18', true),
+       ('Sarah Davis', '101 Pine Lane, Anytown, USA', '+1 555-444-5555', 'sarah@example.com', 3, 'SD101',
+        date '1995-09-08', false),
+       ('Michael Brown', '222 Maple St, Somewhere, USA', '+1 555-777-8888', 'michael@example.com', 12, 'MB222',
+        date '1982-04-30', true),
+       ('Jessica Miller', '333 Cedar Ave, Nowhere, USA', '+1 555-666-7777', 'jessica@example.com', 8, 'JM333',
+        date '1998-01-15', false),
+       ('Daniel Wilson', '444 Birch Rd, Anytown, USA', '+1 555-222-1111', 'daniel@example.com', 20, 'DW444',
+        date '1972-06-22', true),
+       ('Sophia Anderson', '555 Willow Lane, Somewhere, USA', '+1 555-999-8888', 'sophia@example.com', 5, 'SA555',
+        date '1989-12-05', true),
+       ('Christopher Taylor', '666 Oak Ave, Nowhere, USA', '+1 555-333-2222', 'chris@example.com', 18, 'CT666',
+        date '1987-10-10', false),
+       ('Olivia Martinez', '777 Elm Rd, Anytown, USA', '+1 555-888-4444', 'olivia@example.com', 9, 'OM777',
+        date '1993-02-28', true);
 
 
 -- rollback DELETE FROM myshop.customer WHERE name ('Steve Jobs');

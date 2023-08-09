@@ -59,8 +59,8 @@ class ProductServiceImplTest {
                         category(category1).build(),
                 Product.builder().
                         name("product 2").
-                        price(new BigDecimal(10.2))
-                        .wholesalePrice(new BigDecimal(5.06)).
+                        price(new BigDecimal("10.2"))
+                        .wholesalePrice(new BigDecimal("5.06")).
                         quantity(2000).
                         category(category1).build()
         );
@@ -90,8 +90,8 @@ class ProductServiceImplTest {
                 new BigDecimal(5), 2, new ProductCategory("cat 1", 0));
         Product newProduct = Product.builder().
                 name("product 2").
-                price(new BigDecimal(10.2))
-                .wholesalePrice(new BigDecimal(5.06)).
+                price(new BigDecimal("10.2"))
+                .wholesalePrice(new BigDecimal("5.06")).
                 quantity(2000).
                 category(new ProductCategory("category1", 0)).build();
         when(productRepository.saveAndFlush(any(Product.class))).thenReturn(newProduct);
@@ -118,7 +118,7 @@ class ProductServiceImplTest {
                 .isAnnotationPresent(Transactional.class);
 
         // Assert
-        assertEquals(true, isTransactional); // Проверяем, что метод помечен как @Transactional
+        assertTrue(isTransactional); // Check if method has @Transactional
     }
 
 }

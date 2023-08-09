@@ -25,10 +25,17 @@ export class CustomerService extends CommonService<Customer> implements Customer
 
   refreshCustomersList(): void {
     // load customers list from backend. We will use it for all app-pages
+
     this.findAll()
       .subscribe(list => {
-        this.exchangeDataService.setCustomers(list);
+         this.exchangeDataService.setCustomers(list);
+        console.log('00000');
         this.messageService.add('Customer list was uploaded from backend server');
       });
+
+  }
+
+  test() {
+    this.exchangeDataService.getUpdateCustomersInGrid();
   }
 }

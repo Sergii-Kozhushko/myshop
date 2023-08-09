@@ -1,10 +1,3 @@
-/**
- * ProductRepository.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:44
- */
-
 package de.edu.telran.myshop.repository;
 
 import de.edu.telran.myshop.entity.Product;
@@ -14,32 +7,50 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
+/**
+ * Repository interface for accessing Product entities from the database.
+ */
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p FROM Product p where " +
-            "(:name is null or :name='' or lower(p.name) like lower(concat('%', :name,'%'))) and" +
-            "(:active is null or p.active=:active)"   // учитываем, что параметр может быть null или пустым
 
+    /**
+     * Retrieves a page of Product entities matching the specified parameters.
+     *
+     * @param name     The name of the product to search for (optional).
+     * @param active   The status of product's active state (optional). Not active means deleted
+     * @param pageable The page information for pagination.
+     * @return A page of Product entities that match the specified parameters.
+     */
+    @Query("SELECT p FROM Product p WHERE " +
+            "(:name IS NULL OR :name='' OR lower(p.name) LIKE lower(concat('%', :name,'%'))) AND " +
+            "(:active IS NULL OR p.active=:active)"
     )
-        // искать по всем переданным параметрам (пустые параметры учитываться не будут)
     Page<Product> findByParams(@Param("name") String name,
                                @Param("active") Boolean active,
                                Pageable pageable
     );
 
-    @Query("SELECT p FROM Product p where " +
-            "(:category_id is null or p.category.id=:category_id)" +
-            " and p.active=true ORDER BY p.name ASC"
+    /**
+     * Retrieves a list of active Product entities belonging to a specific category.
+     * Empty parameters are not taken into account
+     *
+     * @param category_id The ID of the category for which products are retrieved (optional).
+     * @return A list of active Product entities that belong to the specified category.
+     */
+    @Query("SELECT p FROM Product p WHERE " +
+            "(:category_id IS NULL OR p.category.id=:category_id) " +
+            "AND p.active=true ORDER BY p.name ASC"
     )
     List<Product> findByCategoryIdAndActiveTrue(@Param("category_id") Integer category_id);
 
+    /**
+     * Retrieves a list of active Product entities.
+     *
+     * @return A list of active Product entities.
+     */
     @Query("SELECT p FROM Product p JOIN FETCH p.category WHERE p.active = true ORDER BY p.name")
     List<Product> findByActiveTrue();
 }

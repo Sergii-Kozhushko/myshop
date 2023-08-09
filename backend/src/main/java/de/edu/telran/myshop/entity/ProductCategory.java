@@ -1,18 +1,14 @@
-/**
- * ProductCategory.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 09-Jul-2023 09:56
- */
-
 package de.edu.telran.myshop.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
+/**
+ * Entity class representing a product category.
+ * We don't extend from BaseEntity here because Id has another type
+ */
 @Entity
 @Table(name = "product_category")
 @Data
@@ -37,6 +33,7 @@ public class ProductCategory {
     @Column(name = "is_active")
     private Boolean active = true;
 
+    // Constructors for tests
     public ProductCategory(String name, Integer parentId, Boolean active) {
         this.name = name;
         this.parentId = parentId;

@@ -1,4 +1,4 @@
-package de.edu.telran.myshop.keycloak;
+package de.edu.telran.myshop.security;
 
 import de.edu.telran.myshop.dto.UserDTO;
 import de.edu.telran.myshop.entity.User;
@@ -25,10 +25,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Utility class for interacting with Keycloak.
+ * <p>
+ * This class provides methods for creating, updating, deleting, and searching users
+ * in a Keycloak realm. It also handles roles and user attributes.
+ */
 @Service
 public class KeycloakUtils {
 
-    // настройки из файла properties
     @Value("${keycloak.auth-server-url}")
     private String serverURL;
     @Value("${keycloak.realm}")
@@ -38,16 +43,21 @@ public class KeycloakUtils {
     @Value("${keycloak.credentials.secret}")
     private String clientSecret;
 
-    private static Keycloak keycloak; // сылка на единственный экземпляр объекта KC
-    private static RealmResource realmResource; // доступ к API realm
-    private static UsersResource usersResource;   // доступ к API для работы с пользователями
+    private static Keycloak keycloak;
+    private static RealmResource realmResource;
+    private static UsersResource usersResource;
 
-
-    // spring calls postconstruct method once, after bean initialization
+    /**
+     * Initializes the Keycloak instance.
+     * <p>
+     * -@PostConstruct means that this method is called by Spring after bean initialization.
+     *
+     * @return The initialized Keycloak instance.
+     */
     @PostConstruct
     public Keycloak initKeyCloak() {
-        if (keycloak == null) { // singleton pattern
-
+        if (keycloak == null) {
+            // get access to KC realm
             keycloak = KeycloakBuilder.builder()
                     .realm(realm)
                     .serverUrl(serverURL)
@@ -57,23 +67,24 @@ public class KeycloakUtils {
                     .build();
 
             realmResource = keycloak.realm(realm);
-
             usersResource = realmResource.users();
-
         }
         return keycloak;
     }
 
-    // создание пользователя для KC
-
+    /**
+     * Creates a new user in Keycloak.
+     *
+     * @param user The user to be created.
+     * @return The response from Keycloak indicating the success or failure of the user creation.
+     */
     public Response createKeycloakUser(User user) {
 
-
-        // данные пароля - специальный объект-контейнер CredentialRepresentation
+        // Password data - a special container object CredentialRepresentation
         CredentialRepresentation credentialRepresentation = createPasswordCredentials(user.getPassword());
 
-        // данные пользователя (можете задавать или убирать любые поля - зависит от требуемого функционала)
-        // специальный объект-контейнер UserRepresentation
+        // User data (you can add or remove fields based on the required functionality)
+        // Special container object UserRepresentation
         UserRepresentation kcUser = new UserRepresentation();
         kcUser.setUsername(user.getUsername());
         kcUser.setCredentials(Collections.singletonList(credentialRepresentation));
@@ -81,15 +92,19 @@ public class KeycloakUtils {
         kcUser.setEnabled(true);
         kcUser.setEmailVerified(false);
 
-        // вызов KC (всю внутреннюю кухню за нас делает библиотека - формирует REST запросы, заполняет параметры и пр.)
+        // Invoking Keycloak API (the library handles internal operations - constructs REST requests, fills parameters, etc.)
         Response response = usersResource.create(kcUser);
 
         return response;
-
     }
 
 
-    // данные о пароле
+    /**
+     * Creates a CredentialRepresentation object for a password.
+     *
+     * @param password The password for which the CredentialRepresentation is created.
+     * @return A CredentialRepresentation object containing the password information.
+     */
     private CredentialRepresentation createPasswordCredentials(String password) {
         CredentialRepresentation passwordCredentials = new CredentialRepresentation();
         passwordCredentials.setTemporary(false); // не нужно будет менять пароль после первого входа
@@ -109,30 +124,56 @@ public class KeycloakUtils {
         uniqueUserResource.roles().realmLevel().add(kcRoles);
     }
 
+    /**
+     * Deletes a user from the Keycloak realm.
+     *
+     * @param userId The ID of the user to be deleted.
+     * @throws UserNotFoundException if the user with the provided ID is not found.
+     */
     public void deleteUser(String userId) {
         UserResource uniqueUserResource;
         try {
             uniqueUserResource = usersResource.get(userId);
             uniqueUserResource.remove();
-        } catch (NotFoundException ex){
+        } catch (NotFoundException ex) {
             throw new UserNotFoundException(ErrorMassage.USER_UUID_NOT_FOUND);
         }
-
     }
 
+    /**
+     * Retrieves a user's representation by their ID.
+     *
+     * @param userId The ID of the user.
+     * @return The UserRepresentation object representing the user.
+     */
     public UserRepresentation findUserById(String userId) {
         return usersResource.get(userId).toRepresentation();
     }
 
+    /**
+     * Searches for users in the Keycloak realm based on a text attribute.
+     *
+     * @param text The text attribute to search for.
+     * @return A list of UserRepresentation objects matching the search criteria.
+     */
     public List<UserRepresentation> searchUserByText(String text) {
         return usersResource.searchByAttributes(text);
     }
 
+    /**
+     * Retrieves a list of all users in the Keycloak realm.
+     *
+     * @return A list of UserRepresentation objects representing all users.
+     */
     public List<UserRepresentation> getAll() {
         return usersResource.list();
     }
 
-
+    /**
+     * Updates a user's information in the Keycloak realm.
+     *
+     * @param user The UserDTO object containing the updated user information.
+     */
     public void updateUser(UserDTO user) {
         CredentialRepresentation credentialRepresentation = createPasswordCredentials(user.getPassword());
         UserRepresentation kcUser = new UserRepresentation();
@@ -142,7 +183,5 @@ public class KeycloakUtils {
         UserResource userResource = usersResource.get(user.getId());
         userResource.update(kcUser);
     }
-
-
 
 }

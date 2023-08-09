@@ -38,8 +38,8 @@ export class SaleEditComponent implements OnInit {
     public productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private SaleService: SaleService,
-    private SaleItemService: SaleItemService,
+    private saleService: SaleService,
+    private saleItemService: SaleItemService,
     private readonly exchangeDataService: ExchangeDataService,
     private messageService: MessageService,
   ) {
@@ -58,7 +58,7 @@ export class SaleEditComponent implements OnInit {
       const sid = +params.get('sid');
       this.newMode = sid === 0;
       if (!this.newMode) {
-        this.SaleService.findById(sid)
+        this.saleService.findById(sid)
           .subscribe(sale => {
             this.editedSale = sale;
             if (this.editedSale === undefined) {
@@ -67,7 +67,7 @@ export class SaleEditComponent implements OnInit {
               });
               return;
             }
-            this.SaleItemService.findItemsBySale(this.editedSale.id)
+            this.saleItemService.findItemsBySale(this.editedSale.id)
               .subscribe(items => {
                 this.itemsInSale = items;
               });
@@ -78,7 +78,7 @@ export class SaleEditComponent implements OnInit {
         this.editedSale.createdAt = new Date();
         this.editedSale.customer = new Customer();
         this.editedSale.customer.id = 1;
-        this.SaleService.findMaxSaleId()
+        this.saleService.findMaxSaleId()
           .subscribe(n => this.editedSale.code = 'sale-' + (n + 1));
       }
     });
@@ -170,22 +170,22 @@ export class SaleEditComponent implements OnInit {
     this.editedSale.sum = sumAllDocument;
 
     if (this.newMode) {
-      this.SaleService.add(this.editedSale).subscribe(d => {
+      this.saleService.add(this.editedSale).subscribe(d => {
           console.log('new sales doc id=' + d.id);
           this.messageService.add(`Added new Sales Document with id #${d.id}`);
           saleId = d.id;
           this.itemsInSale
             .forEach(value => value.Sale = new Sale(saleId));
-          this.SaleItemService.addItems(this.itemsInSale);
+          this.saleItemService.addItems(this.itemsInSale);
         }
       );
     } else {
-      this.SaleService.update(this.editedSale).subscribe();
-      this.SaleItemService.deleteAllItems(this.editedSale.id);
+      this.saleService.update(this.editedSale).subscribe();
+      this.saleItemService.deleteAllItems(this.editedSale.id);
       saleId = this.editedSale.id;
       this.itemsInSale
         .forEach(value => value.Sale = new Sale(saleId));
-      this.SaleItemService.addItems(this.itemsInSale);
+      this.saleItemService.addItems(this.itemsInSale);
     }
 
     // finished, redirect to sales list

@@ -1,10 +1,3 @@
-/**
- * Product.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 13:40
- */
-
 package de.edu.telran.myshop.entity;
 
 
@@ -33,7 +26,7 @@ public class SupplyItem {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // only write the field to jason
     @JoinColumn(name = "supply_id", referencedColumnName = "id")

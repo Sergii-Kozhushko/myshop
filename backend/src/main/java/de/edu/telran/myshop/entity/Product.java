@@ -1,10 +1,3 @@
-/**
- * Product.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 13:40
- */
-
 package de.edu.telran.myshop.entity;
 
 
@@ -41,6 +34,7 @@ public class Product extends BaseEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    // tell Jackson to exclude field from serialization
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory category;

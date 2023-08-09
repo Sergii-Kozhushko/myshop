@@ -1,12 +1,6 @@
-/**
- * ProductController.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:48
- */
+package de.edu.telran.myshop.controller;
 
-package de.edu.telran.myshop.controller.rest;
-
+import de.edu.telran.myshop.config.URILinks;
 import de.edu.telran.myshop.entity.Supply;
 import de.edu.telran.myshop.entity.SupplyItem;
 import de.edu.telran.myshop.service.impl.SupplyItemServiceImpl;
@@ -21,14 +15,12 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(SupplyController.MAIN_PATH)
+@RequestMapping(URILinks.SUPPLY_PATH)
 @RequiredArgsConstructor
 public class SupplyController {
     private final SupplyServiceImpl supplyService;
     private final SupplyItemServiceImpl supplyItemService;
 
-    public static final String MAIN_PATH = "/supply";
-    public static final String ID_COLUMN = "id";
 
     @GetMapping("/all")
     public ResponseEntity<List<Supply>> getAllSupplies() {
@@ -44,14 +36,13 @@ public class SupplyController {
     @Transactional
     public ResponseEntity<Supply> createSupply(@RequestBody final Supply supply)
             throws URISyntaxException {
-
         return ResponseEntity
-                .created(new URI(MAIN_PATH))
+                .created(new URI(URILinks.SUPPLY_PATH))
                 .body(supplyService.create(supply));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteSupply(@PathVariable final Long id) throws Exception {
+    public ResponseEntity<Void> deleteSupply(@PathVariable final Long id) {
 
         supplyService.delete(id);
         return ResponseEntity.noContent().build();
@@ -59,16 +50,16 @@ public class SupplyController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Supply> getSupplyById(@PathVariable("id") Long id
-    ) throws Exception {
+    ) {
 
         return ResponseEntity.ok(supplyService.getById(id));
     }
 
     @PutMapping("/update")
     public ResponseEntity<Supply> updateSupply(@RequestBody final Supply supply
-    ) throws Exception {
+    ) throws URISyntaxException {
 
-        return ResponseEntity.created(new URI(MAIN_PATH))
+        return ResponseEntity.created(new URI(URILinks.SUPPLY_PATH))
                 .body(supplyService.update(supply));
     }
 
@@ -78,10 +69,10 @@ public class SupplyController {
         return ResponseEntity.ok(supplyService.findMaxId());
     }
 
-    // TODO  Разобраться с эксепшеном здесь и ниже
+
     @GetMapping("/get-items/{id}")
     public ResponseEntity<List<SupplyItem>> getSupplyItemsById(@PathVariable("id") Long id
-    ) throws Exception {
+    ) {
 
         return ResponseEntity.ok(supplyItemService.getAllBySupply(id));
     }
@@ -98,6 +89,5 @@ public class SupplyController {
         supplyItemService.addItems(items);
         return ResponseEntity.noContent().build();
     }
-
 
 }

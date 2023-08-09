@@ -38,7 +38,7 @@ export class SupplyItemService extends CommonService<SupplyItem> implements Supp
   }
 
   addItems(list: SupplyItem[]): void {
-
+    console.log(list);
     const operation = new Operation();
     operation.url = this.baseUrl + '/add-items/';
     operation.httpMethod = HttpMethod.POST;
@@ -46,7 +46,7 @@ export class SupplyItemService extends CommonService<SupplyItem> implements Supp
     const rafaelka: SupplyItemSaveDto[] = [];
     list.forEach(item => {
       rafaelka.push(new SupplyItemSaveDto(new Product(item.product.id),
-        new Supply(item.Supply.id),
+        new Supply(item.supply.id),
         item.quantity, item.price)
       );
     });

@@ -1,13 +1,6 @@
-/**
- * ProductController.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:48
- */
+package de.edu.telran.myshop.controller;
 
-package de.edu.telran.myshop.controller.rest;
-
-import de.edu.telran.myshop.dto.CreateCustomerDto;
+import de.edu.telran.myshop.config.URILinks;
 import de.edu.telran.myshop.entity.Customer;
 import de.edu.telran.myshop.search.CustomerSearchValues;
 import de.edu.telran.myshop.service.impl.CustomerServiceImpl;
@@ -25,12 +18,11 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping(CustomerController.MAIN_PATH)
+@RequestMapping(URILinks.CUSTOMER_PATH)
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerServiceImpl customerService;
-    public static final String MAIN_PATH = "/customer";
-    public static final String ID_COLUMN = "id";
+
 
     @GetMapping("/all")
     public ResponseEntity<List<Customer>> getAllCustomers() {
@@ -46,7 +38,7 @@ public class CustomerController {
         Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0 ||
                 sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-        Sort sort = Sort.by(direction, customerSearchValues.getSortColumn(), ID_COLUMN);
+        Sort sort = Sort.by(direction, customerSearchValues.getSortColumn(), URILinks.ID_COLUMN);
         Integer pageNumber = customerSearchValues.getPageNumber() != null ? customerSearchValues.getPageNumber() : 0;
         PageRequest pageRequest = PageRequest.of(customerSearchValues.getPageNumber(), customerSearchValues.getPageSize(), sort);
         Page<Customer> result = customerService.findByParams(
@@ -59,16 +51,16 @@ public class CustomerController {
 
     @PostMapping("/add")
     @Transactional
-    public ResponseEntity<Customer> createCustomer(@RequestBody final Customer customer)
+    public ResponseEntity<?> createCustomer(@RequestBody final Customer customer)
             throws URISyntaxException {
 
         return ResponseEntity
-                .created(new URI(MAIN_PATH))
+                .created(new URI(URILinks.PRODUCT_URI))
                 .body(customerService.create(customer));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable final Long id) throws Exception {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable final Long id) {
 
         customerService.delete(id);
         return ResponseEntity.noContent().build();
@@ -76,7 +68,7 @@ public class CustomerController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id
-    ) throws Exception {
+    ) {
 
         return ResponseEntity.ok(customerService.getById(id));
     }
@@ -85,7 +77,7 @@ public class CustomerController {
     public ResponseEntity<Customer> updateCustomer(@RequestBody final Customer customer
     ) throws Exception {
 
-        return ResponseEntity.created(new URI(MAIN_PATH))
+        return ResponseEntity.created(new URI(URILinks.PRODUCT_URI))
                 .body(customerService.update(customer));
     }
 

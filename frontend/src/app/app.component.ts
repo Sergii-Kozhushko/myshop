@@ -21,20 +21,15 @@ export class AppComponent implements OnInit {
 
   constructor(private spinnerService: SpinnerService,
               private keycloakService: KeycloakService,
-              private router: Router,
-              private customerService: CustomerService,
-              private categoryService: CategoryService,
-              private productService: ProductService,
-              private supplierService: SupplierService) {
+              private router: Router) {
 
   }
 
   ngOnInit(): void {
     this.spinner = this.spinnerService;
-    this.customerService.refreshCustomersList();
-    this.categoryService.refreshCategoriesList();
-    this.productService.refreshProductsList();
-    this.supplierService.refreshSuppliersList();
+
+
+
 
 
     this.cookieEnabled = navigator.cookieEnabled; // проверяем включены ли куки в браузере

@@ -10,6 +10,12 @@
         </a>
       </th>
       <th class="center">
+        <a routerLink="/supply/" (click)="changeSortMode('Supplier')">Supplier
+          {{sortField === 'Supplier' && sortMode == 'Desc' ? '↓' : ''}}
+          {{sortField === 'Supplier' && sortMode == 'Asc' ? '↑' : ''}}
+        </a>
+      </th>
+      <th class="center">
         <a routerLink="/supply" (click)="changeSortMode('Code')">Code
           {{sortField === 'Code' && sortMode == 'Desc' ? '↓' : ''}}
           {{sortField === 'Code' && sortMode == 'Asc' ? '↑' : ''}}
@@ -44,6 +50,11 @@
     <tr *ngFor="let supply of supplies">
       <td class="single-grid-cell center">{{supply.id}}</td>
       <td class="single-grid-cell">
+        <a routerLink="/supply/edit/{{supply.id}}">
+          {{supply.supplier.name}}
+        </a>
+      </td>
+      <td class="single-grid-cell">
         <a routerLink="/supply/edit/{{supply.id}}">{{supply.code}}</a>
       </td>
       <td class="single-grid-cell center">
@@ -53,10 +64,7 @@
         </a>
       </td>
       <td class="single-grid-cell center">
-        <a
-          routerLink="/supply/edit/{{supply.id}}">
           {{ supply.updatedAt | date:'dd.MM.yyyy HH:mm' }}
-        </a>
       </td>
       <td class="single-grid-cell center">{{supply.sum | number: '1.2-2'}}</td>
       <td class="single-grid-cell center">{{supply.isActive}}</td>
@@ -65,6 +73,6 @@
   </table>
 
   <div>
-    <button class="button button-save" type="button" (click)="addNew()">Add</button>
+    <button class="button button-save" type="button" (click)="addNew()">Add↘</button>
   </div>
 </div>

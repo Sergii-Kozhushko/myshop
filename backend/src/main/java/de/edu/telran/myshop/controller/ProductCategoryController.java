@@ -1,12 +1,6 @@
-/**
- * CategoryController.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 09-Jul-2023 12:04
- */
+package de.edu.telran.myshop.controller;
 
-package de.edu.telran.myshop.controller.rest;
-
+import de.edu.telran.myshop.config.URILinks;
 import de.edu.telran.myshop.entity.ProductCategory;
 import de.edu.telran.myshop.service.impl.ProductCategoryServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +12,10 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(ProductCategoryController.MAIN_PATH)
+@RequestMapping(URILinks.CATEGORY_PATH)
 @RequiredArgsConstructor
 public class ProductCategoryController {
-    public static final String MAIN_PATH = "/category";
+
     private final ProductCategoryServiceImpl productCategoryService;
 
     @GetMapping("/all")
@@ -35,21 +29,20 @@ public class ProductCategoryController {
             throws URISyntaxException {
 
         return ResponseEntity
-                .created(new URI(MAIN_PATH))
+                .created(new URI(URILinks.CATEGORY_PATH))
                 .body(productCategoryService.createProductCategory(productCategory));
     }
 
     @PutMapping("/update")
     public ResponseEntity<ProductCategory> updateProductCategory(@RequestBody final ProductCategory productCategory
-    ) throws Exception {
+    ) throws URISyntaxException {
 
-        return ResponseEntity.created(new URI(MAIN_PATH))
+        return ResponseEntity.created(new URI(URILinks.CATEGORY_PATH))
                 .body(productCategoryService.update(productCategory));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteProductCategory(@PathVariable final Integer id) {
-
         productCategoryService.delete(id);
         return ResponseEntity.noContent().build();
     }

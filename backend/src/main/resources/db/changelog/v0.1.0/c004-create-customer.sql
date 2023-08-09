@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS myshop.customer
     phone           varchar(255),
     email           varchar(255),
     discount        int,
-    discount_card   varchar(20),
+    discount_card   varchar(20)                 DEFAULT '',
     created_at      timestamp without time zone DEFAULT now(),
     updated_at      timestamp without time zone DEFAULT now(),
     date_of_birth   timestamp without time zone,

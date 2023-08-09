@@ -1,18 +1,10 @@
-/**
- * UserController.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 15-Jul-2023 07:50
- */
+package de.edu.telran.myshop.controller;
 
-package de.edu.telran.myshop.controller.rest;
-
-import de.edu.telran.myshop.dto.UserDTO;
+import de.edu.telran.myshop.config.URILinks;
 import de.edu.telran.myshop.entity.User;
 import de.edu.telran.myshop.exception.ErrorMassage;
-import de.edu.telran.myshop.exception.ProductNotFoundException;
 import de.edu.telran.myshop.exception.UserAlreadyExistsException;
-import de.edu.telran.myshop.keycloak.KeycloakUtils;
+import de.edu.telran.myshop.security.KeycloakUtils;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -21,14 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(UserAdminController.MAIN_PATH)
+@RequestMapping(URILinks.USER_ADMIN_PATH)
 @RequiredArgsConstructor
 public class UserAdminController {
-    public static final String MAIN_PATH = "/admin/user";
+    
     private final KeycloakUtils keycloakUtils;
 
     @GetMapping("/all")

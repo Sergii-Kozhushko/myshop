@@ -24,7 +24,7 @@ h3 {
   font-size: 1.3em;
   color: #3961ff;
   font-family: 'Seymour One', sans-serif;
-  margin-bottom: 12px;
+  margin-bottom: 0.1em;
 }
 
 a {
@@ -66,6 +66,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 12px;
 }
 
 
@@ -85,6 +86,23 @@ body {
   border: none;
 }
 .button:hover {
+  background: #e94935;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.button-small {
+  background: #ff4c38;
+  color: #ebe583;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1.3em;
+  border-radius: 0px;
+  box-sizing: border-box;
+  margin: 2px 2px 2px 2px;
+  padding: 0px 5px;
+  border: none;
+}
+.button-small:hover {
   background: #e94935;
   font-family: 'DM Sans', sans-serif;
 }
@@ -118,7 +136,7 @@ label {
   border-bottom: #ccc 2px solid;
   padding: 4px 12px;
   color: black;
-  margin: 10px;
+  margin: 0px 4px;
   border-radius: 1px;
   box-sizing: border-box;
 }
@@ -142,9 +160,9 @@ label {
   font-family: 'DM Sans', sans-serif;
   font-size: 1.1em;
   font-weight: 400;
-  height: 40px;
+  height: 36px;
   border: #ccc 1px solid;
-  margin: 10px;
+  margin: 0 10px;
   border-radius: 1px;
   border-bottom: #ccc 2px solid;
   padding: 2px 12px;
@@ -238,7 +256,8 @@ label {
   justify-content: center;
   width: 100%;
   border: 0px solid #403f3f;
-
+  gap: 10px;
+  margin-top: 5px;
   flex-direction: row;
 }
 
@@ -248,7 +267,7 @@ label {
 }
 
 .items-grid {
-  margin: 20px;
+  margin: 0px;
   border: 0px solid #403f3f;
 }
 
@@ -280,7 +299,7 @@ label {
 }
 
 .item-grid-cell {
-  padding: 4px 6px 2px 8px;
+  padding: 2px;
 
 
 }
@@ -305,8 +324,8 @@ label {
 
 .item-grid-table {
   border: 0px solid;
-
   background: #fcd12a;
+  width: 100%;
 }
 .item-grid-table thead {
   border-top: 2px solid black;
@@ -326,7 +345,7 @@ thead tr th {
 }
 
 th {
-  padding: 5px;
+  padding: 2px;
 }
 
 
@@ -342,20 +361,11 @@ th {
   /*padding: 3px;*/
 }
 
-.edit-item-title {
-  font-weight: 700;
-  font-size: 2.0em;
-  color: #3961ff;
-  font-family: 'Seymour One', sans-serif;
-}
+
 
 .container-document-fields {
   border: 0px solid #CFD8DC;
   margin: 10px;
-  padding: 15px;
-  /*border-radius: 20px;*/
-  /*box-shadow: 0px 1px 3px rgba(40, 41, 61, 0.24), 0px 4px 6px rgba(96, 97, 112, 0.24);*/
-
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -379,7 +389,7 @@ th {
   justify-content: center;
   width: 100%;
   border: 0px solid #403f3f;
-  padding: 1em;
+  padding: 0.6em 0;
 }
 
 .document-edit--product-grid {
@@ -433,8 +443,14 @@ th {
 }
 
 .products-table-box{
-  width: 600px;
-  height: 700px;
+  width: 750px;
+  height: 650px;
+  border: 0px solid black;
+}
+.customers-table-box{
+  width: 900px;
+  height: 650px;
+  border: 0px solid black;
 }
 
 .categories-items {

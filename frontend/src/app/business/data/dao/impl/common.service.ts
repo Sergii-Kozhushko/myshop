@@ -24,7 +24,7 @@ export class CommonService<T> implements CommonDAO<T> {
   constructor(url: string,  // базовый URL для доступа к данным
               private httpClient: HttpClient,
               private router: Router,
-              protected messageService: MessageService// для выполнения HTTP запросов
+              protected messageService: MessageService // для выполнения HTTP запросов
   ) {
     this.url = url;
   }
@@ -32,7 +32,6 @@ export class CommonService<T> implements CommonDAO<T> {
   // основной смысл всех методов - просто вызвать BBF и передать туда параметры
 
   add(t: T): Observable<T> {
-
     const operation = new Operation();
     operation.url = this.url + '/add'; // это адрес, который BFF будет вызывать у Resource Server, добавляя к запросу access token
     operation.body = t; // вложенный объект (конвертируется в JSON автоматически)
@@ -128,17 +127,20 @@ export class CommonService<T> implements CommonDAO<T> {
 
   handleError(error: HttpErrorResponse): void {
     console.log('Status:', error.status);
+    console.log('Error Message:', error);
+
+    const errorMessage = error.error && error.error.message ? error.error.message : 'Unknown error occurred';
+
+
+    // Добавляем сообщение об ошибке в messageService
+    //this.messageService.add('Error occurred. Status: ' + error.status + '. Message: ' + errorMessage);
 
     if (error.status === 400) {
       this.router.navigate(['login']);
     }
 
     // Получаем сообщение об ошибке из тела ответа сервера, если оно есть
-    const errorMessage = error.error && error.error.message ? error.error.message : 'Unknown error occurred';
-    console.log('Error Message:', errorMessage);
 
-    // Добавляем сообщение об ошибке в messageService
-    this.messageService.add('Error updating product. Status: ' + error.status + '. Message: ' + errorMessage);
   }
 
 

@@ -1,26 +1,18 @@
-/**
- * ProductService.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:46
- */
-
 package de.edu.telran.myshop.service.impl;
 
 import de.edu.telran.myshop.dto.CreateProductDto;
-import de.edu.telran.myshop.dto.UpdateProductDto;
 import de.edu.telran.myshop.entity.Product;
 import de.edu.telran.myshop.exception.*;
 import de.edu.telran.myshop.mapper.ProductMapper;
 import de.edu.telran.myshop.mapper.UpdateProductMapper;
 import de.edu.telran.myshop.repository.ProductRepository;
+import de.edu.telran.myshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import de.edu.telran.myshop.service.interfaces.*;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -91,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-
+    @Override
     @Cacheable(cacheNames = "products")
     public Page<Product> findByParams(String name, Boolean active, PageRequest paging) {
         return productRepository.findByParams(name, active, paging);

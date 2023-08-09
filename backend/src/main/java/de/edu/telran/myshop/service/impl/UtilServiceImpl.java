@@ -1,10 +1,3 @@
-/**
- * UtilServiceImpl.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 05-Aug-2023 16:47
- */
-
 package de.edu.telran.myshop.service.impl;
 
 import de.edu.telran.myshop.entity.SaleItem;
@@ -13,6 +6,7 @@ import de.edu.telran.myshop.entity.Product;
 import de.edu.telran.myshop.exception.ErrorMassage;
 import de.edu.telran.myshop.exception.ProductNotFoundException;
 import de.edu.telran.myshop.repository.ProductRepository;
+import de.edu.telran.myshop.service.UtilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +14,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UtilServiceImpl {
+public class UtilServiceImpl implements UtilService {
     private final ProductRepository productRepository;
 
     /**
-     * Updates the quantity of products based on the provided list of SupplyItem items.
+     * Updates stock: the quantity of products based on the provided list of SupplyItem items.
      *
      * @param list The list of SupplyItem or Sale items containing the products to update.
      * @param add  True if the quantity should be added to the existing product quantity; false if it should be subtracted.

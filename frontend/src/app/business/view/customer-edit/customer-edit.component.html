@@ -2,7 +2,9 @@
 
   <form class="common-box customer-edit-box-width">
     <div class="edit-item-row-box">
-      <span class="edit-item-title">{{ editedCustomer.id === 0 ? 'Add' : 'Edit' }} Customer</span>
+      <h3 *ngIf="editedCustomer">
+        {{ editedCustomer.id === 0|| editedCustomer.id === undefined ? 'Add' : 'Edit' }}
+        Customer</h3>
     </div>
     <div class="edit-item-row-box">
       <label>Id</label>

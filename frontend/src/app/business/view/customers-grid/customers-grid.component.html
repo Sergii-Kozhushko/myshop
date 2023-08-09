@@ -1,44 +1,56 @@
 <div class="common-box">
-  <h2>Customers list</h2>
-  <table class="item-grid-table">
-    <thead>
-    <tr>
-      <th class="center">Id</th>
-      <th>Name</th>
-      <th class="center">E-mail</th>
-      <th class="center">Phone</th>
-      <th class="center">Address</th>
-      <th class="center">Discount, %</th>
-      <th class="center">Discount Card No</th>
-      <th class="center">Date of birth</th>
-      <th class="center">Accept sms-list</th>
-    </tr>
-    </thead>
-    <tbody>
+  <h3>Customers list</h3>
+  <div class="customers-table-box">
+    <table class="item-grid-table">
+      <thead>
+      <tr>
+        <th class="center">Id</th>
+        <th>Name</th>
+        <th class="center">E-mail</th>
+        <th class="center">Phone</th>
+<!--        <th class="center">Address</th>-->
+        <th class="center">Discount, %</th>
+        <th class="center">Discount Card No</th>
+        <th class="center">Date of birth</th>
+        <th class="center">Accept sms-list</th>
+      </tr>
+      </thead>
+      <tbody>
 
-    <tr *ngFor="let customer of customers">
-      <td class="item-grid-cell center">{{customer.id}}</td>
-      <td class="item-grid-cell">
-        <a (click)="editCustomer(customer.id)"
-           routerLink="/customers/{{customer.id}}">{{customer.name}}</a>
-      </td>
-      <td class="item-grid-cell center">
-        {{ customer.email.length > 10 ? customer.email.substring(0, 10) + '...' : customer.email }}
-      </td>
-      <td class="item-grid-cell center">
-        {{ customer.phone.length > 10 ? customer.phone.substring(0, 10) + '...' : customer.phone }}
+      <tr *ngFor="let customer of customers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+        <td class="item-grid-cell center">{{customer.id}}</td>
+        <td class="item-grid-cell">
+          <a (click)="editCustomer(customer.id)"
+             routerLink="/customers/{{customer.id}}">{{customer.name}}</a>
+        </td>
+        <td class="item-grid-cell center">
 
-      </td>
-      <td class="item-grid-cell center">
-        {{ customer.address.length > 15 ? customer.address.substring(0, 15) + '...' : customer.address }}</td>
-      <td class="item-grid-cell center">{{customer.discountValue}}</td>
-      <td class="item-grid-cell center">{{customer.discountCardNumber}}</td>
-      <td class="item-grid-cell center">{{ customer.dateBirth | date:'dd.MM.yyyy' }}</td>
-      <td class="item-grid-cell center">{{customer.acceptSMSList}}</td>
+            {{ customer.email.length > 10 ? customer.email.substring(0, 10) + '...' : customer.email }}
 
-    </tr>
-    </tbody>
-  </table>
+        </td>
+        <td class="item-grid-cell center">
+
+          {{ customer.phone.length > 10 ? customer.phone.substring(0, 10) + '...' : customer.phone }}
+
+
+        </td>
+<!--        <td class="item-grid-cell center">-->
+<!--          {{ customer.address.length > 15 ? customer.address.substring(0, 15) + '...' : customer.address }}</td>-->
+        <td class="item-grid-cell center">{{customer.discountValue}}</td>
+        <td class="item-grid-cell center">{{customer.discountCardNumber}}</td>
+        <td class="item-grid-cell center">{{ customer.dateBirth | date:'dd.MM.yyyy' }}</td>
+        <td class="item-grid-cell center">{{customer.acceptSMSList}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <pagination-controls (pageChange)="currentPage = $event; "></pagination-controls>
+  </div>
+
+  </div>
+
+<div class="row-box-buttons">
   <div>
   </div>
 </div>

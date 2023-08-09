@@ -37,8 +37,8 @@ export class SupplyEditComponent implements OnInit {
     public productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private SupplyService: SupplyService,
-    private SupplyItemService: SupplyItemService,
+    private supplyService: SupplyService,
+    private supplyItemService: SupplyItemService,
     private readonly exchangeDataService: ExchangeDataService,
     private messageService: MessageService,
   ) {
@@ -57,7 +57,7 @@ export class SupplyEditComponent implements OnInit {
       const sid = +params.get('sid');
       this.newMode = sid === 0;
       if (!this.newMode) {
-        this.SupplyService.findById(sid)
+        this.supplyService.findById(sid)
           .subscribe(supply => {
             this.editedDocument = supply;
             if (this.editedDocument === undefined) {
@@ -67,7 +67,7 @@ export class SupplyEditComponent implements OnInit {
               return;
             }
             // load items from backend
-            this.SupplyItemService.findItemsBySupply(this.editedDocument.id)
+            this.supplyItemService.findItemsBySupply(this.editedDocument.id)
               .subscribe(items => {
                 this.items = items;
               });
@@ -80,7 +80,7 @@ export class SupplyEditComponent implements OnInit {
         this.editedDocument.supplier.id = 1;
         // this.editedDocument.customer = new Customer();
         // this.editedDocument.customer.id = 1;
-        this.SupplyService.findMaxSupplyId()
+        this.supplyService.findMaxSupplyId()
           .subscribe(n => this.editedDocument.code = 'supply-' + (n + 1));
       }
     });
@@ -88,6 +88,7 @@ export class SupplyEditComponent implements OnInit {
     this.exchangeDataService.getCategories()
       .subscribe(list => {
           this.categories = list;
+        console.log(this.categories);
         }
       );
     this.exchangeDataService.getProducts()
@@ -179,25 +180,27 @@ export class SupplyEditComponent implements OnInit {
     this.editedDocument.sum = sumAllDocument;
 
     if (this.newMode) {
-      this.SupplyService.add(this.editedDocument).subscribe(d => {
+      this.supplyService.add(this.editedDocument).subscribe(d => {
 
           this.messageService.add(`Added new Supply Document with id #${d.id}`);
           supplyId = d.id;
 
           this.items
             .forEach(value => {
-              value.Supply = new Supply(supplyId);
+              value.supply = new Supply(supplyId);
             });
-          this.SupplyItemService.addItems(this.items);
+          this.supplyItemService.addItems(this.items);
         }
       );
     } else {
-      this.SupplyService.update(this.editedDocument).subscribe();
-      this.SupplyItemService.deleteAllItems(this.editedDocument.id);
+      this.supplyService.update(this.editedDocument).subscribe();
+      this.supplyItemService.deleteAllItems(this.editedDocument.id);
       supplyId = this.editedDocument.id;
+      console.log('supply id=' + supplyId);
+
       this.items
-        .forEach(value => value.Supply = new Supply(supplyId));
-      this.SupplyItemService.addItems(this.items);
+        .forEach(value => value.supply = this.editedDocument);
+      this.supplyItemService.addItems(this.items);
     }
     // now we must refresh all-app product-list
     this.productService.refreshProductsList();

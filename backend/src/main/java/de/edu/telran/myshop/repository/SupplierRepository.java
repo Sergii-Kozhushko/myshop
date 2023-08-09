@@ -18,17 +18,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
-    // empty parameters don't affect result
-//    @Query("SELECT c FROM Customer c where " +
-//            "(:name is null or :name='' or lower(c.name) like lower(concat('%', :name,'%'))) and" +
-//            "(:phone is null or :phone='' or lower(c.phone) like lower(concat('%', :phone,'%'))) and" +
-//            "(:email is null or :email='' or lower(c.email) like lower(concat('%', :email,'%')))"
-//    )
-//    Page<Customer> findByParams(@Param("name") String name,
-//                                @Param("email") String email,
-//                                @Param("phone") String phone,
-//                                Pageable pageable
-//    );
+
     @Query("SELECT MAX (s.id) FROM Supplier s")
     Long maxSupplierId();
 

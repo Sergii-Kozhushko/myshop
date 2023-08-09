@@ -7,6 +7,7 @@ import {ExchangeDataService} from '../../service/exchange.data.service';
 import {MessageService} from '../../service/message.service';
 import {CustomerService} from '../../data/dao/impl/customer.service';
 import {DateUtils} from '../../utils/DateUtils';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @Component({
   selector: 'app-customers-grid',
@@ -16,6 +17,8 @@ import {DateUtils} from '../../utils/DateUtils';
 export class CustomersGridComponent implements OnInit {
   customers: Customer[];
   editedCustomer: Customer;
+  currentPage: number = 1;
+  itemsPerPage: number = 20;
 
   constructor(public customerService: CustomerService,
               private categoryService: CategoryService,
@@ -25,15 +28,20 @@ export class CustomersGridComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchAllCustomers();
+    //this.fetchAllCustomers();
 
-    this.exchangeDataService.getUpdateCustomersInGrid()
-      .subscribe(update => {
-        this.fetchAllCustomers();
-
-
-        // this.fetchProductsBySelectedCategory();
-      });
+    // this.exchangeDataService.getUpdateCustomersInGrid()
+    //   .subscribe(update => {
+    //     this.fetchAllCustomers();
+    //
+    //
+    //     // this.fetchProductsBySelectedCategory();
+    //   });
+    this.exchangeDataService.getCustomers()
+      .subscribe(list => {
+          this.customers = list;
+        }
+      );
   }
 
   fetchAllCustomers(): void {

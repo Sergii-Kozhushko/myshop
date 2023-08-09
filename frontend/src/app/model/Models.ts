@@ -38,10 +38,10 @@ export class Product {
 
 export class Customer {
   id: number;
-  name: string;
+  name: string = '';
   address: string;
-  phone: string;
-  email: string;
+  phone: string = '';
+  email: string = '';
   discountValue: number;
   discountCardNumber: string;
   dateBirth?: Date; // ? - property optional
@@ -111,7 +111,7 @@ export class Supply {
 export class SupplyItem {
   id: number;
   product: Product;
-  Supply: Supply;
+  supply: Supply;
   quantity: number;
   price: number;
 

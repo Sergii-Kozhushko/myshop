@@ -30,13 +30,14 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.clearEditedCustomer();
     this.exchangeDataService.getEditedCustomer()
       .subscribe((customer) => {
         console.log('edited customer subscribe worked');
         console.log(customer);
         this.editedCustomer = customer;
       });
-    this.clearEditedCustomer();
+    console.log('edited customer id=' + this.editedCustomer.id);
 
 
   }
@@ -55,16 +56,23 @@ export class CustomerEditComponent implements OnInit {
   }
 
   addNew(): void {
-    if (!this.editedCustomer.name.trim()) {
+    if (!this.editedCustomer.name || !this.editedCustomer.name.trim()) {
       this.messageService.add('Can\'t add customer with empty name');
-
       return;
     }
 
+    this.setEmptyFields();
+    this.customerService.test();
     this.customerService.add(this.editedCustomer).subscribe(result => {
       this.messageService.add(`Customer '${this.editedCustomer.name}' added successfully`);
       this.clearEditedCustomer();
-      this.exchangeDataService.setUpdateCustomersInGrid();
+      // this.exchangeDataService.setUpdateCustomersInGrid();
+      // this.customerService.refreshCustomersList();
+      this.customerService.findAll()
+        .subscribe(list => {
+          this.exchangeDataService.setCustomers(list);
+          this.messageService.add('Customer list was uploaded from backend server');
+        });
     });
 
 
@@ -79,12 +87,27 @@ export class CustomerEditComponent implements OnInit {
     const [day, month, year] = birthDateValue.split('.');
     this.editedCustomer.dateBirth = new Date(`${year}-${month}-${day}`);
 
-
+    this.setEmptyFields();
     this.customerService.update(this.editedCustomer).subscribe();
     this.messageService.add(`Updated product '${this.editedCustomer.name}'`);
     this.clearEditedCustomer();
     // this.exchangeDataService.setEditedProduct(this.editedProduct);
     this.exchangeDataService.setUpdateCustomersInGrid();
+  }
+
+  setEmptyFields(): void {
+    if (!this.editedCustomer.email) {
+      this.editedCustomer.email = '';
+    }
+    if (!this.editedCustomer.address) {
+      this.editedCustomer.address = '';
+    }
+    if (!this.editedCustomer.phone) {
+      this.editedCustomer.phone = '';
+    }
+    if (!this.editedCustomer.discountCardNumber) {
+      this.editedCustomer.discountCardNumber = '';
+    }
   }
 
   delete(): void {

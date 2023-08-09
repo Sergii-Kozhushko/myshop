@@ -1,5 +1,12 @@
 version: '3.9'
 services:
+  angular-front:
+    container_name: myshop-angular-front
+    image: myshop-angular-docker
+    networks:
+      - network-1
+    ports:
+      - "4200:4200"
   pgserver-myshop:
     container_name: pgserver-myshop
     image: postgres
@@ -16,8 +23,8 @@ services:
       POSTGRES_PASSWORD: rootroot
 
   app-myshop:
-    container_name: myshop
-    image: myshop_test
+    container_name: myshop-app
+    image: myshop-app
     build:
       context: ./
       dockerfile: Dockerfile

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -51,12 +50,12 @@ public class SpringSecurityConfig {
     }
 
 
-    // все эти настройки обязательны для корректного сохранения куков в браузере
+    // Cors-request are requests, when makes request to another host (bff)
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true); // без этого куки могут не сохраняться
-        configuration.setAllowedOrigins(Arrays.asList(clientURL));
+        configuration.setAllowCredentials(true); // allow to send cookies with cors-requests
+        configuration.setAllowedOrigins(Arrays.asList(clientURL));// from which host to accept cors
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

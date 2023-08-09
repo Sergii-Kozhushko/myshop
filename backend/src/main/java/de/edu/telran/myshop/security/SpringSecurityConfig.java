@@ -1,10 +1,6 @@
 package de.edu.telran.myshop.security;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,76 +9,69 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
-import java.util.Arrays;
-
-@Configuration // данный класс будет считан как конфиг для spring контейнера
-@EnableWebSecurity // включает механизм защиты адресов, которые настраиваются в SecurityFilterChain
-@EnableGlobalMethodSecurity(prePostEnabled = true) // включение механизма для защиты методов по ролям
+/**
+ * Configuration class for Spring Security settings.
+ * <p>
+ * This class defines security settings for protecting URLs and enabling global method security.
+ */
+@Configuration // This class will be recognized as a configuration for the Spring container
+@EnableWebSecurity // Enables URL protection mechanism configured in SecurityFilterChain
+@EnableGlobalMethodSecurity(prePostEnabled = true) // Enables method-level security based on roles
 public class SpringSecurityConfig {
 
     @Value("${client.url}")
-    private String clientURL; // клиентский URL
+    private String clientURL; // Client URL
 
-    // создается спец. бин, который отвечает за настройки запросов по http (метод вызывается автоматически) Spring контейнером
+    /**
+     * Creates a SecurityFilterChain bean to configure HTTP requests.
+     *
+     * @param http The HttpSecurity object to configure.
+     * @return The configured SecurityFilterChain.
+     * @throws Exception If an exception occurs during configuration.
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // конвертер для настройки spring security
+        // Converter for Spring Security configuration
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        // подключаем конвертер ролей
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KCRoleConverter());
-        // все сетевые настройки
-        http.
-                authorizeRequests()
+        // Attach role converter
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
+
+        // All network settings
+        http
+                .authorizeRequests()
                 .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/admin/*").hasRole("admin") // CRUD для работы с пользователями
-                .antMatchers("/user/*").hasRole("user") // действия самого пользователям (регистрация и пр.)
+                .antMatchers("/admin/*").hasRole("admin") // CRUD operations for user management
+                .antMatchers("/user/*").hasRole("user") // User's own actions (registration, etc.)
                 .antMatchers("/category/*").hasRole("user")
-
-//                .anyRequest().authenticated() // остальной API будет доступен только аутентифицированным пользователям
+                .antMatchers("/customer/*").hasRole("user")
+                .antMatchers("/prod/*").hasRole("user")
+                // Additional antMatchers can be configured here
                 .and()
-
-                .csrf().disable() // отключаем встроенную защиту от CSRF атак, т.к. используем свою, из OAUTH2
-                .cors()// разрешает выполнять OPTIONS запросы от клиента (preflight запросы) без авторизации
+                .csrf().disable() // Disable built-in CSRF protection, using OAuth2's
+                .cors() // Allow OPTIONS requests (preflight) without authorization
                 .and()
-
-
-                // добавляем новые настройки, не связанные с предыдущими
-
-                .oauth2ResourceServer() // включаем защиту OAuth2 для данного backend
+                .oauth2ResourceServer() // Enable OAuth2 protection for this backend
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter)
                 .and()
                 .authenticationEntryPoint(new OAuth2ExceptionHandler())
-        ; // добавляем конвертер ролей из JWT в Authority (Role)
+        ; // Attach role converter from JWT to Authority (Role)
 
         return http.build();
     }
 
-    // чтобы не было отклонения запросов с недопустимыми значениями в заголовках
+    /**
+     * Creates a StrictHttpFirewall bean to prevent requests with invalid header values.
+     *
+     * @return The configured StrictHttpFirewall.
+     */
     @Bean
     public StrictHttpFirewall httpFirewall() {
         StrictHttpFirewall firewall = new StrictHttpFirewall();
         firewall.setAllowedHeaderNames((header) -> true);
-        firewall.setAllowedHeaderValues((header) -> true); // не отклонять запросы с не ISO символами
+        firewall.setAllowedHeaderValues((header) -> true); // Do not reject requests with non-ISO characters
         firewall.setAllowedParameterNames((parameter) -> true);
         return firewall;
     }
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList(clientURL));
-//        configuration.setAllowedHeaders(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("*"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
-
 }

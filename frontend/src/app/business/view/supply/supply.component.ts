@@ -68,6 +68,10 @@ export class SupplyComponent implements OnInit {
       this.supplies.sort((a, b) =>
         this.sortMode === 'Desc' ? a.code.localeCompare(b.code) : b.code.localeCompare(a.code));
     }
+    if (field === 'Supplier') {
+      this.supplies.sort((a, b) =>
+        this.sortMode === 'Desc' ? a.supplier.name.localeCompare(b.supplier.name) : b.supplier.name.localeCompare(a.supplier.name));
+    }
     if (field === 'Sum') {
       this.supplies.sort((a, b) => this.sortMode === 'Desc' ? b.sum - a.sum : a.sum - b.sum);
     }

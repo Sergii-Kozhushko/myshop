@@ -24,17 +24,17 @@
             {{sortField === 'Created At' && sortMode == 'Desc' ? '↓' : ''}}
             {{sortField === 'Created At' && sortMode == 'Asc' ? '↑' : ''}}
           </a></th>
-          <th class="center"><a routerLink="/sales/" (click)="changeSortMode('Sum')">Sum, EUR
-            {{sortField === 'Sum' && sortMode == 'Desc' ? '↓' : ''}}
-            {{sortField === 'Sum' && sortMode == 'Asc' ? '↑' : ''}}
-          </a>
 
-          </th>
           <th class="center">
             <a routerLink="/sales/" (click)="changeSortMode('Customer')">Customer
               {{sortField === 'Customer' && sortMode == 'Desc' ? '↓' : ''}}
               {{sortField === 'Customer' && sortMode == 'Asc' ? '↑' : ''}}
             </a>
+          </th>
+          <th class="center"><a routerLink="/sales/" (click)="changeSortMode('Sum')">Sum, EUR
+            {{sortField === 'Sum' && sortMode == 'Desc' ? '↓' : ''}}
+            {{sortField === 'Sum' && sortMode == 'Asc' ? '↑' : ''}}
+          </a>
           </th>
           <th class="center">
             <a routerLink="/sales/" (click)="changeSortMode('Discount')">Discount
@@ -50,7 +50,7 @@
           </th>
 
 
-          <th class="center">is Active</th>
+          <th class="center">Deleted?</th>
 
 
         </tr>
@@ -68,8 +68,8 @@
               {{ sale.createdAt | date:'dd.MM.yyyy HH:mm' }}
             </a>
           </td>
-          <td class="single-grid-cell center">{{sale.sum | number: '1.2-2'}}</td>
           <td class="single-grid-cell center">{{sale.customer.name}}</td>
+          <td class="single-grid-cell center">{{sale.sum | number: '1.2-2'}}</td>
           <td class="single-grid-cell center">{{sale.discount}}</td>
           <td class="single-grid-cell center">
             {{ sale.saleCondition }}</td>

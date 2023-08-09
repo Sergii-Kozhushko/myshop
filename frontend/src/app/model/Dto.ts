@@ -19,14 +19,14 @@ export class SaleItemSaveDto {
 export class SupplyItemSaveDto {
 
   product: Product;
-  Supply: Supply;
+  supply: Supply;
   quantity: number;
   price: number;
 
 
-  constructor(product: Product, Supply: Supply, quantity: number, price: number) {
+  constructor(product: Product, supply: Supply, quantity: number, price: number) {
     this.product = product;
-    this.Supply = Supply;
+    this.supply = supply;
     this.quantity = quantity;
     this.price = price;
   }

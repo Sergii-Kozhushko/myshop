@@ -1,10 +1,3 @@
-/**
- * ResponseExceptionHandler.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 09-Jul-2023 11:01
- */
-
 package de.edu.telran.myshop.exception;
 
 import de.edu.telran.myshop.dto.ErrorResponse;
@@ -26,6 +19,14 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(new ErrorResponse(ex.getMessage()));
     }
 
+    @ExceptionHandler(InvalidCustomerParameterException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidCustomerParameterException(Exception ex) {
+
+        return ResponseEntity.status(CONFLICT)
+                .body(new ErrorResponse(ex.getMessage()));
+    }
+
+
     @ExceptionHandler(InvalidProductParameterException.class)
     public ResponseEntity<ErrorResponse> handleProductIDNullException(Exception ex) {
 
@@ -42,13 +43,6 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-//    @ExceptionHandler(CategoryIdMustBeEmptyException.class)
-//    public ResponseEntity<ErrorResponse> handleCategoryIdMustBeEmptyException(Exception ex) {
-//        ErrorResponse body = new ErrorResponse(
-//                ex.getMessage(),
-//                ErrorCode.CATEGORY_ID_NOT_EMPTY);
-//        return new ResponseEntity<>(body, BAD_REQUEST);
-//    }
 
     @ExceptionHandler(ProductCategoryInvalidParameterException.class)
     public ResponseEntity<ErrorResponse> handleCategoryInvalidParameterException(Exception ex) {
@@ -70,6 +64,12 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(new ErrorResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(SupplyNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleSupplyNotFoundException(Exception ex) {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
                 .body(new ErrorResponse(ex.getMessage()));
     }

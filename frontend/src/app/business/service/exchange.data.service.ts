@@ -24,11 +24,12 @@ export class ExchangeDataService{
   private customers$: BehaviorSubject<Customer[]> = new BehaviorSubject<Customer[]>([]);
 
 
+
+
   constructor(private customerService: CustomerService) {
 
 
   }
-
 
   getSuppliers(): Subject<Supplier[]> {
     return this.suppliers$;
@@ -36,7 +37,7 @@ export class ExchangeDataService{
   setSuppliers(c: Supplier[]): void {
     this.suppliers$.next(c);
   }
-  getCustomers(): Subject<Customer[]> {
+  getCustomers(): BehaviorSubject<Customer[]> {
     return this.customers$;
   }
 

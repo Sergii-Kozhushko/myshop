@@ -1,12 +1,6 @@
-/**
- * ProductController.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:48
- */
+package de.edu.telran.myshop.controller;
 
-package de.edu.telran.myshop.controller.rest;
-
+import de.edu.telran.myshop.config.URILinks;
 import de.edu.telran.myshop.entity.Sale;
 import de.edu.telran.myshop.entity.SaleItem;
 import de.edu.telran.myshop.service.impl.SaleItemServiceImpl;
@@ -21,14 +15,12 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(SaleController.MAIN_PATH)
+@RequestMapping(URILinks.SALE_PATH)
 @RequiredArgsConstructor
 public class SaleController {
     private final SaleServiceImpl saleService;
     private final SaleItemServiceImpl saleProductService;
 
-    public static final String MAIN_PATH = "/sale";
-    public static final String ID_COLUMN = "id";
 
     @GetMapping("/all")
     public ResponseEntity<List<Sale>> getAllSales() {
@@ -67,7 +59,7 @@ public class SaleController {
             throws URISyntaxException {
 
         return ResponseEntity
-                .created(new URI(MAIN_PATH))
+                .created(new URI(URILinks.SALE_PATH))
                 .body(saleService.create(sale));
     }
 
@@ -86,10 +78,9 @@ public class SaleController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Sale> updateSale(@RequestBody final Sale sale
-    ) throws Exception {
+    public ResponseEntity<Sale> updateSale(@RequestBody final Sale sale) throws Exception {
 
-        return ResponseEntity.created(new URI(MAIN_PATH))
+        return ResponseEntity.created(new URI(URILinks.SALE_PATH))
                 .body(saleService.update(sale));
     }
 
@@ -99,25 +90,20 @@ public class SaleController {
         return ResponseEntity.ok(saleService.findMaxId());
     }
 
-    @GetMapping("/get-products/{id}")
-    public ResponseEntity<List<SaleItem>> getSaleProductsById(@PathVariable("id") Long id
-    ) throws Exception {
-
-        return ResponseEntity.ok(saleProductService.getAllBySale(id));
+    @GetMapping("/get-items/{sale_id}")
+    public ResponseEntity<List<SaleItem>> getSaleProductsById(@PathVariable("sale_id") Long saleId) {
+        return ResponseEntity.ok(saleProductService.getAllBySale(saleId));
     }
 
     @DeleteMapping("/delete-items/{id}")
-    public ResponseEntity<Void> deleteAllItems(@PathVariable final Long id) throws Exception {
-
+    public ResponseEntity<Void> deleteAllItems(@PathVariable final Long id) {
         saleProductService.deleteAllItems(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/add-items")
     @Transactional
-    public ResponseEntity<Void> addItems(@RequestBody final List<SaleItem> items)
-            throws URISyntaxException {
-
+    public ResponseEntity<Void> addItems(@RequestBody final List<SaleItem> items) {
         saleProductService.addItems(items);
         return ResponseEntity.noContent().build();
 

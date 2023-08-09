@@ -5,8 +5,9 @@
  * Date of creation: 27-Jun-2023 18:48
  */
 
-package de.edu.telran.myshop.controller.rest;
+package de.edu.telran.myshop.controller;
 
+import de.edu.telran.myshop.config.URILinks;
 import de.edu.telran.myshop.entity.Supplier;
 import de.edu.telran.myshop.service.impl.SupplierServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,11 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(SupplierController.MAIN_PATH)
+@RequestMapping(URILinks.SUPPLIER_PATH)
 @RequiredArgsConstructor
 public class SupplierController {
     private final SupplierServiceImpl supplierService;
-    public static final String MAIN_PATH = "/supplier";
-    public static final String ID_COLUMN = "id";
+
 
     @GetMapping("/all")
     public ResponseEntity<List<Supplier>> getAllSuppliers() {
@@ -57,28 +57,28 @@ public class SupplierController {
     public ResponseEntity<Supplier> createSupplier(@RequestBody final Supplier supplier)
             throws URISyntaxException {
         return ResponseEntity
-                .created(new URI(MAIN_PATH))
+                .created(new URI(URILinks.SUPPLIER_PATH))
                 .body(supplierService.create(supplier));
     }
 
     @Transactional
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteSupplier(@PathVariable final Long id) throws Exception {
+    public ResponseEntity<Void> deleteSupplier(@PathVariable final Long id) {
         supplierService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Supplier> getSupplierById(@PathVariable("id") Long id
-    ) throws Exception {
+    ) {
         return ResponseEntity.ok(supplierService.getById(id));
     }
 
     @PutMapping("/update")
     public ResponseEntity<Supplier> updateSupplier(@RequestBody final Supplier supplier
-    ) throws Exception {
+    ) throws URISyntaxException {
 
-        return ResponseEntity.created(new URI(MAIN_PATH))
+        return ResponseEntity.created(new URI(URILinks.SUPPLIER_PATH))
                 .body(supplierService.update(supplier));
     }
 
@@ -86,14 +86,6 @@ public class SupplierController {
     public ResponseEntity<Long> getSupplierMaxId() {
         return ResponseEntity.ok(supplierService.findMaxId());
     }
-
-//    @PutMapping("/mark-as-deleted")
-//    public ResponseEntity<Supplier> markSupplierAsDeleted(@RequestBody final Supplier supplier
-//    ) throws Exception {
-//        supplier.setActive(false);
-//        return ResponseEntity.created(new URI(MAIN_PATH))
-//                .body(supplierService.update(supplier));
-//    }
 
 
 }

@@ -1,15 +1,10 @@
-/**
- * ProductService.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:46
- */
-
 package de.edu.telran.myshop.service.impl;
 
 import de.edu.telran.myshop.entity.Sale;
+import de.edu.telran.myshop.exception.CustomerNotFoundException;
 import de.edu.telran.myshop.exception.ErrorMassage;
 import de.edu.telran.myshop.repository.SaleRepository;
+import de.edu.telran.myshop.service.SaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,60 +13,51 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SaleServiceImpl {
+public class SaleServiceImpl implements SaleService {
     private final SaleRepository saleRepository;
 
-
+    @Override
     public List<Sale> getAll() {
         return saleRepository.findAll();
     }
 
+    @Override
     public List<Sale> getAllSortByDateDesc() {
         return saleRepository.findAllByOrderByCreatedAtDesc();
     }
 
 
+    @Override
     @Transactional
     public Sale create(final Sale sale) {
         return saleRepository.save(sale);
     }
 
-    //@Override
+    @Override
     @Transactional
-    public Sale update(final Sale sale) throws Exception {
+    public Sale update(final Sale sale) {
         return saleRepository.save(sale);
     }
 
-    //@Override
-    public Sale getById(final Long saleId) throws Exception {
+    @Override
+    public Sale getById(final Long saleId) throws CustomerNotFoundException {
         return saleRepository
                 .findById(saleId)
-                .orElseThrow(() -> new RuntimeException(ErrorMassage.CUSTOMER_NOT_FOUND));
-        // TODO вставить сообщение об ошибке
+                .orElseThrow(() -> new CustomerNotFoundException(ErrorMassage.CUSTOMER_NOT_FOUND));
     }
 
 
-    //@Override
+    @Override
     @Transactional
-    public void delete(final Long saleId) throws Exception {
-
-        if (!saleRepository.findById(saleId).isPresent()) {
-            //throw new CustomerNotFoundException(ErrorMassage.CUSTOMER_NOT_FOUND);
-            //TODO create exception
-            return;
-        }
+    public void delete(final Long saleId) throws CustomerNotFoundException {
+        saleRepository.findById(saleId).orElseThrow(() ->
+                new CustomerNotFoundException(ErrorMassage.CUSTOMER_NOT_FOUND));
         saleRepository.deleteById(saleId);
     }
 
+    @Override
     public Long findMaxId() {
         return saleRepository.maxSaleId();
     }
-
-
-    //@Override
-    //@Cacheable(cacheNames = "products")
-//    public Page<Customer> findByParams(String name, String email, String phone, PageRequest paging) {
-//        return customerRepository.findByParams(name, email, phone, paging);
-//    }
 
 }

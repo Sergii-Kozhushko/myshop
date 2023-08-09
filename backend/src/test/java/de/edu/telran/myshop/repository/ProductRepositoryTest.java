@@ -34,17 +34,13 @@ class ProductRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
-    private List<Product> productList;
-
-    private ProductCategory category1;
-
 
     @Test
     void saveProduct_checkSaved() {
         Product productToSave = Product.builder().
                 name("product 3")
-                .price(new BigDecimal(10.2))
-                .wholesalePrice(new BigDecimal(5.07))
+                .price(new BigDecimal("10.2"))
+                .wholesalePrice(new BigDecimal("5.07"))
                 .quantity(2000)
                 .active(true)
                 .category(new ProductCategory("Category 1"))
@@ -63,8 +59,8 @@ class ProductRepositoryTest {
 
         Product productToSave = Product.builder().
                 name("product 1")
-                .price(new BigDecimal(10.2))
-                .wholesalePrice(new BigDecimal(5.07))
+                .price(new BigDecimal("10.2"))
+                .wholesalePrice(new BigDecimal("5.07"))
                 .quantity(2000)
                 .active(true)
                 .category(category1)
@@ -81,8 +77,8 @@ class ProductRepositoryTest {
         ProductCategory category1 = categoryRepository.save(new ProductCategory("Category 1"));
         Product productToSave = Product.builder().
                 name("product 1")
-                .price(new BigDecimal(10.2))
-                .wholesalePrice(new BigDecimal(5.07))
+                .price(new BigDecimal("10.2"))
+                .wholesalePrice(new BigDecimal("5.07"))
                 .quantity(2000)
                 .active(true)
                 .category(category1)
@@ -106,8 +102,8 @@ class ProductRepositoryTest {
         ProductCategory category1 = categoryRepository.save(new ProductCategory("category 1"));
         Product productToSave = Product.builder().
                 name("product 1")
-                .price(new BigDecimal(10.2))
-                .wholesalePrice(new BigDecimal(5.07))
+                .price(new BigDecimal("10.2"))
+                .wholesalePrice(new BigDecimal("5.07"))
                 .quantity(2000)
                 .active(true)
                 .category(category1)
@@ -127,8 +123,8 @@ class ProductRepositoryTest {
         ProductCategory category1 = categoryRepository.save(new ProductCategory("category 1"));
         Product productToDelete = Product.builder().
                 name("product 1")
-                .price(new BigDecimal(10.2))
-                .wholesalePrice(new BigDecimal(5.07))
+                .price(new BigDecimal("10.2"))
+                .wholesalePrice(new BigDecimal("5.07"))
                 .quantity(2000)
                 .active(true)
                 .category(category1)
