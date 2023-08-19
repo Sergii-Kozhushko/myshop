@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass // Allows entity classes to correctly inherit properties from this parent class.
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity {
 
     @Id
     @Column(name = "id")
