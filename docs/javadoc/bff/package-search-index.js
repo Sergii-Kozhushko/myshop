@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"de.telran.myshop.bff"},{"l":"de.telran.myshop.bff.controller"},{"l":"de.telran.myshop.bff.dto"},{"l":"de.telran.myshop.bff.security"},{"l":"de.telran.myshop.bff.utils"}];updateSearchResults();

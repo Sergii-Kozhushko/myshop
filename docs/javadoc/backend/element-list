@@ -1,0 +1,13 @@
+de.edu.telran.myshop
+de.edu.telran.myshop.config
+de.edu.telran.myshop.controller
+de.edu.telran.myshop.dto
+de.edu.telran.myshop.entity
+de.edu.telran.myshop.exception
+de.edu.telran.myshop.mapper
+de.edu.telran.myshop.repository
+de.edu.telran.myshop.search
+de.edu.telran.myshop.security
+de.edu.telran.myshop.service
+de.edu.telran.myshop.service.impl
+de.edu.telran.myshop.validation

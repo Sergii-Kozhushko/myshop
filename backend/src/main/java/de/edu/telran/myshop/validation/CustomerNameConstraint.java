@@ -14,11 +14,6 @@ public class CustomerNameConstraint implements ConstraintValidator<CustomerName,
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-//        return Optional.ofNullable(value)
-//                .filter(s -> !s.isBlank())
-//                .map(s -> s.matches(PRODUCT_NAME_PATTERN))
-//                .orElse(false);
-
 
         return value.matches(CUSTOMER_NAME_PATTERN);
 
