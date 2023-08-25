@@ -1,24 +1,33 @@
 # MyShop Application
 
-Demo final project. Telran IT School, Kozhushko Sergii
+Demo final project. 
+Telran IT School, Germany, 2023, Kozhushko Sergii
 
-### Installation
 
-- Add certificate from /resources/ssl/rootca2.cer to trusted certificates
-  for your system (for chrome), or directly browser for firefox
-- install and run PostgreSQL if you have
-- Change db user and password for PostgreSQL DB
-- JDK OpenJDK 17.0.7
-- Install Keycloak 18.0.0 Server and add real-export.json configuration
-- or use Docker container
 
 ### Description
+MyShop - web-based fullstack application for retail shops. 
+
+The application will provide basic functionality for:
+- inventory management 
+- sales tracking
+- customers and suppliers tracking 
+- users authentication. 
+It consists of:
+[] Backend, developed using Spring Framework
+[] Bff, backend-for-frontend. Security proxy middle layers
+[] frontend, developed using Angular. 
+The system supports SSL, OAuth2 for secure communication and RESTful architecture principles. 
+
 
 Project description:
 https://docs.google.com/document/d/1h1l6gdgCScMxxN_wndSy8YsTHeqmgm_FY1T4GQWVrIE/edit?usp=sharing
 
 Security scheme:
 https://docs.google.com/document/d/1U3Ql3_eVqkFPlnjKt8xsAzZh3lLFTWJ0a_0d1Xql3W8/edit?usp=sharing
+
+### Screenshots
+![Screen1](screenshots/myshop-screenshot-001.jpg)
 
 ### API
 
