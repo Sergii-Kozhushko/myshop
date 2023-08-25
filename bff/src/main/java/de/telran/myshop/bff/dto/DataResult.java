@@ -6,19 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-// что нужно возвращать из RS
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataResult {
 
-    private String data; // бизнес-данные пользователя
+    private String data; // User's business data
 
-    // можно использовать любые поля, в зависимости от задачи
+    // We use any fields depending on the task
 
-
-    // сюда не нужно добавлять данные всего профайла пользователя, чтобы не нагружать запрос - только минимальные данные
-    // если нужно получить полные данные пользователя (профайл) - это можно сделать отдельным методом
+    // It's not necessary to add the entire user profile data here to avoid overloading the request
+    // Only minimal data should be included
+    // If you need to retrieve complete user data (profile), it can be done through a separate method
 
 }

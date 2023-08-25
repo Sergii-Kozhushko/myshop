@@ -44,7 +44,7 @@ public class SupplyServiceImpl implements SupplyService {
         return supplyRepository
                 .findById(supplyId)
                 .orElseThrow(() -> new RuntimeException(ErrorMassage.SUPPLY_NOT_FOUND));
-        // TODO добавить эксепшен
+        // TODO add custom exception
     }
 
 

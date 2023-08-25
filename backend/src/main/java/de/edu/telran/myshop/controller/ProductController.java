@@ -2,7 +2,6 @@ package de.edu.telran.myshop.controller;
 
 import de.edu.telran.myshop.config.URILinks;
 import de.edu.telran.myshop.dto.CreateProductDto;
-import de.edu.telran.myshop.dto.TestDataResultDto;
 import de.edu.telran.myshop.entity.Product;
 import de.edu.telran.myshop.search.ProductSearchValues;
 import de.edu.telran.myshop.service.impl.ProductServiceImpl;
@@ -26,14 +25,7 @@ public class ProductController {
     private final ProductServiceImpl productService;
 
 
-    @GetMapping("/test")
-    public ResponseEntity<TestDataResultDto> getTest() {
-
-        return ResponseEntity.ok(new TestDataResultDto("test data from beckend"));
-    }
-
     @GetMapping("/all")
-
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> result = productService.getAllProducts();
 

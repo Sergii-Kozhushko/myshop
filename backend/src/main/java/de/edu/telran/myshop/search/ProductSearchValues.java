@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductSearchValues {
-    // постраничность
+
     private String name;
     private BigDecimal fromPrice;
     private BigDecimal toPrice;
@@ -20,7 +20,7 @@ public class ProductSearchValues {
     private Integer pageNumber;
     private Integer pageSize;
 
-    // сортировка
+    // sort
     private String sortColumn;
     private String sortDirection;
 

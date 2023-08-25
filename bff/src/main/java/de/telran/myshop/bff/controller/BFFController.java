@@ -91,7 +91,7 @@ public class BFFController {
 
 
     @Autowired
-    public BFFController(CookieUtils cookieUtils) { // внедряем объекты
+    public BFFController(CookieUtils cookieUtils) {
         this.cookieUtils = cookieUtils;
     }
 
