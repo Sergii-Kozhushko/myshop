@@ -27,7 +27,16 @@ Security scheme:
 https://docs.google.com/document/d/1U3Ql3_eVqkFPlnjKt8xsAzZh3lLFTWJ0a_0d1Xql3W8/edit?usp=sharing
 
 ### Screenshots
-![Screen1](screenshots/myshop-screenshot-001.jpg)
+<img src="screenshots/myshop-screenshot-001.jpg" height="300">
+<img src="screenshots/myshop-screenshot-002.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-003.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-004.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-005.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-006.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-007.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-008.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-009.jpg"  height="300">
+<img src="screenshots/myshop-screenshot-010.jpg"  height="300">
 
 ### API
 
