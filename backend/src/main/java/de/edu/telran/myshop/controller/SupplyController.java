@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.SUPPLY_PATH)
+@RequestMapping(URILinks.SUPPLY_URI)
 @RequiredArgsConstructor
 public class SupplyController {
     private final SupplyServiceImpl supplyService;
@@ -37,7 +37,7 @@ public class SupplyController {
     public ResponseEntity<Supply> createSupply(@RequestBody final Supply supply)
             throws URISyntaxException {
         return ResponseEntity
-                .created(new URI(URILinks.SUPPLY_PATH))
+                .created(new URI(URILinks.SUPPLY_URI))
                 .body(supplyService.create(supply));
     }
 
@@ -59,7 +59,7 @@ public class SupplyController {
     public ResponseEntity<Supply> updateSupply(@RequestBody final Supply supply
     ) throws URISyntaxException {
 
-        return ResponseEntity.created(new URI(URILinks.SUPPLY_PATH))
+        return ResponseEntity.created(new URI(URILinks.SUPPLY_URI))
                 .body(supplyService.update(supply));
     }
 

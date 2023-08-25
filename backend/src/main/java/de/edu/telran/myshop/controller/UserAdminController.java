@@ -16,10 +16,10 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.USER_ADMIN_PATH)
+@RequestMapping(URILinks.USER_ADMIN_URI)
 @RequiredArgsConstructor
 public class UserAdminController {
-    
+
     private final KeycloakUtils keycloakUtils;
 
     @GetMapping("/all")

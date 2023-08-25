@@ -118,7 +118,7 @@
               <tr *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
                 <td class="item-grid-cell center">{{product.id}}</td>
                 <td class="item-grid-cell">
-                  <a (click)="addProductToDocument(product.id)"
+                  <a (click)="addItemToDocument(product.id)"
                      [routerLink]="['/sales/edit/', this.editedSale.id]"
                   >{{product.name}}</a>
                 </td>
@@ -168,7 +168,7 @@
           <td class="item-grid-cell center">{{item.price}}</td>
           <td class="item-grid-cell center">{{item.quantity * item.price}}</td>
           <td class="item-grid-cell center">
-            <button type="button" (click)="removeItem(i)">x</button>
+            <button type="button" class="button-small" (click)="removeItem(i)">x</button>
           </td>
         </tr>
         </tbody>

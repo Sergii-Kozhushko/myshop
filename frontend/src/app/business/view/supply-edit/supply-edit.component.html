@@ -30,8 +30,10 @@
       <input *ngIf="editedDocument"
              type="text"
              id="supply-code"
-             class="input-text edit-item-field-width-med" name="supply-code"
+             class="input-text edit-item-field-width-med"
+             name="supply-code"
              [(ngModel)]="editedDocument.code"
+             maxlength="10"
       />
     </div>
 
@@ -54,17 +56,18 @@
         <table class="item-grid-table">
           <tbody>
           <tr *ngFor="let category of categories" class="categories-items">
-            <td class="item-grid-cell" *ngIf="editedDocument.id">
+            <td class="item-grid-cell">
               <a
                 [ngClass]="{'cat-link-active': category === selectedCategory}"
                 [routerLink]="['/supply/edit/', this.editedDocument.id]"
                 (click)="selectCategory(category)">
                 {{category.name.length > 30 ? category.name.substring(0, 30) + '..' : category.name}}
+
               </a>
             </td>
           </tr>
           <tr class="categories-items">
-            <td class="item-grid-cell" *ngIf="editedDocument.id"><a
+            <td class="item-grid-cell"><a
               [ngClass]="{'cat-link-active': selectedCategory=== allCategory}"
               [routerLink]="['/supply/edit/', this.editedDocument.id]"
               (click)="selectAllCategory()">-- All Products</a>

@@ -22,7 +22,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("de.edu.telran.myshop.controller.rest"))
+                .apis(RequestHandlerSelectors.basePackage("de.edu.telran.myshop.controller"))
                 .paths(PathSelectors.regex("/.*"))
                 .build().apiInfo(apiInfoMetaData());
     }

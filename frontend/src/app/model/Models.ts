@@ -65,7 +65,7 @@ export class Sale {
   createdAt: Date;
   updatedAt: Date;
   code: string;
-  discount: number;
+  discount: number = 0;
   saleCondition: string;
   sum: number;
   isActive: boolean;
@@ -80,12 +80,13 @@ export class Sale {
 export class SaleItem {
   id: number;
   product: Product;
-  Sale: Sale;
+  sale: Sale;
   quantity: number;
   price: number;
 
-  constructor(product: Product, quantity: number, price: number) {
+  constructor(product: Product, sale: Sale, quantity: number, price: number) {
     this.product = product;
+    this.sale = sale;
     this.quantity = quantity;
     this.price = price;
   }

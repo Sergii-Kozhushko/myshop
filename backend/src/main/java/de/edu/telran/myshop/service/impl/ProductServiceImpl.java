@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product createProduct(final CreateProductDto createProductDto) {
+
         return productRepository.saveAndFlush(productMapper.toEntity(createProductDto));
     }
 

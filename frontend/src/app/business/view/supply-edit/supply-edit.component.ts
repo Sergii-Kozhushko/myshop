@@ -21,7 +21,7 @@ export class SupplyEditComponent implements OnInit {
   allProducts: Product[];
   currentProducts: Product[];
   currentPage = 1;
-  itemsPerPage = 20;
+  itemsPerPage = 22;
   totalPages: number;
 
   suppliers: Supplier[];

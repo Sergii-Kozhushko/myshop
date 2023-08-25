@@ -26,7 +26,7 @@ public class SaleItem {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // only write the field to jason
     @JoinColumn(name = "sale_id", referencedColumnName = "id")

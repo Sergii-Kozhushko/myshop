@@ -3,14 +3,14 @@ import {Customer, Sale, SaleItem, Supply, Product} from './Models';
 export class SaleItemSaveDto {
 
   product: Product;
-  Sale: Sale;
+  sale: Sale;
   quantity: number;
   price: number;
 
 
   constructor(product: Product, sale: Sale, quantity: number, price: number) {
     this.product = product;
-    this.Sale = sale;
+    this.sale = sale;
     this.quantity = quantity;
     this.price = price;
   }

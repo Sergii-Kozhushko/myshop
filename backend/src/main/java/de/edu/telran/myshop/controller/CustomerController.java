@@ -18,7 +18,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.CUSTOMER_PATH)
+@RequestMapping(URILinks.CUSTOMER_URI)
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerServiceImpl customerService;

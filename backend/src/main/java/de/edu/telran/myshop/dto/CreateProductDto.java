@@ -1,13 +1,14 @@
 package de.edu.telran.myshop.dto;
 
 import de.edu.telran.myshop.entity.ProductCategory;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Value
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateProductDto {
     String name;
     BigDecimal price;
@@ -15,5 +16,4 @@ public class CreateProductDto {
     int quantity;
     ProductCategory category;
     boolean active = true;
-
 }

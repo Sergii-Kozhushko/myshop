@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.CATEGORY_PATH)
+@RequestMapping(URILinks.CATEGORY_URI)
 @RequiredArgsConstructor
 public class ProductCategoryController {
 
@@ -29,7 +29,7 @@ public class ProductCategoryController {
             throws URISyntaxException {
 
         return ResponseEntity
-                .created(new URI(URILinks.CATEGORY_PATH))
+                .created(new URI(URILinks.CATEGORY_URI))
                 .body(productCategoryService.createProductCategory(productCategory));
     }
 
@@ -37,7 +37,7 @@ public class ProductCategoryController {
     public ResponseEntity<ProductCategory> updateProductCategory(@RequestBody final ProductCategory productCategory
     ) throws URISyntaxException {
 
-        return ResponseEntity.created(new URI(URILinks.CATEGORY_PATH))
+        return ResponseEntity.created(new URI(URILinks.CATEGORY_URI))
                 .body(productCategoryService.update(productCategory));
     }
 

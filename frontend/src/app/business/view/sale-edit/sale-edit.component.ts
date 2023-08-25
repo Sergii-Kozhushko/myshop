@@ -22,7 +22,7 @@ export class SaleEditComponent implements OnInit {
   categories: Category[];
   products: Product[];
   currentPage: number = 1;
-  itemsPerPage: number = 20;
+  itemsPerPage: number = 22;
   totalPages: number;
 
   suppliers: Supplier[];
@@ -78,6 +78,7 @@ export class SaleEditComponent implements OnInit {
         this.editedSale.createdAt = new Date();
         this.editedSale.customer = new Customer();
         this.editedSale.customer.id = 1;
+        this.editedSale.saleCondition = 'Sale condition';
         this.saleService.findMaxSaleId()
           .subscribe(n => this.editedSale.code = 'sale-' + (n + 1));
       }
@@ -110,7 +111,7 @@ export class SaleEditComponent implements OnInit {
       });
   }
 
-  addProductToDocument(productId: number): void {
+  addItemToDocument(productId: number): void {
 
     const existingItem = this.itemsInSale.find(
       item => item.product.id === productId);
@@ -121,7 +122,7 @@ export class SaleEditComponent implements OnInit {
 
       this.productService.findById(productId).subscribe(p => {
 
-        const newItem = new SaleItem(p, 1, p.price);
+        const newItem = new SaleItem(p, new Sale(this.editedSale.id), 1, p.price);
         this.itemsInSale.push(newItem);
       });
     }
@@ -170,11 +171,14 @@ export class SaleEditComponent implements OnInit {
     this.editedSale.sum = sumAllDocument;
 
     if (this.newMode) {
+      this.editedSale.discount = 0;
       this.saleService.add(this.editedSale).subscribe(d => {
           this.messageService.add(`Added new Sales Document with id #${d.id}`);
+          // get id of just created sale doc
           saleId = d.id;
           this.itemsInSale
-            .forEach(value => value.Sale = new Sale(saleId));
+            .forEach(value => value.sale = new Sale(saleId));
+          this.itemsInSale.forEach(v => console.log(v));
           this.saleItemService.addItems(this.itemsInSale);
         }
       );
@@ -183,7 +187,9 @@ export class SaleEditComponent implements OnInit {
       this.saleItemService.deleteAllItems(this.editedSale.id);
       saleId = this.editedSale.id;
       this.itemsInSale
-        .forEach(value => value.Sale = new Sale(saleId));
+        .forEach(value => value.sale = new Sale(saleId));
+      // console.log('TRY TO ADD ITEMS AGAIN');
+      this.itemsInSale.forEach(v => console.log(v));
       this.saleItemService.addItems(this.itemsInSale);
     }
 

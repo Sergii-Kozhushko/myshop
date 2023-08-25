@@ -57,6 +57,7 @@ export class ProductEditComponent implements OnInit {
       this.clearEditedProduct();
       this.exchangeDataService.setEditedProduct(this.editedProduct);
       this.exchangeDataService.setUpdateProductsInGrid();
+      this.productService.refreshProductsList();
     });
 
 
@@ -69,10 +70,12 @@ export class ProductEditComponent implements OnInit {
     }
 
     this.productService.add(this.editedProduct).subscribe(result => {
+      this.messageService.add(`Product '${this.editedProduct.name}' added successfully`);
+      this.clearEditedProduct();
+      this.exchangeDataService.setUpdateProductsInGrid();
+      this.productService.refreshProductsList();
     });
-    this.messageService.add(`Product '${this.editedProduct.name}' added successfully`);
-    this.clearEditedProduct();
-    this.exchangeDataService.setUpdateProductsInGrid();
+
   }
 
   cancel(): void {

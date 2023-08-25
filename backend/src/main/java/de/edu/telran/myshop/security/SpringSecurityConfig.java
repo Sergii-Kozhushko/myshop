@@ -1,5 +1,6 @@
 package de.edu.telran.myshop.security;
 
+import de.edu.telran.myshop.config.URILinks;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,9 +44,12 @@ public class SpringSecurityConfig {
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/admin/*").hasRole("admin") // CRUD operations for user management
                 .antMatchers("/user/*").hasRole("user") // User's own actions (registration, etc.)
-                .antMatchers("/category/*").hasRole("user")
-                .antMatchers("/customer/*").hasRole("user")
-                .antMatchers("/prod/*").hasRole("user")
+                .antMatchers(URILinks.CATEGORY_URI + "/*").hasRole("user")
+                .antMatchers(URILinks.PRODUCT_URI + "/*").hasRole("user")
+                .antMatchers(URILinks.SUPPLY_URI + "/*").hasRole("user")
+                .antMatchers(URILinks.SALE_URI + "/*").hasRole("user")
+                .antMatchers(URILinks.CUSTOMER_URI + "/*").hasRole("admin")
+                .antMatchers(URILinks.SUPPLIER_URI + "/*").hasRole("admin")
                 // Additional antMatchers can be configured here
                 .and()
                 .csrf().disable() // Disable built-in CSRF protection, using OAuth2's

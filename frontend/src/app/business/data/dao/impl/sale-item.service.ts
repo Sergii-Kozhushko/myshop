@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
 import {SALE_URL_TOKEN} from './sale.service';
 import {SaleItemSaveDto} from '../../../../model/Dto';
+import {logger} from 'codelyzer/util/logger';
 
 @Injectable({
   providedIn: 'root'
@@ -46,10 +47,11 @@ export class SaleItemService extends CommonService<SaleItem> implements SaleItem
     const rafaelka: SaleItemSaveDto[] = [];
     list.forEach(item => {
       rafaelka.push(new SaleItemSaveDto(new Product(item.product.id),
-        new Sale(item.Sale.id),
+        new Sale(item.sale.id),
         item.quantity, item.price)
       );
     });
+    rafaelka.forEach(v => console.log(v));
     operation.body = rafaelka;
     this.http.post(environment.bffURI + '/operation', operation).subscribe();
   }

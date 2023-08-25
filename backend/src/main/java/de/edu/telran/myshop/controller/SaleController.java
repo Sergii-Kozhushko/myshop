@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.SALE_PATH)
+@RequestMapping(URILinks.SALE_URI)
 @RequiredArgsConstructor
 public class SaleController {
     private final SaleServiceImpl saleService;
@@ -59,7 +59,7 @@ public class SaleController {
             throws URISyntaxException {
 
         return ResponseEntity
-                .created(new URI(URILinks.SALE_PATH))
+                .created(new URI(URILinks.SALE_URI))
                 .body(saleService.create(sale));
     }
 
@@ -80,7 +80,7 @@ public class SaleController {
     @PutMapping("/update")
     public ResponseEntity<Sale> updateSale(@RequestBody final Sale sale) throws Exception {
 
-        return ResponseEntity.created(new URI(URILinks.SALE_PATH))
+        return ResponseEntity.created(new URI(URILinks.SALE_URI))
                 .body(saleService.update(sale));
     }
 

@@ -16,7 +16,7 @@ export class SupplyComponent implements OnInit {
   sortMode = 'Desc';
 
   constructor(
-    private SupplyService: SupplyService,
+    private supplyService: SupplyService,
     private readonly exchangeDataService: ExchangeDataService,
     private messageService: MessageService,
     private router: Router) {
@@ -34,7 +34,7 @@ export class SupplyComponent implements OnInit {
   }
 
   fetchAllSupplysSortDateDesc(): void {
-    this.SupplyService.findSupplysByDateDesc()
+    this.supplyService.findSupplysByDateDesc()
       .subscribe(supplies => {
 
         this.supplies = supplies;
