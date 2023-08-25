@@ -16,6 +16,8 @@
 # variant 2
 FROM nginx:latest
 
-COPY ./dist/frontend-angular /usr/share/ngnix/html
+COPY ./dist/frontend-angular /usr/share/nginx/html
+COPY ./dist/frontend-angular/assets/ssl /etc/ssl
+COPY ./nginx-config.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 4200
+EXPOSE 80

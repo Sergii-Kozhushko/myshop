@@ -10,9 +10,9 @@ import static java.lang.annotation.ElementType.*;
 
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {ProductNameConstraint.class})
-public @interface ProductName {
-    String message() default "Invalid product name length, must be less than 10 character ";
+@Constraint(validatedBy = {CustomerNameConstraint.class})
+public @interface CustomerName {
+    String message() default "Invalid customer name length, must be less than 30 characters";
 
     Class<?>[] groups() default {};
 

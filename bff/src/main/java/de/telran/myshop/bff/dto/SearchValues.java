@@ -1,4 +1,4 @@
-package ru.javabegin.oauth2.backend.dto;
+package de.telran.myshop.bff.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

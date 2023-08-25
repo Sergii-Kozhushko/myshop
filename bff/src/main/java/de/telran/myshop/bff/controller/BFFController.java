@@ -1,4 +1,4 @@
-package ru.javabegin.oauth2.backend.controller;
+package de.telran.myshop.bff.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import ru.javabegin.oauth2.backend.dto.DataResult;
-import ru.javabegin.oauth2.backend.dto.Operation;
-import ru.javabegin.oauth2.backend.dto.SearchValues;
-import ru.javabegin.oauth2.backend.dto.UserProfile;
-import ru.javabegin.oauth2.backend.utils.CookieUtils;
+import de.telran.myshop.bff.dto.DataResult;
+import de.telran.myshop.bff.dto.Operation;
+import de.telran.myshop.bff.dto.SearchValues;
+import de.telran.myshop.bff.dto.UserProfile;
+import de.telran.myshop.bff.utils.CookieUtils;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -263,7 +263,7 @@ public class BFFController {
     // таким образом к ним не будет доступа из кода браузера (защита от XSS атак)
     @PostMapping("/token")
     public ResponseEntity<String> token(@RequestBody String code) {// получаем auth code, чтобы обменять его на токены
-
+        System.out.println("Inside tokem method");
         // 1. обменять auth code на токены
         // 2. сохранить токены в защищенные куки
 

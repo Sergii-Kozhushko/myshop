@@ -17,7 +17,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@DataJpaTest
+@DataJpaTest // make app-context only with jpa-layer
+// don't replace actual bd with test h2
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 //@Transactional // roll-back after test execution
 //@TestPropertySource(properties = {
@@ -29,10 +30,6 @@ class ProductRepositoryTest {
     private ProductRepository productRepository;
     @Autowired
     private ProductCategoryRepository categoryRepository;
-
-
-    @Autowired
-    private TestEntityManager entityManager;
 
 
     @Test

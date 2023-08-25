@@ -54,7 +54,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     @Transactional
     public void delete(final Long supplierId) throws InvalidSupplierParameterException {
-        if (!supplierRepository.findById(supplierId).isPresent()) {
+        if (supplierRepository.findById(supplierId).isEmpty()) {
             throw new InvalidSupplierParameterException(ErrorMassage.SUPPLIER_NOT_FOUND);
         }
         supplierRepository.deleteById(supplierId);

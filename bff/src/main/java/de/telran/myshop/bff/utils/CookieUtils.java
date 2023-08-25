@@ -1,4 +1,4 @@
-package ru.javabegin.oauth2.backend.utils;
+package de.telran.myshop.bff.utils;
 
 import org.apache.tomcat.util.http.SameSiteCookies;
 import org.springframework.beans.factory.annotation.Value;

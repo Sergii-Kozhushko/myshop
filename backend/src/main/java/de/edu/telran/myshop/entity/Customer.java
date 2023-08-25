@@ -1,17 +1,10 @@
 package de.edu.telran.myshop.entity;
 
 
-import de.edu.telran.myshop.validation.ProductName;
+import de.edu.telran.myshop.validation.CustomerName;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -24,7 +17,7 @@ import java.util.Date;
 public class Customer extends BaseEntity {
 
     @Column(nullable = false)
-    @ProductName // custom validation
+    @CustomerName // custom validation
     private String name;
 
     private String address;

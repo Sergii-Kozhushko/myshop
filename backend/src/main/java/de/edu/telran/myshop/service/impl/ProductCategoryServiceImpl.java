@@ -26,7 +26,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         if (categoryId == null) {
             return new ProductCategory();
         }
-        return categoryRepository.findById(categoryId).get();
+        return categoryRepository.findById(categoryId).orElse(null);
     }
 
 
@@ -36,7 +36,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         if (productCategory.getId() != null && productCategory.getId() != 0) {
             throw new ProductCategoryInvalidParameterException(ErrorMassage.CATEGORY_ADD_WITH_ID_ERROR);
         }
-        if (productCategory.getName() == null || (productCategory.getName() != null && productCategory.getName().isBlank())) {
+        if (productCategory.getName() == null || productCategory.getName().isBlank()) {
             throw new ProductCategoryInvalidParameterException(ErrorMassage.CATEGORY_NAME_EMPTY);
         }
         productCategory.setName(productCategory.getName().trim());
@@ -52,7 +52,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         categoryRepository.findById(productCategory.getId()).orElseThrow(() ->
                 new ProductCategoryNotFoundException(ErrorMassage.CATEGORY_NOT_FOUND + ". Id = " + productCategory.getId()));
 
-        if (productCategory.getName() == null || (productCategory.getName() != null && productCategory.getName().isBlank())) {
+        if (productCategory.getName() == null || productCategory.getName().isBlank()) {
             throw new ProductCategoryInvalidParameterException(ErrorMassage.CATEGORY_NAME_EMPTY);
         }
         return categoryRepository.saveAndFlush(productCategory);
@@ -61,7 +61,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     @Transactional
     public void delete(final Integer categoryId) {
-        if (!categoryRepository.findById(categoryId).isPresent()) {
+        if (categoryRepository.findById(categoryId).isEmpty()) {
             throw new ProductCategoryNotFoundException(ErrorMassage.CATEGORY_NOT_FOUND);
         } else {
             categoryRepository.deleteById(categoryId);

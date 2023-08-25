@@ -1,13 +1,13 @@
-package ru.javabegin.oauth2.backend;
+package de.telran.myshop.bff;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AngularOAuth2Backend {
+public class MyshopBff {
 
     public static void main(String[] args) {
-        SpringApplication.run(AngularOAuth2Backend.class, args);
+        SpringApplication.run(MyshopBff.class, args);
     }
 
 }

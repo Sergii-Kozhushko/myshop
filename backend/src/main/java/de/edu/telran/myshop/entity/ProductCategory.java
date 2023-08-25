@@ -10,9 +10,11 @@ import java.util.Date;
  * We don't extend from BaseEntity here because Id has another type
  */
 @Entity
-@Table(name = "product_category")
 @Data
+@Table(name = "product_category")
+@Builder
 @EqualsAndHashCode
+@AllArgsConstructor
 @NoArgsConstructor
 public class ProductCategory {
     @Id

@@ -1,0 +1,26 @@
+FROM openjdk:17
+COPY ./build/libs/myshop-bff-0.0.1.jar /app/bff.jar
+WORKDIR /app
+EXPOSE 8902
+CMD ["java", "-jar", "bff.jar"]
+
+
+
+# Stage 1: Build and compile
+#FROM maven:3.8.4-openjdk-17 AS build
+#WORKDIR /app
+#COPY pom.xml /app
+#RUN mvn dependency:go-offline
+#
+#COPY src ./src
+#RUN mvn -f /app/pom.xml clean package -DskipTests
+#
+## Satge 2: Run
+#FROM openjdk:17
+#WORKDIR /app
+#COPY --from=build /app/target/myshop-0.3.0.jar ./app.jar
+#
+#EXPOSE 8080
+#CMD ["java", "-jar", "app.jar"]
+
+
