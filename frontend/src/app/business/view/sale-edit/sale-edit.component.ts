@@ -171,7 +171,6 @@ export class SaleEditComponent implements OnInit {
 
     if (this.newMode) {
       this.saleService.add(this.editedSale).subscribe(d => {
-          console.log('new sales doc id=' + d.id);
           this.messageService.add(`Added new Sales Document with id #${d.id}`);
           saleId = d.id;
           this.itemsInSale

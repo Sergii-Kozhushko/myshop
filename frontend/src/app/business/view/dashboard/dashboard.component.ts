@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit {
     this.customerService.findAll()
       .subscribe(list => {
         this.exchangeDataService.setCustomers(list);
-        console.log('00000');
         this.messageService.add('Customer list was uploaded from backend server');
       });
 

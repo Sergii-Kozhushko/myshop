@@ -33,11 +33,8 @@ export class CustomerEditComponent implements OnInit {
     this.clearEditedCustomer();
     this.exchangeDataService.getEditedCustomer()
       .subscribe((customer) => {
-        console.log('edited customer subscribe worked');
-        console.log(customer);
         this.editedCustomer = customer;
       });
-    console.log('edited customer id=' + this.editedCustomer.id);
 
 
   }
@@ -62,7 +59,7 @@ export class CustomerEditComponent implements OnInit {
     }
 
     this.setEmptyFields();
-    this.customerService.test();
+    // this.customerService.test();
     this.customerService.add(this.editedCustomer).subscribe(result => {
       this.messageService.add(`Customer '${this.editedCustomer.name}' added successfully`);
       this.clearEditedCustomer();
@@ -80,7 +77,7 @@ export class CustomerEditComponent implements OnInit {
 
   save(): void {
     const birthDateValue = this.customerBirthInput.nativeElement.value;
-    console.log('birth=' + birthDateValue);
+
     // Здесь вы можете выполнить необходимые операции с полученным значением
 
     // Пример: Преобразование строки в объект Date

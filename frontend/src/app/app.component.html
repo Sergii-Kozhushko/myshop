@@ -4,7 +4,9 @@
   <app-header-top *ngIf="cookieEnabled"></app-header-top>
   <app-header *ngIf="cookieEnabled"></app-header>
 
-<p *ngIf="!cookieEnabled"> Cookies отключены. Включите в настройках браузера - после этого обновите страницу.</p>
+<p *ngIf="!cookieEnabled">
+Cookies are disabled. Turn them on in browser, after that refresh page.
+</p>
 
 <div class="items-container min-height">
   <router-outlet *ngIf="cookieEnabled"></router-outlet>

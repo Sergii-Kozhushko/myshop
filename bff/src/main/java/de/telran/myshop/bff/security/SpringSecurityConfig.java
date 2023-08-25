@@ -1,6 +1,5 @@
 package de.telran.myshop.bff.security;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -18,48 +17,48 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-@Configuration // данный класс будет считан как конфиг для spring контейнера
-@EnableWebSecurity(debug = true) // включает механизм защиты адресов, которые настраиваются в SecurityFilterChain
-//
-//// для BFF не нунжно исп-е БД в нашем варианте, поэтому отключаем автоконфигурацию связи с БД
+/**
+ * Configuration class for setting up Spring Security in the BFF application.
+ */
+@Configuration
+//@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-
 public class SpringSecurityConfig {
 
     @Value("${client.url}")
-    private String clientURL; // клиентский URL
+    private String clientURL; // URL of the client application
 
-
-    // создается спец. бин, который отвечает за настройки запросов по http (метод вызывается автоматически) Spring контейнером
+    /**
+     * Configure the SecurityFilterChain to handle security of requests.
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors(); // Enable CORS settings
 
-        // все сетевые настройки
-        http.cors();
         http.authorizeRequests()
-                //.antMatchers("/bff/**").permitAll() // разрешаем запросы на bff
-                .anyRequest().permitAll()
-                //.anyRequest().authenticated() // остальной API будет доступен только аутентифицированным пользователям
+                .antMatchers("/bff/**").permitAll() // allow requests from bff
+                .anyRequest().authenticated() // Allow access to all authorized requests
                 .and()
-                .csrf().disable() // отключаем встроенную защиту от CSRF атак, т.к. используем свою, из OAUTH2
-        //        .cors()
-        ;// разрешает выполнять OPTIONS запросы от клиента (preflight запросы) без авторизации
+                .csrf().disable() // Disable CSRF protection
+                // Allow execution of OPTIONS requests without authorization
+                .cors();
 
-        http.requiresChannel().anyRequest().requiresSecure(); // обязательное исп. HTTPS для всех запросах
+        http.requiresChannel().anyRequest().requiresSecure(); // Require HTTPS for all requests
 
-        // отключаем создание куков для сессии
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Disable session creation
 
         return http.build();
     }
 
-
-    // Cors-request are requests, when makes request to another host (bff)
+    /**
+     * Configuration source for CORS requests made from the client application (bff).
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true); // allow to send cookies with cors-requests
-        configuration.setAllowedOrigins(Arrays.asList(clientURL));// from which host to accept cors
+        configuration.setAllowCredentials(true); // Allow sending cookies with CORS requests
+        configuration.setAllowedOrigins(Arrays.asList(clientURL)); // Define which host to accept CORS from
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

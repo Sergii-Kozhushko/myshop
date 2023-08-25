@@ -53,7 +53,6 @@ export class SalesComponent implements OnInit {
 
 
   changeSortMode(field: string): void {
-    // this.sales.forEach(invoice => console.log(invoice.createdAt));
     this.sortField = field;
     this.sortMode = this.sortMode === 'Desc' ? 'Asc' : 'Desc';
 

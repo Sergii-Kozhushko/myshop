@@ -8,9 +8,9 @@ export class SaleItemSaveDto {
   price: number;
 
 
-  constructor(product: Product, Sale: Sale, quantity: number, price: number) {
+  constructor(product: Product, sale: Sale, quantity: number, price: number) {
     this.product = product;
-    this.Sale = Sale;
+    this.Sale = sale;
     this.quantity = quantity;
     this.price = price;
   }

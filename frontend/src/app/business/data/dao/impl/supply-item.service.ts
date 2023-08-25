@@ -38,7 +38,6 @@ export class SupplyItemService extends CommonService<SupplyItem> implements Supp
   }
 
   addItems(list: SupplyItem[]): void {
-    console.log(list);
     const operation = new Operation();
     operation.url = this.baseUrl + '/add-items/';
     operation.httpMethod = HttpMethod.POST;

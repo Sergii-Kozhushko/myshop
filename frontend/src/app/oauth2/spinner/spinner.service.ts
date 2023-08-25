@@ -1,28 +1,27 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 /*
-Методы переключатели вкл/выкл с помощью BehaviorSubject
-В нашем проекте используется для отображения индикатора "спиннер загрузки" (показать/скрыть)
+Methods to toggle on/off using BehaviorSubject
+Used in our project to display the "loading spinner" indicator (show/hide)
 */
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpinnerService {
 
-  // BehaviorSubject - это специальный тип из "реактивного кода" TypeScript
-  // Позволяет подписчикам "слушать" новые значения и реагировать на них
+  // BehaviorSubject is a special type from TypeScript's "reactive code"
+  // It allows subscribers to "listen" to new values and react to them
   // https://www.learnrxjs.io/learn-rxjs/subjects/behaviorsubject
-  // В нашем случае - на значение visibility подписана спец. переменная, которая скрывает/показывает индикатор загрузки на HTML
+  // In our case, the visibility variable is subscribed to the value, which hides/shows the loading spinner on the HTML
   visibility = new BehaviorSubject(false);
 
   show(): void {
-    this.visibility.next(true); // передаем подписчикам значение "true"
+    this.visibility.next(true); // Send the value "true" to subscribers
   }
 
   hide(): void {
-    this.visibility.next(false); // передаем подписчикам значение "false"
+    this.visibility.next(false); // Send the value "false" to subscribers
   }
 }

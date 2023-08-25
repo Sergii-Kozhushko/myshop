@@ -42,7 +42,6 @@ export class ProductsGridComponent implements OnInit {
     this.exchangeDataService.getSelectedCategory()
       .subscribe((newCategory) => {
         this.selectedCategory = newCategory;
-        console.log(newCategory);
         this.fetchProductsBySelectedCategory();
       });
     // update products: signal from other components

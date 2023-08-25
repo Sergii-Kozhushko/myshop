@@ -88,13 +88,10 @@ export class SupplyEditComponent implements OnInit {
     this.exchangeDataService.getCategories()
       .subscribe(list => {
           this.categories = list;
-        console.log(this.categories);
         }
       );
     this.exchangeDataService.getProducts()
       .subscribe(list => {
-          // console.log('666666666666');
-          // console.log(list);
           this.allProducts = list;
         }
       );
@@ -131,14 +128,12 @@ export class SupplyEditComponent implements OnInit {
 
     const existingItem = this.items.find(
       item => item.product.id === productId);
-    console.log(existingItem);
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
 
       const product = this.currentProducts.find(p => p.id === productId);
       const newItem = new SupplyItem(product, 1, product.wholesalePrice);
-      console.log(newItem);
       this.items.push(newItem);
     }
   }
@@ -196,8 +191,6 @@ export class SupplyEditComponent implements OnInit {
       this.supplyService.update(this.editedDocument).subscribe();
       this.supplyItemService.deleteAllItems(this.editedDocument.id);
       supplyId = this.editedDocument.id;
-      console.log('supply id=' + supplyId);
-
       this.items
         .forEach(value => value.supply = this.editedDocument);
       this.supplyItemService.addItems(this.items);

@@ -49,11 +49,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-dialog.component';
 import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialog.component';
 
-/*
 
-Все настройки, описание модулей, подключение зависимостей и пр.
-
-*/
 
 @NgModule({
   declarations: [
@@ -103,18 +99,18 @@ import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialo
      NgOptimizedImage,
     NgxPaginationModule,
   ],
-  providers: [ // инициализация системных объектов с нужными параметрами
+  providers: [
 
     {
       provide: BACKEND_URL,
       useValue: environment.resourceServerURL
-      // базовый URL веб сервиса + '/user'
+      // base URL for all front
     },
 
     {
       provide: DEV_MODE,
       useValue: environment.devMode
-      // базовый URL веб сервиса + '/user'
+
     },
     {
       provide: CATEGORY_URL_TOKEN,
@@ -141,15 +137,14 @@ import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialo
       useValue: environment.resourceServerURL + '/supply'
     },
 
-    /* нужно указывать для корректной работы диалоговых окон */
     {
-      provide: HTTP_INTERCEPTORS, // все HTTP запросы будут отправлять защищенные куки
+      provide: HTTP_INTERCEPTORS, // all HTTP-requests will send server-sided cookies with this interceptor
       useClass: CookiesInterceptor,
       multi: true
     },
 
     {
-      provide: HTTP_INTERCEPTORS, // все HTTP запросы будут выполняться с отображением индикатора загрузки
+      provide: HTTP_INTERCEPTORS, // all HTTP-requests will work with load indicator
       useClass: SpinnerInterceptor,
       multi: true
     },

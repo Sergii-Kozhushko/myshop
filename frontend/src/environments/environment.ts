@@ -2,18 +2,17 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// глобальные константы для периода разработки приложения (не боевого)
+// global constants
 export const environment = {
   production: false,
-  resourceServerURL: 'https://212.32.255.215:8081', // ссылка на корневой URL бэкенда
-  frontendURL: 'https://212.32.255.215:4200', // ссылка на корневой URL фронтэнда
-  kcClientID: 'myshopapp-client', // из настроек KeyCloak
-  kcBaseURL: 'https://212.32.255.215:8443/realms/myshop-realm/protocol/openid-connect',
-  bffURI: 'https://212.32.255.215:8902/bff',
-  redirectURI: 'https://212.32.255.215:4200',
+  resourceServerURL: 'https://localhost:8081', // root backend URL
+  frontendURL: 'https://localhost:4200', // root URL frontend
+  kcClientID: 'myshopapp-client', // KeyCloak client property
+  kcBaseURL: 'https://localhost:8443/realms/myshop-realm/protocol/openid-connect',
+  bffURI: 'https://localhost:8902/bff',
+  redirectURI: 'https://localhost:4200',
   scopes: 'openid',
   devMode: true
-
 };
 
 /*

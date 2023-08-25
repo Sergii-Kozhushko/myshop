@@ -31,7 +31,6 @@ export class BackendService {
     // данные для BFF операции (уточняем для BFF какой именно запрос он должен выполнить в RS)
     const operation = new Operation();
     // это адрес, который BFF будет вызывать у Resource Server, добавляя к запросу access token
-    console.log(this.backendRootUrl);
     operation.url = this.backendRootUrl + '/product/test';
     operation.httpMethod = HttpMethod.GET; // тип запроса тоже важно указывать
     return this.http.post(environment.bffURI + '/operation', operation);

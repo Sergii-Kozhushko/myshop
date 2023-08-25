@@ -1,15 +1,13 @@
-import {Observable} from 'rxjs';
-import {Injectable, InjectionToken} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {User} from '../../model/User';
-import {HttpMethod, Operation} from '../../model/RequestBFF';
-import {Router} from '@angular/router';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { User } from '../../model/User';
+import { HttpMethod, Operation } from '../../model/RequestBFF';
+import { Router } from '@angular/router';
 
-
-// напоминание: все запросы отправляются не напрямую в ResourceServer, а в BFF (backend for frontend), который является адаптеров
-// это нужно для безопасного хранения куков в браузере
-
+// Reminder: All requests are sent not directly to the Resource Server, but to the BFF (Backend For Frontend), which acts as an adapter.
+// This is done for secure cookie storage in the browser.
 
 @Injectable({
   providedIn: 'root'
@@ -17,45 +15,23 @@ import {Router} from '@angular/router';
 
 export class KeycloakService {
 
-  constructor(private http: HttpClient,
-              private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-
-  // выход из системы
-  logoutAction(): Observable<any> { //
-    // просто вызываем адрес и ничего не возвращаем
+  // Log out from the system
+  logoutAction(): Observable<any> {
+    // Simply call the URL and do not return anything
     return this.http.get(environment.bffURI + '/logout');
   }
 
-
-  // получаем новые токены с помощью старого Refresh Token (из кука)
+  // Obtain new tokens using the old Refresh Token (from the cookie)
   exchangeRefreshToken(): Observable<any> {
     return this.http.get(environment.bffURI + '/exchange');
   }
 
-  // запрос данных пользователя (профайл)
+  // Request user data (profile)
   requestUserProfile(): Observable<User> {
     return this.http.get<User>(environment.bffURI + '/profile');
   }
-
-  checkAuth(): Observable<any> {
-    const operation = new Operation();
-    operation.url = '/product/test';
-    operation.httpMethod = HttpMethod.GET; // тип запроса тоже важно указывать
-    return this.http.post(environment.bffURI + '/checkauth', operation);
-      // .subscribe(
-      //   {
-      //     next: (response => {
-      //       console.log(response);
-      //     }),
-      //     error: (error => {
-      //       console.log(error);
-      //       this.router.navigate(['login']);
-      //     })
-      //   }
-      // );
-  }
-
 
 }

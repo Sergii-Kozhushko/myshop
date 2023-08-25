@@ -18,23 +18,6 @@ import {Supplier} from './model/Models';
 import {SupplierEditComponent} from './business/view/supplier-edit/supplier-edit.component';
 
 
-/*
-
-Модуль для настройки всех роутингов (Routing) - перенаправлений
-
-Является отдельным модулем в приложении, который отвечает только за роутинги
-
-Механизм Routing связывает URI (ссылки, по которым переходит пользователь) и компоненты (страницы)
-
-При переходе по какому-либо адресу - произойдет перенаправление на нужный компонент (страницу)
-
-https://angular.io/guide/router
-
-
- */
-
-
-// список всех роутов и связанных компонентов (маппинг)
 const routes: Routes = [
 
   {path: '', component: LoginComponent},
@@ -49,18 +32,17 @@ const routes: Routes = [
   {path: 'supply/edit/:sid', component: SupplyEditComponent },
   {path: 'sales', component: SalesComponent },
   {path: 'sales/edit/:sid', component: SaleEditComponent },
-   {path: 'products', component: ProductsComponent},
-   { path: 'products/:pid?', component: ProductsComponent },
+  {path: 'products', component: ProductsComponent},
+  {path: 'products/:pid?', component: ProductsComponent },
   {path: 'customers', component: CustomersComponent},
-  { path: 'customers/:cid?', component: CustomersComponent },
-
+  {path: 'customers/:cid?', component: CustomersComponent },
   {path: 'options', component: OptionsComponent},
 ];
 
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes) // без этого работать не будет - импортирует наш mapping перенаправлений
+    RouterModule.forRoot(routes)
   ],
   exports: [
     RouterModule

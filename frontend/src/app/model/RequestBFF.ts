@@ -1,26 +1,15 @@
 
 /*
-Объект для запросов от клиента в BFF - содержит информацию, какую операцию должен выполнить BFF
-Все поля должны совпадать один в один с таким же POJO из backend, чтобы работала автоматическая конвертация в JSON и обратно.
-Названия, последовательность и типы полей - должны совпадать.
+Object for requests from the client to BFF - contains information about the operation that BFF should perform
+All fields must match exactly with the corresponding POJO in the backend for automatic JSON conversion and back.
+The names, sequence, and types of fields must match.
 */
 export class Operation {
-  httpMethod: HttpMethod; // тип метода для вызова
-  url: string; // какой адрес BFF будет вызывать у Resource Server
-  body: any; // вложения запроса (конвертируется автоматически в JSON)
+  httpMethod: HttpMethod; // method type for the call
+  url: string; // the address that BFF will invoke on the Resource Server
+  body: any; // request payload (automatically converted to JSON)
 }
 
-
-
-/*
-Используется для того, чтобы указать BFF какой тип метода вызывать в Resource Server
-
-В Java кстати существует соотв. класс для этих же целей
-public enum HttpMethod {
-    GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE;
-}
-
- */
 
 export enum HttpMethod {
   GET,

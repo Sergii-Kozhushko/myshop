@@ -45,7 +45,6 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
 
     // сначала нужно получить данные пользователя
-    console.log('requesting user profile');
     this.keycloakService.requestUserProfile().subscribe(
       {
         // успешное выполнение
@@ -53,7 +52,6 @@ export class MainComponent implements OnInit {
 
           // текущий пользователь
           this.user = response;
-          console.log('Successfully got user profile');
           // после успешной загрузки пользователя - теперь можно получать его данные из RS
 
           // вызываем тестовый сервис для проверки работы

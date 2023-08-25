@@ -29,7 +29,6 @@ export class CustomerService extends CommonService<Customer> implements Customer
     this.findAll()
       .subscribe(list => {
          this.exchangeDataService.setCustomers(list);
-        console.log('00000');
         this.messageService.add('Customer list was uploaded from backend server');
       });
 

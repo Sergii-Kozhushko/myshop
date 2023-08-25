@@ -47,7 +47,6 @@ export class CustomersGridComponent implements OnInit {
   fetchAllCustomers(): void {
     this.customerService.findAll()
       .subscribe(customers => {
-        console.log('customerService.findAll()');
         this.customers = customers;
       }); // асинхронный вызов
   }

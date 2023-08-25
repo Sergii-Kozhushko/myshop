@@ -15,7 +15,6 @@ export class TopNavComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log('url=' + this.router.url);
   }
 
 

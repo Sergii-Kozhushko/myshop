@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 /*
 
-Cтраница авторизации пользователя - без входа он не сможет получить токены и выполнять запросы в RS
-Все запросы отправляются на сервер BFF, который является адаптером между клиентом и Resource Server
+User authentication page - without logging in, the user won't be able to obtain tokens and make requests to RS
+All requests are sent to the BFF server, which acts as an adapter between the client and the Resource Server
 
 */
 
@@ -17,81 +17,73 @@ Cтраница авторизации пользователя - без вхо�
 })
 export class LoginComponent implements OnInit {
 
-  // внедрение объектов (Dependency Injection)
   constructor(
-    private router: Router, // навигация
-    private activatedRoute: ActivatedRoute, // текущий роут, который применился
-    private http: HttpClient,
-    // http запросы
+    private router: Router, // Navigation
+    private activatedRoute: ActivatedRoute, // Current applied route
+    private http: HttpClient, // HTTP requests
   ) {
   }
 
-  // вызывается автоматически после инициализации компонента
   ngOnInit(): void {
 
-    // считываем параметры входящего запроса
     this.activatedRoute.queryParams.subscribe(params => {
 
-      // В компонент логин можно попасть только в 2 случаях:
-      // 1) если мы успешно авторизовались и пришел ответ от KC
-      // 2) просто сами открыли страницу в браузере и нас перекинуло на login, т.к. мы не авторизовались
+      // Entering the login component can happen in two cases:
+      // 1) If we successfully authenticated and received a response from KC
+      // 2) If we simply opened the page in the browser and were redirected to login because we're not authenticated
 
-      // Подробнее оба случая:
-      // 1) если в запросе 'прилетел' параметр code - значит мы успешно авторизовались и
-      // пришел ответ от KC (потому что в redirect_uri указывали текущую страницу)
-      // Теперь уже code можем обменять на токены
+      // More about both cases:
+      // 1) If the 'code' parameter is present in the query string, it means we successfully authenticated and
+      // received a response from KC (because we specified the current page as the redirect_uri)
+      // Now we can exchange this code for tokens
       if (params.code) {
 
-        // PKCE параметры
+        // PKCE parameters
         const code = params.code;
         const state = params.state;
 
-        // Параметры нужны только 1 раз при первичном запросе
-        // Поэтому сразу после использование - очищаем параметры URL запроса,
-        // чтобы при обновлении страницы они не отправились повторно и не отображались в адресной строке браузера
+        // We only need these parameters once for the initial request
+        // After using them, we immediately clear the URL query parameters,
+        // so they won't be sent again if the page is refreshed, and they won't be displayed in the browser's address bar
         window.history.pushState({}, '', document.location.href.split('?')[0]);
 
-        // запрос на BBF, который обменяет code на токены
-        // в Response от BFF будут добавлены токены (заголовок Set-Cookie), которые запишутся в куки браузера
+        // Request to BFF, which will exchange the code for tokens
+        // The BFF response will include tokens (Set-Cookie header), which will be stored in the browser's cookies
         this.requestTokens(code, state);
 
-        return; // обязательно выходим из метода, чтобы не выполнялся дальнейший код
+        return; // We must exit the method to prevent further code execution
 
       }
 
-      // 2) если никакие другие условия выше не сработали - значит это не ответ от KC, а обычный запрос
-      this.showAuthWindow(); // показываем окно авторизации, т.е. запускаем заново весь цикл PKCE для получения токенов
+      // 2) If none of the above conditions are met, it means this is not a response from KC, but a regular request
+      this.showAuthWindow(); // Display the authentication window, which will restart the entire PKCE flow to obtain tokens
 
     });
 
   }
 
-  // запускаем заново весь цикл PKCE для получения токенов - показываем окно авторизации
   private showAuthWindow(): void {
 
-    // обязательные параметры для работы PKCE
+    // Mandatory parameters for PKCE
     const state = this.randomString(40);
     localStorage.setItem('state', state);
 
-    // подготавливаем параметры для запроса в KC на получение Authorization Code, который потом обменяем на токены
+    // Prepare parameters for the request to KC to obtain the Authorization Code, which will then be exchanged for tokens
     const params = [
-      'response_type=code', // этот код затем на 2 шаге будем менять на токены
-      'state=' + state, // защита клиента - что ответ от auth server пришел именно на его запрос
-      'client_id=' + environment.kcClientID, // из настроек KeyCloak
-      'scope=' + environment.scopes, // какие именно данные хотим получить от auth server (какие токены и пр.)
-      'redirect_uri=' + encodeURIComponent(environment.redirectURI), // ответ получаем на клиента, который уже отправит этот код в
-      // BFF и обменяет на токены
+      'response_type=code', // This code will later be exchanged for tokens in the second step
+      'state=' + state, // Client protection - the response from the auth server must match the client's request
+      'client_id=' + environment.kcClientID, // From KeyCloak settings
+      'scope=' + environment.scopes, // What data we want to receive from the auth server (which tokens and so on)
+      'redirect_uri=' + encodeURIComponent(environment.redirectURI), // We'll receive the response on the client, which will then send this code to the BFF to exchange it for tokens
     ];
 
-    // итоговый URL вместе с параметрами
+    // Final URL with parameters
     const url = environment.kcBaseURL + '/auth' + '?' + params.join('&');
 
-
-    // откроется окно авторизации в этом же окне (а не в новой вкладки в браузере)
-    window.open(url, '_self'); // self - значит в этом же окне
+    // The authentication window will open in the same window (not in a new browser tab)
+    window.open(url, '_self'); // 'self' means in the same window
   }
 
-  // генератор случайных символов - для state (параметр запроса PKCE)
   private randomString(length: number): string {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -104,51 +96,45 @@ export class LoginComponent implements OnInit {
     return result;
   }
 
-  // получение токенов (обмен authorization code на токены)
   private requestTokens(code: string, state: string): void {
 
-    if (!this.checkState(state)){
-      return; // если проверка не прошла - тогда выходим
+    if (!this.checkState(state)) {
+      return; // Exit if the state check fails
     }
-    //console.log('!!!Request access token through bdd: ' + environment.bffURI + '/token' + 'body ' + code);
+
     this.http.post(environment.bffURI + '/token', code, {
       headers: {
-        'Content-Type': 'application/json; charset=UTF-8' // обязательно нужно указывать
+        'Content-Type': 'application/json; charset=UTF-8' // Specify the content type
       }
     }).subscribe({
       next: ((response: any) => {
 
-        // если запрос на получение токенов в BFF выполнился успешно -
-        // значит токены будут сохранены в безопасные куки и будут автоматически
-        // отправляться с каждым запросом на BFF
+        // If the request for tokens to the BFF was successful,
+        // the tokens will be stored in secure cookies and will be automatically sent with each request to the BFF
 
-        // и можно переходить на страницу для запроса данных
-         this.router.navigate(['main']);
+        // Now we can navigate to the page to request user data
+        this.router.navigate(['main']);
       }),
 
       error: (error => {
-
         console.log(error);
       })
     });
 
   }
 
-  // проверяет state ранее сохраненный и полученный от KC
   private checkState(state: string): boolean {
 
-    // если state от auth server совпадает со старым сохраненным значением - значит ответ пришел именно на наш запрос
+    // If the state received from the auth server matches the previously saved value,
+    // it means the response came from our request
     if (state !== localStorage.getItem('state') as string) {
       console.log('Invalid state');
-      return false; // выходим и дальше ничего не выполняем (state обязательно должны совпадать)
+      return false; // Exit and don't execute any further code (the states must match)
     }
 
-    // удаляем сохраненный state, уже не нужен
+    // Remove the saved state, as it's no longer needed
     localStorage.removeItem('state');
     return true;
   }
-
-
-
 
 }

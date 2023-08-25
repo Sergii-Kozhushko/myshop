@@ -1,16 +1,15 @@
-import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
-
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 /*
 
-interceptor - это аналог фильтров в веб приложении, когда перед отправкой вы можете изменить запрос
-interceptor нужно обязательно зарегистрировать в файле app.module.ts, иначе он не будет отрабатывать
+An interceptor is similar to filters in a web application, where you can modify the request before sending it.
+The interceptor must be registered in the app.module.ts file, otherwise it won't work.
 
-Во все исходящие запросы от Angular к BFF - нужно добавлять заголовки, чтобы:
- - браузер прикреплял куки (в которых хранятся токены)
- - BFF корректно отработал этот запрос
+For all outgoing requests from Angular to the BFF, headers need to be added in order to:
+- Attach cookies (containing tokens) to the request in the browser
+- Ensure the BFF processes the request correctly
 
 */
 @Injectable()
@@ -18,21 +17,21 @@ export class CookiesInterceptor implements HttpInterceptor {
 
   constructor() {}
 
-  // метод вызывается автоматически для каждого исходящего запроса
+  // This method is automatically called for each outgoing request
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     request = request.clone({
 
-      // заголовки, чтобы BFF корректно отработал запрос
+      // Headers to ensure proper BFF processing
       setHeaders: {
         'Content-Type': 'application/json; charset=utf-8',
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*'
       },
-      // чтобы браузер прикреплял куки (в которых хранятся токены)
+      // Attach cookies (containing tokens) in the browser
       withCredentials: true,
     });
 
-    return next.handle(request); // отправляем измененный запрос далее
+    return next.handle(request); // Send the modified request further
   }
 }

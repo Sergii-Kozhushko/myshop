@@ -74,7 +74,6 @@ export class SuppliersComponent implements OnInit {
 
 
   changeSortMode(field: string): void {
-    // this.supplies.forEach(invoice => console.log(invoice.createdAt));
     this.sortField = field;
     this.sortMode = this.sortMode === 'Desc' ? 'Asc' : 'Desc';
     if (field === 'Id') {
