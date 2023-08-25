@@ -465,6 +465,9 @@ th {
   display: flex;
   justify-content: center;
 }
+.top-logo{
+  margin-top: 5px;
+}
 
 .spinner {
   width: 64px;

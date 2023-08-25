@@ -11,7 +11,7 @@ export const environment = {
   kcBaseURL: 'https://localhost:8443/realms/myshop-realm/protocol/openid-connect',
   bffURI: 'https://localhost:8902/bff',
   redirectURI: 'https://localhost:4200',
-  scopes: 'openid',
+  scopes: 'openid phone',
   devMode: true
 };
 

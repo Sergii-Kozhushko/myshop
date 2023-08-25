@@ -3,6 +3,7 @@ import {KeycloakService} from '../../../oauth2/bff/keycloak.service';
 import {Router} from '@angular/router';
 import {AboutDialogComponent} from '../../dialog/about-dialog/about-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {UserInfoDialogComponent} from '../../dialog/user-info-dialog/user-info-dialog.component';
 
 @Component({
   selector: 'app-header-top',
@@ -23,8 +24,13 @@ export class HeaderTopComponent {
         this.router.navigate(['login']);
       }),
     });
+  }
+  userProfile(event: Event): void {
+    event.preventDefault();
+    this.dialog.open(UserInfoDialogComponent);
 
   }
+
 
   openAboutDialog(event: Event): void {
     event.preventDefault();
@@ -33,10 +39,11 @@ export class HeaderTopComponent {
         autoFocus: false,
         data: {
           dialogTitle: 'About',
-          message: 'MyShop v.0.3.0. ' +
-            'Account applications must be light and funny.   ' +
-            'Back and front parts are written by Sergii Kozhushko.   ' +
-            'Remagen, Germany, 2023'
+          message: 'MyShop Retail. v.0.3.0. ' +
+            'Account applications must be bright and funny!   ' +
+            'Back and front parts are written by Sergii Kozhushko.'
+            ,
+          credits: 'Telran, Germany, 2023'
         },
         width: '400px'
       });

@@ -195,14 +195,15 @@ public class BFFController {
 
 
     // Obtaining detailed user profile data
-// All data is taken from the previously received idToken
-// No request is made to the RS here, as business data is not requested here
+    // All data is taken from the previously received idToken
+    // No request is made to the RS here, as business data is not requested here
     @GetMapping("/profile")
     public ResponseEntity<UserProfile> profile() {
 
         userId = getPayloadValue("sid");
 
         UserProfile userProfile = new UserProfile(
+                getPayloadValue("preferred_username"),
                 getPayloadValue("name"),
                 getPayloadValue("email"),
                 userId

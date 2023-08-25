@@ -48,6 +48,7 @@ import { HeaderTopComponent } from './business/view/header-top/header-top.compon
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-dialog.component';
 import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialog.component';
+import { UserInfoDialogComponent } from './business/dialog/user-info-dialog/user-info-dialog.component';
 
 
 
@@ -80,7 +81,8 @@ import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialo
 
     HeaderTopComponent,
     DeleteDialogComponent,
-    AboutDialogComponent
+    AboutDialogComponent,
+    UserInfoDialogComponent
 
   ],
   imports: [

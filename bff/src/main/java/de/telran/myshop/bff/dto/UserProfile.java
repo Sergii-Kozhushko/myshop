@@ -17,7 +17,7 @@ public class UserProfile {
     //private String givenName;
     //private String userName;
     //private String address;
-    //private String phone;
+    private String login;
 
     private String name; // The name of the user.
     private String email; // The email address of the user.

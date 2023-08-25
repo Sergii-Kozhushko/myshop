@@ -3,7 +3,7 @@ For storing user data
 You can retrieve any fields from the authorization server and add them here for display on the client
 */
 export class User {
-  // phone: string;
+  login: string;
   name: string;
   email: string;
   id: number;

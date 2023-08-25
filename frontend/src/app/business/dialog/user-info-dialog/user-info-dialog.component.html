@@ -1,0 +1,24 @@
+<div class="about-logo-title-box">
+  <img class="top-logo" ngSrc="/assets/images/myshop-logo.png" width="50" height="50" alt="MyShop v0.3.0">
+  <h1 mat-dialog-title>
+    User Info
+
+
+  </h1>
+
+</div>
+
+<div mat-dialog-content *ngIf="this.user">
+
+  <p>Full Name: <b>{{this.user.name}}</b></p>
+  <p>Login name: <b>{{this.user.login}}</b></p>
+  <p>Email: <b>{{this.user.email}}</b></p>
+
+
+</div>
+
+<!--  кнопки возможных действий-->
+
+<div mat-dialog-actions class="dialog-buttons">
+  <button mat-raised-button color="primary" (click)="close()">Ок↘</button>
+</div>
