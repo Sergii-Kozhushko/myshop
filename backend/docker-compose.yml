@@ -1,21 +1,7 @@
 version: '3.9'
 services:
-  #  angular-front:
-  #    container_name: angular-front-container
-  #    image: angular-front-image
-  #    networks:
-  #      - network-1
-  #    ports:
-  #      - "4200:80"
-  #  angular-front:
-  #    container_name: angular-front-container
-  #    image: angular-front-image
-  #    networks:
-  #      - network-1
-  #    ports:
-  #      - "4200:4200"
   angular-front:
-    container_name: front-myshop2
+    container_name: front-myshop
     image: nginx:latest
     ports:
       - 80:80
@@ -26,7 +12,6 @@ services:
       - ./../frontend/dist/frontend-angular:/usr/share/nginx/html/
     networks:
       - network-1
-
   
   backend-postgres:
     container_name: myshop-pgserver-container
@@ -39,7 +24,6 @@ services:
       - c:\11\docker-backend\data:/var/lib/postgresql/data
       - ./schema-create:/docker-entrypoint-initdb.d
       #      - /opt/postgres-db-data:/var/lib/postgresql/data
-      #      - c:\11\docker-backend\sql:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
@@ -78,6 +62,28 @@ services:
     ports:
       - "8902:8902"
 
+  keycloak-server:
+    container_name: keycloak-server-container
+    image: quay.io/keycloak/keycloak:18.0.0
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: localhost
+      KC_HTTPS_CERTIFICATE_FILE: /var/lib/keycloak/ssl/localhost.cer
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /var/lib/keycloak/ssl/localhost.pkcs8
+      KEYCLOAK_IMPORT: /var/lib/keycloak/data/import/realm-export.json
+    restart: always
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./kc-imports/:/var/lib/keycloak/ssl
+      - ./kc-imports:/var/lib/keycloak/data/import
+    networks:
+      - network-1
+networks:
+  network-1:
+
   # sepatare db-server for keycloak
   #  keycloak-db-server:
   #    container_name: keycloak-postgres-container
@@ -98,35 +104,3 @@ services:
   #
   #    networks:
   #      - network-1
-
-  keycloak-server:
-    container_name: keycloak-server-container
-    image: quay.io/keycloak/keycloak:18.0.0
-    command: start-dev
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: localhost
-      #KC_DB: h2
-      #      KC_DB_URL_DATABASE: keycloak21
-      #      KC_DB_URL_HOST: keycloak-db-server
-      #      KC_DB_URL_PORT: 5555
-      #      KC_DB_USERNAME: postgres
-      #      KC_DB_PASSWORD: postgres
-      #      KC_DB_SCHEMA: public
-      KC_HTTPS_CERTIFICATE_FILE: /var/lib/keycloak/ssl/localhost.cer
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /var/lib/keycloak/ssl/localhost.pkcs8
-      KEYCLOAK_IMPORT: /var/lib/keycloak/data/import/realm-export.json
-    restart: always
-    ports:
-      - "8443:8443"
-      #      - "8111:8080"
-    #    depends_on:
-    #      - keycloak-db-server
-    volumes:
-      - ./kc-imports/:/var/lib/keycloak/ssl
-      - ./kc-imports:/var/lib/keycloak/data/import
-    networks:
-      - network-1
-networks:
-  network-1:
