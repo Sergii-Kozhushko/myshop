@@ -85,11 +85,17 @@ export class CustomerEditComponent implements OnInit {
     this.editedCustomer.dateBirth = new Date(`${year}-${month}-${day}`);
 
     this.setEmptyFields();
-    this.customerService.update(this.editedCustomer).subscribe();
-    this.messageService.add(`Updated product '${this.editedCustomer.name}'`);
-    this.clearEditedCustomer();
-    // this.exchangeDataService.setEditedProduct(this.editedProduct);
-    this.exchangeDataService.setUpdateCustomersInGrid();
+    this.customerService.update(this.editedCustomer)
+      .subscribe(c => {
+        // console.log(c.);
+        if (c) {
+          this.messageService.add(`Updated product '${this.editedCustomer.name}'`);
+          this.clearEditedCustomer();
+          // this.exchangeDataService.setEditedProduct(this.editedProduct);
+          this.exchangeDataService.setUpdateCustomersInGrid();
+        }
+        }
+      );
   }
 
   setEmptyFields(): void {

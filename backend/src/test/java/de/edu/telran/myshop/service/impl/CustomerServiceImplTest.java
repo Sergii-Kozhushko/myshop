@@ -66,7 +66,7 @@ class CustomerServiceImplTest {
     void getAll_ReturnsListCustomer() {
         // given
 
-        when(this.customerRepository.findAll()).thenReturn(initCustomers);
+        when(this.customerRepository.findAllByOrderByNameAsc()).thenReturn(initCustomers);
 
         // when
         var result = this.customerService.getAll();

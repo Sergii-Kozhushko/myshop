@@ -87,7 +87,7 @@ class ProductServiceImplTest {
         // Arrange
         when(productMapper.toEntity(any(CreateProductDto.class))).thenReturn(initProducts.get(0));
         CreateProductDto createProductDto = new CreateProductDto("product1", new BigDecimal(10),
-                new BigDecimal(5), 2, new ProductCategory("cat 1", 0));
+                new BigDecimal(5), 2, new ProductCategory("cat 1", 0), true);
         Product newProduct = Product.builder().
                 name("product 2").
                 price(new BigDecimal("10.2"))

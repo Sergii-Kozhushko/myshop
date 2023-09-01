@@ -13,7 +13,7 @@ FROM openjdk:17
 WORKDIR /app
 COPY --from=build /app/target/myshop-0.3.0.jar ./app.jar
 
-EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+EXPOSE 8081
+CMD ["java", "-jar", "app.jar", "--spring.profiles.active=dev"]
 
 

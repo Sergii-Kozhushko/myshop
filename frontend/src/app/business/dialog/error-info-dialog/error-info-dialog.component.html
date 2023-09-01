@@ -1,0 +1,21 @@
+<div class="about-logo-title-box">
+  <img ngSrc="/assets/images/myshop-logo.png" width="50" height="50" alt="MyShop v0.3.0">
+  <h1 mat-dialog-title>
+    {{dialogTitle}}
+
+
+  </h1>
+
+</div>
+
+<div mat-dialog-content>
+  <p>{{message}}</p>
+  <p>{{credits}}</p>
+
+</div>
+
+<!--  кнопки возможных действий-->
+
+<div mat-dialog-actions class="dialog-buttons">
+  <button mat-raised-button color="primary" (click)="close()">Ок↘</button>
+</div>

@@ -2,7 +2,7 @@ FROM openjdk:17
 COPY ./build/libs/myshop-bff-0.0.1.jar /app/bff.jar
 WORKDIR /app
 EXPOSE 8902
-CMD ["java", "-jar", "bff.jar"]
+CMD ["java", "-jar", "bff.jar", "--spring.profiles.active=prod"]
 
 
 

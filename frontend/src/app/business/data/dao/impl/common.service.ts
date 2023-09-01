@@ -7,6 +7,12 @@ import {Product} from '../../../../model/Models';
 import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
 import {tap} from 'rxjs/operators';
+import {inject} from '@angular/core';
+import {ExchangeDataService} from '../../../service/exchange.data.service';
+import {logger} from 'codelyzer/util/logger';
+import {AboutDialogComponent} from '../../../dialog/about-dialog/about-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {ErrorInfoDialogComponent} from '../../../dialog/error-info-dialog/error-info-dialog.component';
 
 
 // базовые методы доступа к данным, одинаковые для всех классов,
@@ -20,13 +26,19 @@ import {tap} from 'rxjs/operators';
 export class CommonService<T> implements CommonDAO<T> {
 
   private readonly url: string;
+  private ms: MessageService;
+  private eds: ExchangeDataService;
+
 
   constructor(url: string,  // базовый URL для доступа к данным
               private httpClient: HttpClient,
               private router: Router,
-              protected messageService: MessageService // для выполнения HTTP запросов
+              protected messageService: MessageService,
+              protected dialog: MatDialog
   ) {
     this.url = url;
+    // this.eds = new ExchangeDataService();
+    // this.ms = new MessageService();
   }
 
   // основной смысл всех методов - просто вызвать BBF и передать туда параметры
@@ -125,15 +137,39 @@ export class CommonService<T> implements CommonDAO<T> {
 
   }
 
+  private extractErrorMessage(error: HttpErrorResponse): string {
+    if (error.error && error.error.message) {
+      const messages = error.error.message.split('\n');
+      if (messages.length > 1) {
+        // Выбираем вторую строку, которая содержит сообщение об ошибке
+        const errorMessage = messages[1].trim();
+        return errorMessage;
+      }
+    }
+
+    return 'Unknown error occurred';
+  }
+
   handleError(error: HttpErrorResponse): void {
     console.log('Status:', error.status);
     console.log('Error Message:', error);
 
-    const errorMessage = error.error && error.error.message ? error.error.message : 'Unknown error occurred';
+    const errorMessage = error.error && error.error.errors && error.error.errors.length > 0
+      ? error.error.errors[0]
+      : 'Unknown error occurred';
+
+    this.dialog.open(ErrorInfoDialogComponent,
+      {
+        autoFocus: false,
+        data: {
+          dialogTitle: 'Upps. Error!',
+          message: errorMessage,
+          credits: ''
+        },
+        width: '400px'
+      });
 
 
-    // Добавляем сообщение об ошибке в messageService
-    //this.messageService.add('Error occurred. Status: ' + error.status + '. Message: ' + errorMessage);
 
     if (error.status === 400) {
       this.router.navigate(['login']);

@@ -11,6 +11,7 @@ import {MessageService} from '../../../service/message.service';
 import {SALE_URL_TOKEN} from './sale.service';
 import {SaleItemSaveDto} from '../../../../model/Dto';
 import {logger} from 'codelyzer/util/logger';
+import {MatDialog} from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,9 @@ export class SaleItemService extends CommonService<SaleItem> implements SaleItem
   constructor(@Inject(SALE_URL_TOKEN) private baseUrl, // уникальный url для запросов
               private http: HttpClient,
               router: Router,
-              messageService: MessageService) {
-    super(baseUrl, http, router, messageService);
+              protected messageService: MessageService,
+              dialog: MatDialog) {
+    super(baseUrl, http, router, messageService, dialog);
   }
 
   findItemsBySale(SaleId: number): Observable<any> { // из backend получаем тип Page, поэтому указываем any

@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./customers.component.css']
 })
 export class CustomersComponent {
+  constructor() {
+    console.log('ku-ku');
+  }
 
 }

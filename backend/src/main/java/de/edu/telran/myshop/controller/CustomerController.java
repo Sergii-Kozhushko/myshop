@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -51,13 +52,13 @@ public class CustomerController {
 
     @PostMapping("/add")
     @Transactional
-    public ResponseEntity<?> createCustomer(@RequestBody final Customer customer)
+    public ResponseEntity<?> createCustomer(@RequestBody @Valid final Customer customer)
             throws URISyntaxException {
-
         return ResponseEntity
                 .created(new URI(URILinks.PRODUCT_URI))
                 .body(customerService.create(customer));
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable final Long id) {

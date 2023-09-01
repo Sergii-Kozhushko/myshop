@@ -9,6 +9,7 @@ import {environment} from '../../../../../environments/environment';
 import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
 import {ExchangeDataService} from '../../../service/exchange.data.service';
+import {MatDialog} from '@angular/material/dialog';
 
 
 // глобальная переменная для хранения URL
@@ -22,9 +23,10 @@ export class ProductService extends CommonService<Product> implements ProductDAO
   constructor(@Inject(PRODUCT_URL_TOKEN) private baseUrl, // уникальный url для запросов
               private http: HttpClient,
               router: Router,
-              messageService: MessageService,
-              private exchangeDataService: ExchangeDataService) {
-    super(baseUrl, http, router, messageService);
+              protected messageService: MessageService,
+              private exchangeDataService: ExchangeDataService,
+              dialog: MatDialog) {
+    super(baseUrl, http, router, messageService, dialog);
   }
 
   findProductsByCategory(categoryId: number): Observable<any> { // из backend получаем тип Page, поэтому указываем any
@@ -44,7 +46,7 @@ export class ProductService extends CommonService<Product> implements ProductDAO
       .subscribe(list => {
 
         this.exchangeDataService.setProducts(list);
-        this.messageService.add('Products list was uploaded from backend server');
+        // this.messageService.add('Products list was uploaded from backend server');
       });
   }
 

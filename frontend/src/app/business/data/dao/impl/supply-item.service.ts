@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
 import {SupplyItemSaveDto} from '../../../../model/Dto';
 import {SUPPLY_URL_TOKEN} from './Supply.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class SupplyItemService extends CommonService<SupplyItem> implements Supp
   constructor(@Inject(SUPPLY_URL_TOKEN) private baseUrl, // уникальный url для запросов
               private http: HttpClient,
               router: Router,
-              messageService: MessageService) {
-    super(baseUrl, http, router, messageService);
+              protected messageService: MessageService,
+              dialog: MatDialog) {
+    super(baseUrl, http, router, messageService, dialog);
   }
 
   findItemsBySupply(SupplyId: number): Observable<any> { // из backend получаем тип Page, поэтому указываем any

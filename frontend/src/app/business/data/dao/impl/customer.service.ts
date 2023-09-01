@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
 import {ExchangeDataService} from '../../../service/exchange.data.service';
+import {MatDialog} from '@angular/material/dialog';
 
 
 export const CUSTOMER_URL_TOKEN = new InjectionToken<string>('url');
@@ -19,8 +20,9 @@ export class CustomerService extends CommonService<Customer> implements Customer
               private http: HttpClient,
               router: Router,
               protected messageService: MessageService,
-              private exchangeDataService: ExchangeDataService) {
-    super(baseUrl, http, router, messageService);
+              private exchangeDataService: ExchangeDataService,
+              dialog: MatDialog) {
+    super(baseUrl, http, router, messageService, dialog);
   }
 
   refreshCustomersList(): void {
@@ -29,7 +31,7 @@ export class CustomerService extends CommonService<Customer> implements Customer
     this.findAll()
       .subscribe(list => {
          this.exchangeDataService.setCustomers(list);
-        this.messageService.add('Customer list was uploaded from backend server');
+         this.messageService.add('Customer list was uploaded from backend server');
       });
 
   }

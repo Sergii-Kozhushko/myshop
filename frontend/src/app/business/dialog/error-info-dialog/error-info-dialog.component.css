@@ -1,0 +1,10 @@
+.about-logo-title-box{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 9px;
+  border: 0px solid black;
+
+}

@@ -255,6 +255,7 @@ public class BFFController {
     @PostMapping("/token")
     public ResponseEntity<String> token(@RequestBody String code) {// Receive auth code to exchange for tokens
         System.out.println("Inside token method");
+        System.out.println("Received body: " + code);
         // 1. Exchange auth code for tokens
         // 2. Store tokens in secure cookies
 

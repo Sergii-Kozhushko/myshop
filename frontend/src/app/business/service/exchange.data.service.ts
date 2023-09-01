@@ -26,7 +26,7 @@ export class ExchangeDataService{
 
 
 
-  constructor(private customerService: CustomerService) {
+  constructor() {
 
 
   }

@@ -9,6 +9,7 @@ import {ExchangeDataService} from '../../../service/exchange.data.service';
 import {Observable} from 'rxjs';
 import {HttpMethod, Operation} from '../../../../model/RequestBFF';
 import {environment} from '../../../../../environments/environment';
+import {MatDialog} from '@angular/material/dialog';
 
 
 export const SUPPLIER_URL_TOKEN = new InjectionToken<string>('url');
@@ -22,8 +23,9 @@ export class SupplierService extends CommonService<Supplier> implements Supplier
               private http: HttpClient,
               router: Router,
               protected messageService: MessageService,
-              private exchangeDataService: ExchangeDataService) {
-    super(baseUrl, http, router, messageService);
+              private exchangeDataService: ExchangeDataService,
+              dialog: MatDialog) {
+    super(baseUrl, http, router, messageService, dialog);
   }
 
   refreshSuppliersList(): void {
@@ -31,7 +33,7 @@ export class SupplierService extends CommonService<Supplier> implements Supplier
     this.findAll()
       .subscribe(list => {
         this.exchangeDataService.setSuppliers(list);
-        this.messageService.add('Suppliers list was uploaded from backend server');
+        // this.messageService.add('Suppliers list was uploaded from backend server');
       });
   }
 

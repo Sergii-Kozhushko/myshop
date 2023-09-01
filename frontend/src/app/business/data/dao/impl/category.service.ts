@@ -6,10 +6,12 @@ import {CategoryDAO} from '../interface/CategoryDAO';
 import {Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
 import {ExchangeDataService} from '../../../service/exchange.data.service';
+import {MatDialog} from '@angular/material/dialog';
 
 // глобальная переменная для хранения URL
 export const CATEGORY_URL_TOKEN = new InjectionToken<string>('url');
 
+// @ts-ignore
 @Injectable({
   providedIn: 'root'
 })
@@ -19,9 +21,10 @@ export class CategoryService extends CommonService<Category> implements Category
               private http: HttpClient,
               router: Router,
               messageService: MessageService,
-              private exchangeDataService: ExchangeDataService
+              private exchangeDataService: ExchangeDataService,
+              dialog: MatDialog
   ) {
-    super(baseUrl, http, router, messageService);
+    super(baseUrl, http, router, messageService, dialog);
   }
 
   refreshCategoriesList(): void {

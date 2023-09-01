@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 import {HttpMethod, Operation} from '../../../../model/RequestBFF';
 import {environment} from '../../../../../environments/environment';
 import {SupplyDAO} from '../interface/SupplyDAO';
+import {MatDialog} from '@angular/material/dialog';
 
 export const SUPPLY_URL_TOKEN = new InjectionToken<string>('url');
 @Injectable({
@@ -19,8 +20,9 @@ export class SupplyService extends CommonService<Supply> implements SupplyDAO {
   constructor(@Inject(SUPPLY_URL_TOKEN) private baseUrl, // уникальный url для запросов
               private http: HttpClient,
               router: Router,
-              messageService: MessageService) {
-    super(baseUrl, http, router, messageService);
+              protected messageService: MessageService,
+              dialog: MatDialog) {
+    super(baseUrl, http, router, messageService, dialog);
   }
 
   findSupplysByDateDesc(): Observable<any> { // из backend получаем тип Page, поэтому указываем any

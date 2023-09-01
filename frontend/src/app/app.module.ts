@@ -49,6 +49,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-dialog.component';
 import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialog.component';
 import { UserInfoDialogComponent } from './business/dialog/user-info-dialog/user-info-dialog.component';
+import {ErrorInfoDialogComponent} from './business/dialog/error-info-dialog/error-info-dialog.component';
 
 
 
@@ -82,7 +83,8 @@ import { UserInfoDialogComponent } from './business/dialog/user-info-dialog/user
     HeaderTopComponent,
     DeleteDialogComponent,
     AboutDialogComponent,
-    UserInfoDialogComponent
+    UserInfoDialogComponent,
+    ErrorInfoDialogComponent
 
   ],
   imports: [

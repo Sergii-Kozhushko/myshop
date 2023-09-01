@@ -7,16 +7,27 @@ services:
   #      - network-1
   #    ports:
   #      - "4200:80"
+  #  angular-front:
+  #    container_name: angular-front-container
+  #    image: angular-front-image
+  #    networks:
+  #      - network-1
+  #    ports:
+  #      - "4200:4200"
   angular-front:
-    container_name: angular-front-container
+    container_name: front-myshop2
     image: nginx:latest
+    ports:
+      - 80:80
+      - 4200:4200
+    volumes:
+      - ./../frontend/nginx-conf:/etc/nginx/conf.d/:ro
+      - ./../frontend/dist/frontend-angular/assets/ssl:/etc/nginx/ssl/:ro
+      - ./../frontend/dist/frontend-angular:/usr/share/nginx/html/
     networks:
       - network-1
-    ports:
-      - "4200:4200"
-    volumes:
-      - ./front-certs:/etc/nginx/certs
 
+  
   backend-postgres:
     container_name: myshop-pgserver-container
     image: postgres
@@ -47,6 +58,8 @@ services:
       - "8081:8081"
     depends_on:
       backend-postgres:
+        condition: service_started
+      keycloak-server:
         condition: service_started
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://backend-postgres:5432/postgres
@@ -106,8 +119,8 @@ services:
       KEYCLOAK_IMPORT: /var/lib/keycloak/data/import/realm-export.json
     restart: always
     ports:
-      #      - "8111:8080"
       - "8443:8443"
+      #      - "8111:8080"
     #    depends_on:
     #      - keycloak-db-server
     volumes:
