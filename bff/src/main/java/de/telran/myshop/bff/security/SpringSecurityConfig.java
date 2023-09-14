@@ -34,7 +34,7 @@ public class SpringSecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(); // Enable CORS settings
+        //http.cors(); // Enable CORS settings
 
         http.authorizeRequests()
                 .antMatchers("/bff/**").permitAll() // allow requests from bff
@@ -44,7 +44,8 @@ public class SpringSecurityConfig {
                 // Allow execution of OPTIONS requests without authorization
                 .cors();
 
-        http.requiresChannel().anyRequest().requiresSecure(); // Require HTTPS for all requests
+
+        // http.requiresChannel().anyRequest().requiresSecure(); // Require HTTPS for all requests
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Disable session creation
 

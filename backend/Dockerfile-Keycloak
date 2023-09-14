@@ -29,11 +29,18 @@ ENV KC_METRICS_ENABLED=true
 
 WORKDIR /opt/keycloak
 # for demonstration purposes only, please make sure to use proper certificates in production instead
-RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=localhost" -alias server -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -keystore conf/server.keystore
+#RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=localhost" -alias server -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -keystore conf/server.keystore
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:18.0.0
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
+
+COPY ./docker-files/keycloak/ssl/myshop_keycloak_ssl.cer /opt/keycloak/data/ssl/myshop_keycloak_ssl.cer
+COPY ./docker-files/keycloak/ssl/myshop_keycloak_ssl.pkcs8 /opt/keycloak/data/ssl/myshop_keycloak_ssl.pkcs8
+ENV KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/data/ssl/myshop_server_ssl.cer
+ENV KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/data/ssl/myshop_server_ssl.pkcs8
+
+
 
 # change these values to point to a running postgres instance
 #ENV KC_DB=postgres

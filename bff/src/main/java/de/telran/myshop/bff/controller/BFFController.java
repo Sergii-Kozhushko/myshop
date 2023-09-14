@@ -3,6 +3,11 @@ package de.telran.myshop.bff.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.telran.myshop.bff.dto.DataResult;
+import de.telran.myshop.bff.dto.Operation;
+import de.telran.myshop.bff.dto.SearchValues;
+import de.telran.myshop.bff.dto.UserProfile;
+import de.telran.myshop.bff.utils.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -14,11 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import de.telran.myshop.bff.dto.DataResult;
-import de.telran.myshop.bff.dto.Operation;
-import de.telran.myshop.bff.dto.SearchValues;
-import de.telran.myshop.bff.dto.UserProfile;
-import de.telran.myshop.bff.utils.CookieUtils;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -40,7 +40,8 @@ KC - Keycloak
 public class BFFController {
 
     // WebClient can also be used instead of RestTemplate for asynchronous requests
-    private static final RestTemplate restTemplate = new RestTemplate(); // For making web requests to KeyCloak
+    private static final RestTemplate restTemplate =  new RestTemplate();
+            // = getRestTemplateIgnoringSSLErrors(); // For making web requests to KeyCloak
 
     // Keys for cookie names
     public static final String IDTOKEN_COOKIE_KEY = "IT";
@@ -146,6 +147,27 @@ public class BFFController {
                 System.out.println("Http Method=" + operation.getHttpMethod());
                 System.out.println("Request: " + request);
             }
+        //**** disable ssl check
+//            TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
+//
+//            SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
+//                    .loadTrustMaterial(null, acceptingTrustStrategy)
+//                    .build();
+//
+//            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
+//
+//            CloseableHttpClient httpClient = HttpClients.custom()
+//                    .setSSLSocketFactory(csf)
+//                    .build();
+//
+//            HttpComponentsClientHttpRequestFactory requestFactory =
+//                    new HttpComponentsClientHttpRequestFactory();
+//
+//            requestFactory.setHttpClient(httpClient);
+
+            //RestTemplate restTemplateNoSSL = new RestTemplate(requestFactory);
+            //****
+
 
             ResponseEntity<Object> response = restTemplate.exchange(operation.getUrl(), operation.getHttpMethod(), request, Object.class);
 
@@ -278,6 +300,8 @@ public class BFFController {
         // Adding headers and parameters to the request
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(mapForm, headers);
 
+        System.out.println("KC URI=" + keyCloakURI);
+        System.out.println("headers:" + mapForm);
         // Execute the request
         ResponseEntity<String> response = restTemplate.exchange(keyCloakURI + "/token", HttpMethod.POST, request, String.class);
         // We receive JSON in text form
@@ -363,6 +387,28 @@ public class BFFController {
         responseHeaders.add(HttpHeaders.SET_COOKIE, idTokenCookie.toString());
         return responseHeaders;
     }
+
+//    static RestTemplate getRestTemplateIgnoringSSLErrors() {
+//        try {
+//            // Создание SSL контекста, который доверяет всем сертификатам
+//            SSLContext sslContext = SSLContexts.custom()
+//                    .loadTrustMaterial(null, new TrustSelfSignedStrategy())
+//                    .build();
+//
+//            // Создание HTTP клиента с игнорированием ошибок имени хоста
+//            CloseableHttpClient httpClient = HttpClients.custom()
+//                    .setSslcontext(sslContext)
+//                    .setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)
+//                    .build();
+//
+//            HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+//
+//            return new RestTemplate(factory);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
 
 
 }

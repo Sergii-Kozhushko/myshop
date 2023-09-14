@@ -5,7 +5,7 @@
 // global constants
 export const environment = {
   production: false,
-  resourceServerURL: 'https://localhost:8081', // root backend URL
+  resourceServerURL: 'http://backend:8082', // root backend URL
   frontendURL: 'https://localhost:4200', // root URL frontend
   kcClientID: 'myshopapp-client', // KeyCloak client property
   kcBaseURL: 'https://localhost:8443/realms/myshop-realm/protocol/openid-connect',

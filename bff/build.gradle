@@ -40,6 +40,16 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-configuration-processor:2.7.3'
 
+	// Apache HttpClient
+	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
+// Apache HttpCore
+	implementation 'org.apache.httpcomponents:httpcore:4.4.13'
+
+// Spring Web (если у вас его еще нет)
+
+
+
 }
 
 

@@ -13,16 +13,18 @@ services:
     networks:
       - network-1
   
+  
   backend-postgres:
     container_name: myshop-pgserver-container
     image: postgres
     networks:
       - network-1
+
     ports:
       - "5432:5432"
     volumes:
-      - c:\11\docker-backend\data:/var/lib/postgresql/data
-      - ./schema-create:/docker-entrypoint-initdb.d
+      - ./docker-files/postgres-db-data:/var/lib/postgresql/data
+      - ./docker-files/schema-create:/docker-entrypoint-initdb.d
       #      - /opt/postgres-db-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
@@ -38,8 +40,10 @@ services:
       dockerfile: Dockerfile
     networks:
       - network-1
+
     ports:
       - "8081:8081"
+      - "8082:8082"
     depends_on:
       backend-postgres:
         condition: service_started
@@ -57,30 +61,36 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+    links:
+      - "keycloak-server:localhost"
     networks:
       - network-1
     ports:
       - "8902:8902"
+      - "8901:8901"
+
 
   keycloak-server:
     container_name: keycloak-server-container
     image: quay.io/keycloak/keycloak:18.0.0
-    command: start-dev
+    command:
+      - start-dev --import-realm
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HOSTNAME: localhost
-      KC_HTTPS_CERTIFICATE_FILE: /var/lib/keycloak/ssl/localhost.cer
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /var/lib/keycloak/ssl/localhost.pkcs8
-      KEYCLOAK_IMPORT: /var/lib/keycloak/data/import/realm-export.json
-    restart: always
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/data/ssl/server.cer
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/data/ssl/server_key.pkcs8
+    #      KC_IMPORT: /opt/keycloak/data/import/realm-export.json
     ports:
       - "8443:8443"
+      - "8080:8080"
     volumes:
-      - ./kc-imports/:/var/lib/keycloak/ssl
-      - ./kc-imports:/var/lib/keycloak/data/import
+      - ./docker-files/keycloak/ssl/3:/opt/keycloak/data/ssl
+      - ./docker-files/keycloak/realm-export:/opt/keycloak/data/import
     networks:
       - network-1
+
 networks:
   network-1:
 

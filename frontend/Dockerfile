@@ -17,7 +17,7 @@
 FROM nginx:latest
 
 COPY ./dist/frontend-angular /usr/share/nginx/html
-COPY ./dist/frontend-angular/assets/ssl /etc/ssl
+COPY ./dist/frontend-angular/assets/ssl /etc/nginx/ssl
 COPY nginx-conf/nginx-config-local.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 4200
