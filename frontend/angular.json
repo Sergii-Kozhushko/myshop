@@ -63,8 +63,8 @@
           "options": {
             "browserTarget": "frontend-angular:build",
             "ssl": true,
-            "sslKey": "src/assets/ssl/myshop_server_ssl.pkcs8",
-            "sslCert": "src/assets/ssl/myshop_server_ssl.cer"
+            "sslKey": "src/assets/ssl/privkey.pem",
+            "sslCert": "src/assets/ssl/cert-myshop.pem"
           },
           "configurations": {
             "production": {
