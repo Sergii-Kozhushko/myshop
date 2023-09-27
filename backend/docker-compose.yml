@@ -16,7 +16,7 @@ services:
   
   backend-postgres:
     container_name: myshop-pgserver-container
-    image: postgres
+    image: postgres:15-alpine
     networks:
       - network-1
 
