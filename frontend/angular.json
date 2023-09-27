@@ -64,7 +64,7 @@
             "browserTarget": "frontend-angular:build",
             "ssl": true,
             "sslKey": "src/assets/ssl/privkey.pem",
-            "sslCert": "src/assets/ssl/chain.pem"
+            "sslCert": "src/assets/ssl/cert.pem"
           },
           "configurations": {
             "production": {
