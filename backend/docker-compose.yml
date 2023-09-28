@@ -78,7 +78,7 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: localhost
+      KC_HOSTNAME: myshopapp.kyiv.ua
       KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/data/ssl/fullchain.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/data/ssl/privkey.pem
     #      KC_IMPORT: /opt/keycloak/data/import/realm-export.json
