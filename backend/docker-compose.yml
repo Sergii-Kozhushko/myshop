@@ -58,7 +58,7 @@ services:
     container_name: myshop-bff-container
     image: myshop-bff-image
     build:
-      context: ./bff/
+      context: ./../bff/
       dockerfile: Dockerfile
     networks:
       - network-1
@@ -75,10 +75,8 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HOSTNAME: localhost
-      #KC_HOSTNAME: myshopapp.kyiv.ua
-      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/data/ssl/fullchain.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/data/ssl/privkey.pem
-    #      KC_IMPORT: /opt/keycloak/data/import/realm-export.json
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/data/ssl/server.cer
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/data/ssl/server_key.pkcs8
     ports:
       - "8443:8443"
       - "8080:8080"
