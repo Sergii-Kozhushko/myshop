@@ -28,7 +28,7 @@ EXPOSE 8901
 COPY --from=build /app/build/libs/myshop-bff-0.0.1.jar /app/app-bff.jar
 ENV SPRING_PROFILES_ACTIVE=prod
 
-ENTRYPOINT ["java", "-jar", "/app/app-bff.jar", "--spring.profiles.active=dev"]
+ENTRYPOINT ["java", "-jar", "/app/app-bff.jar", "--spring.profiles.active=prod"]
 
 
 
