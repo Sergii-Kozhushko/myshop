@@ -1,4 +1,5 @@
 docker-compose.yml
+docker-files/postgres-db-data
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
