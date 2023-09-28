@@ -73,9 +73,6 @@ services:
     image: quay.io/keycloak/keycloak:18.0.0
     command:
       - start-dev --import-realm
-    sysctls:
-      - net.core.rmem_max=26214400
-      - net.core.wmem_max=26214400
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
