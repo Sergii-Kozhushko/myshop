@@ -15,6 +15,6 @@ COPY --from=build /app/target/myshop-0.3.0.jar ./app.jar
 
 EXPOSE 8081
 EXPOSE 8082
-CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
+CMD ["java", "-jar", "app.jar", "--spring.profiles.active=dev"]
 
 
