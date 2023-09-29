@@ -11,9 +11,6 @@
 
 FROM gradle:7.5.1-jdk17-alpine as build
 WORKDIR /app
-#COPY --chown=gradle:gradle build.gradle .
-#COPY --chown=gradle:gradle settings.gradle .
-#COPY --chown=gradle:gradle src ./src
 COPY --chown=gradle:gradle . /app
 
 RUN gradle build --no-daemon
