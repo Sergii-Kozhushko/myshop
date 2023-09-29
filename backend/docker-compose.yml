@@ -80,6 +80,7 @@ services:
     ports:
       - "8443:8443"
       - "8080:8080"
+    restart: always
     volumes:
       - ./docker-files/keycloak/ssl:/opt/keycloak/data/ssl
       - ./docker-files/keycloak/realm-export:/opt/keycloak/data/import
