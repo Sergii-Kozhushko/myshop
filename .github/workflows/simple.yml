@@ -1,16 +1,25 @@
 name: "test run command on remote server3"
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 jobs:
-  run-command:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: run command
-        uses: D3rHase/ssh-command-action@v0.2.2
-        with:
-          host: ${{secrets.SSH_HOST}}
-          user: ${{secrets.SSH_USER}}
-          private_key: ${{secrets.SSH_PRIVATE_KEY}}
-          command: |
-            echo 'Hello world';
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H myshopapp.kyiv.ua >> ~/.ssh/known_hosts
+
+      - name: Run remote command
+        run: |
+          ssh root@myshopapp.kyiv.ua 'echo "Hello world"'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
