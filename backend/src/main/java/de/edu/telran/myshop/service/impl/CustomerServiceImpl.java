@@ -101,6 +101,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void delete(final Long customerId) throws CustomerNotFoundException {
+
         customerRepository.findById(customerId).orElseThrow(() ->
                 new CustomerNotFoundException(ErrorMassage.CUSTOMER_NOT_FOUND));
         customerRepository.deleteById(customerId);

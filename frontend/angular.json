@@ -63,8 +63,8 @@
           "options": {
             "browserTarget": "frontend-angular:build",
             "ssl": true,
-            "sslKey": "src/assets/ssl/fullchain.pem",
-            "sslCert": "src/assets/ssl/privkey.pem"
+            "sslKey": "src/assets/ssl/localhost.pkcs8",
+            "sslCert": "src/assets/ssl/localhost.cer"
           },
           "configurations": {
             "production": {
@@ -128,3 +128,4 @@
     "analytics": false
   }
 }
+
