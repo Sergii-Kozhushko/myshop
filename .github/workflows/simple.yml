@@ -1,4 +1,4 @@
-name: "test run command on remote server7"
+name: "test run command on remote server8"
 on:
   push:
     branches:
