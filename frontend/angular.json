@@ -29,11 +29,19 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+                ]
+            },
             "production": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.production.ts"
                 }
               ],
               "optimization": true,
@@ -62,15 +70,21 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "frontend-angular:build",
-            "ssl": true,
-            "sslKey": "src/assets/ssl/key.pkcs8",
-            "sslCert": "src/assets/ssl/cert.cer"
+            "ssl": true
           },
           "configurations": {
             "production": {
-              "browserTarget": "frontend-angular:build:production"
+              "browserTarget": "frontend-angular:build:production",
+              "sslKey": "src/assets/ssl/key.pkcs8",
+              "sslCert": "src/assets/ssl/cert.cer"
+            },
+            "development": {
+              "browserTarget": "frontend-angular:build:development",
+              "sslKey": "src/assets/ssl/localhost.pkcs8",
+              "sslCert": "src/assets/ssl/localhost.cer"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -128,4 +142,3 @@
     "analytics": false
   }
 }
-

@@ -110,12 +110,6 @@ import {ErrorInfoDialogComponent} from './business/dialog/error-info-dialog/erro
       useValue: environment.resourceServerURL
       // base URL for all front
     },
-
-    {
-      provide: DEV_MODE,
-      useValue: environment.devMode
-
-    },
     {
       provide: CATEGORY_URL_TOKEN,
       useValue: environment.resourceServerURL + '/category'

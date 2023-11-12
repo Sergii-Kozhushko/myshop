@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SpinnerService } from './oauth2/spinner/spinner.service';
 import { KeycloakService } from './oauth2/bff/keycloak.service';
 import { Router } from '@angular/router';
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
