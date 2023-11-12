@@ -10,7 +10,6 @@ import {HttpMethod, Operation} from '../../model/RequestBFF';
 Поэтому создали глобальную переменную со значением URL, которая хранится в файле app.module.ts
  */
 export const BACKEND_URL = new InjectionToken<string>('url');
-export const DEV_MODE = new InjectionToken<string>('url');
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +34,4 @@ export class BackendService {
     operation.httpMethod = HttpMethod.GET; // тип запроса тоже важно указывать
     return this.http.post(environment.bffURI + '/operation', operation);
   }
-
-
 }

@@ -10,7 +10,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CookiesInterceptor} from './oauth2/interceptor/cookies-interceptor.service';
 import {SpinnerInterceptor} from './oauth2/interceptor/spinner-interceptor.service';
 import {environment} from '../environments/environment';
-import {BACKEND_URL, DEV_MODE} from './business/service/backend.service';
 import {DashboardComponent} from './business/view/dashboard/dashboard.component';
 
 import {MessagesComponent} from './business/view/messages/messages.component';
@@ -50,6 +49,7 @@ import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-di
 import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialog.component';
 import { UserInfoDialogComponent } from './business/dialog/user-info-dialog/user-info-dialog.component';
 import {ErrorInfoDialogComponent} from './business/dialog/error-info-dialog/error-info-dialog.component';
+import {BACKEND_URL} from './business/service/backend.service';
 
 
 
