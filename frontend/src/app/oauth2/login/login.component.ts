@@ -101,7 +101,6 @@ export class LoginComponent implements OnInit {
     if (!this.checkState(state)) {
       return; // Exit if the state check fails
     }
-    console.log('BFF URI=' + environment.bffURI);
     this.http.post(environment.bffURI + '/token', code, {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8' // Specify the content type
