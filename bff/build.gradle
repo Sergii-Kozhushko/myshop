@@ -46,10 +46,8 @@ dependencies {
 // Apache HttpCore
 	implementation 'org.apache.httpcomponents:httpcore:4.4.13'
 
-// Spring Web (если у вас его еще нет)
+
 
 
 
 }
-
-

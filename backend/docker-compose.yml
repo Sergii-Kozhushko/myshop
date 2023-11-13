@@ -77,8 +77,8 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: ulrikeFraupe2711-
       KC_HOSTNAME: myshopapp.kyiv.ua
-      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/data/ssl/cert.cer
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/data/ssl/key.pkcs8
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/data/ssl/myshopapp-kyiv-ua.cer
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/data/ssl/myshopapp-kyiv-ua.pkcs8
     ports:
       - "8443:8443"
       - "8080:8080"

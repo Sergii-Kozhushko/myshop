@@ -7,6 +7,9 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Class listens on http requests inside docker-container
+ */
 @Configuration
 public class HttpConfig {
     @Value("${server.http.port}")
@@ -15,7 +18,6 @@ public class HttpConfig {
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> cookieProcessorCustomizer() {
         return (TomcatServletWebServerFactory factory) -> {
-            // also listen on http
             final Connector connector = new Connector();
             connector.setPort(httpPort);
             factory.addAdditionalTomcatConnectors(connector);
