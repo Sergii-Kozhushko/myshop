@@ -1,2 +1,2 @@
-ng build --configuration development
+ng build
 ng build --configuration production

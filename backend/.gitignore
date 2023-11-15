@@ -21,3 +21,4 @@ target/
 *.ipr
 
 /docker-compose-dev.yml
+/docker-files/postgres-db-data/

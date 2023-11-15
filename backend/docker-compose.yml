@@ -25,7 +25,6 @@ services:
     volumes:
       - ./docker-files/postgres-db-data:/var/lib/postgresql/data
       - ./docker-files/schema-create:/docker-entrypoint-initdb.d
-      #      - /opt/postgres-db-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
