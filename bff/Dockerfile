@@ -21,5 +21,5 @@ EXPOSE 8902
 EXPOSE 8901
 
 COPY --from=build /app/build/libs/myshop-bff-0.0.1.jar /app/app-bff.jar
-ENV KEYCLOAK_SECRET=xBd6URDUggtpp8kenc6TA1F8c5Ewdvq3
+ENV KEYCLOAK_SECRET=a4fh7q3qZMazZlLDs59ugkbah7zQWgJ4
 ENTRYPOINT ["java", "-jar", "/app/app-bff.jar", "--spring.profiles.active=prod"]
