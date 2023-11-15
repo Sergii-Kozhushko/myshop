@@ -20,9 +20,6 @@ FROM openjdk:17
 EXPOSE 8902
 EXPOSE 8901
 
-
 COPY --from=build /app/build/libs/myshop-bff-0.0.1.jar /app/app-bff.jar
-ENV SPRING_PROFILES_ACTIVE=dev
-ENV KEYCLOAK_SECRET=ll6kxET8INcxpG7QhusPL5bA86T1rggo
-
-ENTRYPOINT ["java", "-jar", "/app/app-bff.jar", "--spring.profiles.active=dev"]
+ENV KEYCLOAK_SECRET=xBd6URDUggtpp8kenc6TA1F8c5Ewdvq3
+ENTRYPOINT ["java", "-jar", "/app/app-bff.jar", "--spring.profiles.active=prod"]
