@@ -22,6 +22,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SupplyItemServiceImpl implements SupplyItemService {
+
     private final SupplyItemRepository supplyItemRepository;
     private final UtilServiceImpl utilService;
 
@@ -38,8 +39,7 @@ public class SupplyItemServiceImpl implements SupplyItemService {
      */
     @Override
     public void deleteAllItems(Long supplyId) {
-        List<SupplyItem> items = supplyItemRepository.
-                findItemsBySupplyId(supplyId);
+        List<SupplyItem> items = supplyItemRepository.findItemsBySupplyId(supplyId);
         utilService.updateProductsQuantity(items, false);
         supplyItemRepository.deleteItemsBySupplyId(supplyId);
     }

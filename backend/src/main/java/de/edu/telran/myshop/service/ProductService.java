@@ -1,10 +1,3 @@
-/**
- * ProductServiceInterface.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 08-Jul-2023 12:33
- */
-
 package de.edu.telran.myshop.service;
 
 import de.edu.telran.myshop.dto.CreateProductDto;
@@ -15,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface ProductService {
+
     Product createProduct(final CreateProductDto product);
 
     void deleteProduct(final Long productId);

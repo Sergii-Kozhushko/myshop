@@ -1,6 +1,6 @@
 package de.edu.telran.myshop.controller;
 
-import de.edu.telran.myshop.config.URILinks;
+import de.edu.telran.myshop.config.UriLinks;
 import de.edu.telran.myshop.entity.User;
 import de.edu.telran.myshop.exception.ErrorMassage;
 import de.edu.telran.myshop.exception.UserAlreadyExistsException;
@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.USER_ADMIN_URI)
+@RequestMapping(UriLinks.USER_ADMIN_URI)
 @RequiredArgsConstructor
 public class UserAdminController {
 

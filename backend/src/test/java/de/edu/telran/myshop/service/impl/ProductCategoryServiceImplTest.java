@@ -28,6 +28,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductCategoryServiceImplTest {
+
     @Mock
     ProductCategoryRepository categoryRepository;
 
@@ -43,24 +44,23 @@ class ProductCategoryServiceImplTest {
     static void initData() {
 
         initCategories = List.of(
-                ProductCategory.builder().
-                        name("product category 1")
+                ProductCategory.builder()
+                        .name("product category 1")
                         .active(true)
                         .parentId(0)
                         .build(),
-                ProductCategory.builder().
-                        name("product category 2")
+                ProductCategory.builder()
+                        .name("product category 2")
                         .active(true)
                         .parentId(0)
                         .build(),
-                ProductCategory.builder().
-                        name("product category 3")
+                ProductCategory.builder()
+                        .name("product category 3")
                         .active(false)
                         .parentId(0)
                         .build()
         );
     }
-
 
     @Test
     @DisplayName("return list of all categories with flag isActive=true")
@@ -113,6 +113,4 @@ class ProductCategoryServiceImplTest {
 
         verify(categoryRepository, times(1)).deleteById(categoryId);
     }
-
-
 }

@@ -12,9 +12,8 @@ import java.util.List;
 
 @Repository
 public interface SupplyItemRepository extends JpaRepository<SupplyItem, Long> {
-    @Query("SELECT i FROM SupplyItem i where " +
-            "(:supply_id is null or i.supply.id=:supply_id)"
-    )
+
+    @Query("SELECT i FROM SupplyItem i where (:supply_id is null or i.supply.id=:supply_id)")
     List<SupplyItem> findItemsBySupplyId(@Param("supply_id") Long supplyId);
 
     @Modifying

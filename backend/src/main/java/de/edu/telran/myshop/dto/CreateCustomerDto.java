@@ -2,8 +2,6 @@ package de.edu.telran.myshop.dto;
 
 import lombok.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Setter
@@ -19,5 +17,5 @@ public class CreateCustomerDto {
     Integer discountValue;
     String discountCardNumber;
     Date dateBirth;
-    Boolean acceptSMSList;
+    Boolean acceptSmsList;
 }

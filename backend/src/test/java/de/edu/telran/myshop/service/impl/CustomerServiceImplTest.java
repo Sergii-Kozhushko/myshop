@@ -44,19 +44,19 @@ class CustomerServiceImplTest {
     static void initData() {
 
         initCustomers = List.of(
-                Customer.builder().
-                        name("John Travolta")
+                Customer.builder()
+                        .name("John Travolta")
                         .email("john1@gmail.com")
                         .address("121 Amazon St, Seattle, WA")
                         .phone("+1 555-123-4667")
-                        .acceptSMSList(true)
+                        .acceptSmsList(true)
                         .build(),
-                Customer.builder().
-                        name("Michael Maers")
+                Customer.builder()
+                        .name("Michael Maers")
                         .email("mmaers@gmail.com")
                         .address("555 Willow Lane, Somewhere, USA")
                         .phone("+1 255-123-4667")
-                        .acceptSMSList(true)
+                        .acceptSmsList(true)
                         .build()
         );
     }

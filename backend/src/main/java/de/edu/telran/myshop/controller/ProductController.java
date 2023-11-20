@@ -1,6 +1,6 @@
 package de.edu.telran.myshop.controller;
 
-import de.edu.telran.myshop.config.URILinks;
+import de.edu.telran.myshop.config.UriLinks;
 import de.edu.telran.myshop.dto.CreateProductDto;
 import de.edu.telran.myshop.entity.Product;
 import de.edu.telran.myshop.search.ProductSearchValues;
@@ -19,9 +19,10 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.PRODUCT_URI)
+@RequestMapping(UriLinks.PRODUCT_URI)
 @RequiredArgsConstructor
 public class ProductController {
+
     private final ProductServiceImpl productService;
 
 
@@ -41,17 +42,19 @@ public class ProductController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Page<Product>> search(@RequestBody ProductSearchValues productSearchValues) throws ParseException {
+    public ResponseEntity<Page<Product>> search(@RequestBody ProductSearchValues productSearchValues)
+            throws ParseException {
 
         Boolean active = productSearchValues.getActive();
         // preparing data for page view
         String sortDirection = productSearchValues.getSortDirection();
-        Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0 ||
-                sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0
+                || sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-        Sort sort = Sort.by(direction, productSearchValues.getSortColumn(), URILinks.ID_COLUMN);
+        Sort sort = Sort.by(direction, productSearchValues.getSortColumn(), UriLinks.ID_COLUMN);
         Integer pageNumber = productSearchValues.getPageNumber() != null ? productSearchValues.getPageNumber() : 0;
-        PageRequest pageRequest = PageRequest.of(productSearchValues.getPageNumber(), productSearchValues.getPageSize(), sort);
+        PageRequest pageRequest = PageRequest.of(productSearchValues.getPageNumber(), productSearchValues.getPageSize(),
+                sort);
         Page<Product> result = productService.findByParams(productSearchValues.getName(), active, pageRequest);
 
 
@@ -63,7 +66,7 @@ public class ProductController {
             throws URISyntaxException {
 
         return ResponseEntity
-                .created(new URI(URILinks.PRODUCT_URI))
+                .created(new URI(UriLinks.PRODUCT_URI))
                 .body(productService.createProduct(product));
     }
 
