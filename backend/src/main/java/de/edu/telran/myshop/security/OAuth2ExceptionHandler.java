@@ -26,11 +26,11 @@ public class OAuth2ExceptionHandler implements AuthenticationEntryPoint {
      * @param request   The HTTP request that resulted in the exception.
      * @param response  The HTTP response that will be populated with the error details.
      * @param exception The authentication exception that occurred.
-     * @throws IOException      If an I/O error occurs during writing the response.
-     * @throws ServletException If a servlet error occurs during the handling process.
+     * @throws IOException If an I/O error occurs during writing the response.
      */
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
+            throws IOException {
         final Map<String, Object> jsonBody = new HashMap<>();
 
         jsonBody.put("type", exception.getClass().getSimpleName());

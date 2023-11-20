@@ -51,18 +51,18 @@ class ProductServiceImplTest {
     static void initData() {
         var category1 = new ProductCategory("Category 1", 0);
         initProducts = List.of(
-                Product.builder().
-                        name("product 1").
-                        price(new BigDecimal(100))
-                        .wholesalePrice(new BigDecimal(50)).
-                        quantity(2).
-                        category(category1).build(),
-                Product.builder().
-                        name("product 2").
-                        price(new BigDecimal("10.2"))
-                        .wholesalePrice(new BigDecimal("5.06")).
-                        quantity(2000).
-                        category(category1).build()
+                Product.builder()
+                        .name("product 1")
+                        .price(new BigDecimal(100))
+                        .wholesalePrice(new BigDecimal(50))
+                        .quantity(2)
+                        .category(category1).build(),
+                Product.builder()
+                        .name("product 2")
+                        .price(new BigDecimal("10.2"))
+                        .wholesalePrice(new BigDecimal("5.06"))
+                        .quantity(2000)
+                        .category(category1).build()
         );
     }
 
@@ -88,18 +88,17 @@ class ProductServiceImplTest {
         when(productMapper.toEntity(any(CreateProductDto.class))).thenReturn(initProducts.get(0));
         CreateProductDto createProductDto = new CreateProductDto("product1", new BigDecimal(10),
                 new BigDecimal(5), 2, new ProductCategory("cat 1", 0), true);
-        Product newProduct = Product.builder().
-                name("product 2").
-                price(new BigDecimal("10.2"))
-                .wholesalePrice(new BigDecimal("5.06")).
-                quantity(2000).
-                category(new ProductCategory("category1", 0)).build();
+        Product newProduct = Product.builder()
+                .name("product 2")
+                .price(new BigDecimal("10.2"))
+                .wholesalePrice(new BigDecimal("5.06"))
+                .quantity(2000)
+                .category(new ProductCategory("category1", 0)).build();
         when(productRepository.saveAndFlush(any(Product.class))).thenReturn(newProduct);
 
 
         // Act
         var result = this.productService.createProduct(createProductDto);
-
 
         // Assert
         // verify if created product is equal to expected
@@ -120,5 +119,4 @@ class ProductServiceImplTest {
         // Assert
         assertTrue(isTransactional); // Check if method has @Transactional
     }
-
 }

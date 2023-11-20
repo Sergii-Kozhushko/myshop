@@ -1,13 +1,6 @@
-/**
- * ProductController.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:48
- */
-
 package de.edu.telran.myshop.controller;
 
-import de.edu.telran.myshop.config.URILinks;
+import de.edu.telran.myshop.config.UriLinks;
 import de.edu.telran.myshop.entity.Supplier;
 import de.edu.telran.myshop.service.impl.SupplierServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +13,11 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.SUPPLIER_URI)
+@RequestMapping(UriLinks.SUPPLIER_URI)
 @RequiredArgsConstructor
 public class SupplierController {
-    private final SupplierServiceImpl supplierService;
 
+    private final SupplierServiceImpl supplierService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Supplier>> getAllSuppliers() {
@@ -32,32 +25,12 @@ public class SupplierController {
         return ResponseEntity.ok(supplierService.getAll());
     }
 
-//    @PostMapping("/search")
-//    public ResponseEntity<Page<Supplier>> search(@RequestBody SupplierSearchValues supplierSearchValues) throws ParseException {
-//
-//        // preparing data for page view
-//        String sortDirection = supplierSearchValues.getSortDirection();
-//        Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0 ||
-//                sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-//
-//        Sort sort = Sort.by(direction, supplierSearchValues.getSortColumn(), ID_COLUMN);
-//        Integer pageNumber = supplierSearchValues.getPageNumber() != null ? supplierSearchValues.getPageNumber() : 0;
-//        PageRequest pageRequest = PageRequest.of(supplierSearchValues.getPageNumber(), supplierSearchValues.getPageSize(), sort);
-//        Page<Supplier> result = supplierService.findByParams(
-//                supplierSearchValues.getName(),
-//                supplierSearchValues.getEmail(),
-//                supplierSearchValues.getPhone(), pageRequest);
-//
-//        return ResponseEntity.ok(result);
-//    }
-
-
     @Transactional
     @PostMapping("/add")
     public ResponseEntity<Supplier> createSupplier(@RequestBody final Supplier supplier)
             throws URISyntaxException {
         return ResponseEntity
-                .created(new URI(URILinks.SUPPLIER_URI))
+                .created(new URI(UriLinks.SUPPLIER_URI))
                 .body(supplierService.create(supplier));
     }
 
@@ -78,7 +51,7 @@ public class SupplierController {
     public ResponseEntity<Supplier> updateSupplier(@RequestBody final Supplier supplier
     ) throws URISyntaxException {
 
-        return ResponseEntity.created(new URI(URILinks.SUPPLIER_URI))
+        return ResponseEntity.created(new URI(UriLinks.SUPPLIER_URI))
                 .body(supplierService.update(supplier));
     }
 
@@ -86,6 +59,4 @@ public class SupplierController {
     public ResponseEntity<Long> getSupplierMaxId() {
         return ResponseEntity.ok(supplierService.findMaxId());
     }
-
-
 }

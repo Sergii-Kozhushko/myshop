@@ -2,7 +2,6 @@ package de.edu.telran.myshop.security;
 
 import de.edu.telran.myshop.dto.UserDTO;
 import de.edu.telran.myshop.entity.User;
-import de.edu.telran.myshop.exception.CustomerNotFoundException;
 import de.edu.telran.myshop.exception.ErrorMassage;
 import de.edu.telran.myshop.exception.UserNotFoundException;
 import org.keycloak.OAuth2Constants;
@@ -41,7 +40,7 @@ public class KeycloakUtils {
     private String realm;
 
     @Value("${keycloak.resource}")
-    private String clientID;
+    private String clientId;
 
     @Value("${keycloak.credentials.secret}")
     private String clientSecret;
@@ -64,7 +63,7 @@ public class KeycloakUtils {
             keycloak = KeycloakBuilder.builder()
                     .realm(realm)
                     .serverUrl(serverURL)
-                    .clientId(clientID)
+                    .clientId(clientId)
                     .clientSecret(clientSecret)
                     .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                     .build();
@@ -95,7 +94,8 @@ public class KeycloakUtils {
         kcUser.setEnabled(true);
         kcUser.setEmailVerified(false);
 
-        // Invoking Keycloak API (the library handles internal operations - constructs REST requests, fills parameters, etc.)
+        // Invoking Keycloak API (the library handles internal operations - constructs REST requests, fills parameters
+        // , etc.)
         Response response = usersResource.create(kcUser);
 
         return response;
@@ -186,5 +186,4 @@ public class KeycloakUtils {
         UserResource userResource = usersResource.get(user.getId());
         userResource.update(kcUser);
     }
-
 }

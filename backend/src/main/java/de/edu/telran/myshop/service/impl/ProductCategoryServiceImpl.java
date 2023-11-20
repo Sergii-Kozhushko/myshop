@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductCategoryServiceImpl implements ProductCategoryService {
+
     private final ProductCategoryRepository categoryRepository;
 
     @Override
@@ -50,7 +51,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         }
         // check if Category exists
         categoryRepository.findById(productCategory.getId()).orElseThrow(() ->
-                new ProductCategoryNotFoundException(ErrorMassage.CATEGORY_NOT_FOUND + ". Id = " + productCategory.getId()));
+                new ProductCategoryNotFoundException(ErrorMassage.CATEGORY_NOT_FOUND
+                        + ". Id = " + productCategory.getId()));
 
         if (productCategory.getName() == null || productCategory.getName().isBlank()) {
             throw new ProductCategoryInvalidParameterException(ErrorMassage.CATEGORY_NAME_EMPTY);

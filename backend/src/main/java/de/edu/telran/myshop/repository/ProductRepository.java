@@ -24,9 +24,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * @param pageable The page information for pagination.
      * @return A page of Product entities that match the specified parameters.
      */
-    @Query("SELECT p FROM Product p WHERE " +
-            "(:name IS NULL OR :name='' OR lower(p.name) LIKE lower(concat('%', :name,'%'))) AND " +
-            "(:active IS NULL OR p.active=:active)"
+    @Query("SELECT p FROM Product p WHERE "
+            + "(:name IS NULL OR :name='' OR lower(p.name) LIKE lower(concat('%', :name,'%'))) AND "
+            + "(:active IS NULL OR p.active=:active)"
     )
     Page<Product> findByParams(@Param("name") String name,
                                @Param("active") Boolean active,
@@ -37,14 +37,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * Retrieves a list of active Product entities belonging to a specific category.
      * Empty parameters are not taken into account
      *
-     * @param category_id The ID of the category for which products are retrieved (optional).
+     * @param categoryId The ID of the category for which products are retrieved (optional).
      * @return A list of active Product entities that belong to the specified category.
      */
-    @Query("SELECT p FROM Product p WHERE " +
-            "(:category_id IS NULL OR p.category.id=:category_id) " +
-            "AND p.active=true ORDER BY p.name ASC"
+    @Query("SELECT p FROM Product p WHERE "
+            + "(:category_id IS NULL OR p.category.id=:category_id) "
+            + "AND p.active=true ORDER BY p.name ASC"
     )
-    List<Product> findByCategoryIdAndActiveTrue(@Param("category_id") Integer category_id);
+    List<Product> findByCategoryIdAndActiveTrue(@Param("category_id") Integer categoryId);
 
     /**
      * Retrieves a list of active Product entities.

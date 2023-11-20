@@ -5,12 +5,9 @@ import de.edu.telran.myshop.entity.Product;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-
 public interface ProductMapper {
 
     CreateProductDto toCreateProductDto(Product product);
+
     Product toEntity(CreateProductDto productDto);
-
 }
-
-

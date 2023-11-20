@@ -12,8 +12,9 @@ import java.util.List;
 
 @Repository
 public interface SaleItemRepository extends JpaRepository<SaleItem, Long> {
-    @Query("SELECT d FROM SaleItem d where " +
-            "(:sale_id is null or d.sale.id=:sale_id)"
+
+    @Query("SELECT d FROM SaleItem d where "
+            + "(:sale_id is null or d.sale.id=:sale_id)"
     )
     List<SaleItem> findItemsBySaleId(@Param("sale_id") Long saleId);
 
@@ -21,5 +22,4 @@ public interface SaleItemRepository extends JpaRepository<SaleItem, Long> {
     @Transactional
     @Query("DELETE FROM SaleItem d WHERE d.sale.id = :sale_id")
     void deleteItemsBySaleId(@Param("sale_id") Long saleId);
-
 }

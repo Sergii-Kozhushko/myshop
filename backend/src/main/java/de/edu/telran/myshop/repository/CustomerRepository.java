@@ -12,11 +12,11 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    // empty parameters don't affect result
-    @Query("SELECT c FROM Customer c where " +
-            "(:name is null or :name='' or lower(c.name) like lower(concat('%', :name,'%'))) and" +
-            "(:phone is null or :phone='' or lower(c.phone) like lower(concat('%', :phone,'%'))) and" +
-            "(:email is null or :email='' or lower(c.email) like lower(concat('%', :email,'%')))"
+
+    @Query("SELECT c FROM Customer c where "
+            + "(:name is null or :name='' or lower(c.name) like lower(concat('%', :name,'%'))) and"
+            + "(:phone is null or :phone='' or lower(c.phone) like lower(concat('%', :phone,'%'))) and"
+            + "(:email is null or :email='' or lower(c.email) like lower(concat('%', :email,'%')))"
     )
     Page<Customer> findByParams(@Param("name") String name,
                                 @Param("email") String email,
@@ -25,6 +25,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     );
 
     List<Customer> findAllByOrderByNameAsc();
-
-
 }

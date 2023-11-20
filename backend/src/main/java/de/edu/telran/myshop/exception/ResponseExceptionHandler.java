@@ -1,20 +1,11 @@
 package de.edu.telran.myshop.exception;
 
 import de.edu.telran.myshop.dto.ErrorResponse;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.springframework.validation.FieldError;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -37,7 +28,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(InvalidProductParameterException.class)
-    public ResponseEntity<ErrorResponse> handleProductIDNullException(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleProductIdNullException(Exception ex) {
 
 
         return ResponseEntity.status(NOT_ACCEPTABLE)

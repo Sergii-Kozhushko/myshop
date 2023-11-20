@@ -1,11 +1,9 @@
 package de.edu.telran.myshop.entity;
 
 
-import de.edu.telran.myshop.validation.CustomerName;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -40,5 +38,5 @@ public class Customer extends BaseEntity {
 
     @EqualsAndHashCode.Exclude
     @Column(name = "accept_sms_list")
-    Boolean acceptSMSList = false;
+    Boolean acceptSmsList = false;
 }

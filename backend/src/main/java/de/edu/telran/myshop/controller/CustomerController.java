@@ -1,6 +1,6 @@
 package de.edu.telran.myshop.controller;
 
-import de.edu.telran.myshop.config.URILinks;
+import de.edu.telran.myshop.config.UriLinks;
 import de.edu.telran.myshop.entity.Customer;
 import de.edu.telran.myshop.search.CustomerSearchValues;
 import de.edu.telran.myshop.service.impl.CustomerServiceImpl;
@@ -19,9 +19,10 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.CUSTOMER_URI)
+@RequestMapping(UriLinks.CUSTOMER_URI)
 @RequiredArgsConstructor
 public class CustomerController {
+
     private final CustomerServiceImpl customerService;
 
 
@@ -32,16 +33,18 @@ public class CustomerController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Page<Customer>> search(@RequestBody CustomerSearchValues customerSearchValues) throws ParseException {
+    public ResponseEntity<Page<Customer>> search(@RequestBody CustomerSearchValues customerSearchValues)
+            throws ParseException {
 
         // preparing data for page view
         String sortDirection = customerSearchValues.getSortDirection();
-        Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0 ||
-                sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0
+                || sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-        Sort sort = Sort.by(direction, customerSearchValues.getSortColumn(), URILinks.ID_COLUMN);
+        Sort sort = Sort.by(direction, customerSearchValues.getSortColumn(), UriLinks.ID_COLUMN);
         Integer pageNumber = customerSearchValues.getPageNumber() != null ? customerSearchValues.getPageNumber() : 0;
-        PageRequest pageRequest = PageRequest.of(customerSearchValues.getPageNumber(), customerSearchValues.getPageSize(), sort);
+        PageRequest pageRequest = PageRequest.of(customerSearchValues.getPageNumber(),
+                customerSearchValues.getPageSize(), sort);
         Page<Customer> result = customerService.findByParams(
                 customerSearchValues.getName(),
                 customerSearchValues.getEmail(),
@@ -55,7 +58,7 @@ public class CustomerController {
     public ResponseEntity<?> createCustomer(@RequestBody @Valid final Customer customer)
             throws URISyntaxException {
         return ResponseEntity
-                .created(new URI(URILinks.PRODUCT_URI))
+                .created(new URI(UriLinks.PRODUCT_URI))
                 .body(customerService.create(customer));
     }
 
@@ -78,7 +81,7 @@ public class CustomerController {
     public ResponseEntity<Customer> updateCustomer(@RequestBody final Customer customer
     ) throws Exception {
 
-        return ResponseEntity.created(new URI(URILinks.PRODUCT_URI))
+        return ResponseEntity.created(new URI(UriLinks.PRODUCT_URI))
                 .body(customerService.update(customer));
     }
 

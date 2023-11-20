@@ -1,10 +1,3 @@
-/**
- * ProductRepository.java
- *
- * @author Sergii Kozhushko, sergiikozhushko@gmail.com
- * Date of creation: 27-Jun-2023 18:44
- */
-
 package de.edu.telran.myshop.repository;
 
 import de.edu.telran.myshop.entity.Customer;

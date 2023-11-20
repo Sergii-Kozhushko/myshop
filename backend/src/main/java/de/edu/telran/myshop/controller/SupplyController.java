@@ -1,6 +1,6 @@
 package de.edu.telran.myshop.controller;
 
-import de.edu.telran.myshop.config.URILinks;
+import de.edu.telran.myshop.config.UriLinks;
 import de.edu.telran.myshop.entity.Supply;
 import de.edu.telran.myshop.entity.SupplyItem;
 import de.edu.telran.myshop.service.impl.SupplyItemServiceImpl;
@@ -15,9 +15,10 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(URILinks.SUPPLY_URI)
+@RequestMapping(UriLinks.SUPPLY_URI)
 @RequiredArgsConstructor
 public class SupplyController {
+
     private final SupplyServiceImpl supplyService;
     private final SupplyItemServiceImpl supplyItemService;
 
@@ -37,7 +38,7 @@ public class SupplyController {
     public ResponseEntity<Supply> createSupply(@RequestBody final Supply supply)
             throws URISyntaxException {
         return ResponseEntity
-                .created(new URI(URILinks.SUPPLY_URI))
+                .created(new URI(UriLinks.SUPPLY_URI))
                 .body(supplyService.create(supply));
     }
 
@@ -59,12 +60,12 @@ public class SupplyController {
     public ResponseEntity<Supply> updateSupply(@RequestBody final Supply supply
     ) throws URISyntaxException {
 
-        return ResponseEntity.created(new URI(URILinks.SUPPLY_URI))
+        return ResponseEntity.created(new URI(UriLinks.SUPPLY_URI))
                 .body(supplyService.update(supply));
     }
 
     @GetMapping("/max-id/")
-    public ResponseEntity<Long> getSupplyById() {
+    public ResponseEntity<Long> getMaxSupplyId() {
 
         return ResponseEntity.ok(supplyService.findMaxId());
     }
