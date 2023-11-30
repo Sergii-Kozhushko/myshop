@@ -11,7 +11,7 @@ Demo final project. Telran IT School, Kozhushko Sergii
 - JDK OpenJDK 17.0.7
 - Install Keycloak 18.0.0 Server and add real-export.json configuration
 - or use Docker container
-- test
+- test2
 
 ### Description
 
