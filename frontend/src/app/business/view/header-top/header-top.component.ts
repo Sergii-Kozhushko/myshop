@@ -40,10 +40,10 @@ export class HeaderTopComponent {
         data: {
           dialogTitle: 'About',
           message: 'MyShop Retail. v.0.3.0. ' +
-            'Account applications must be bright and funny!   ' +
+            'Application for retail shop. ' +
             'Back and front parts are written by Sergii Kozhushko.'
             ,
-          credits: 'Telran, Germany, 2023'
+          credits: 'Germany, 2023'
         },
         width: '400px'
       });

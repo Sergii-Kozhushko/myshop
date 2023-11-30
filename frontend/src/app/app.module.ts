@@ -40,16 +40,18 @@ import { SupplyEditComponent } from './business/view/supply-edit/supply-edit.com
 import {SUPPLIER_URL_TOKEN} from './business/data/dao/impl/supplier.service';
 import { SuppliersComponent } from './business/view/suppliers/suppliers.component';
 import { SupplierEditComponent } from './business/view/supplier-edit/supplier-edit.component';
+import { Techs2Component } from './business/view/techs2/techs2.component';
 import {SALE_URL_TOKEN} from './business/data/dao/impl/sale.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import { HeaderTopComponent } from './business/view/header-top/header-top.component';
+import {HeaderTopComponent } from './business/view/header-top/header-top.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DeleteDialogComponent } from './business/dialog/delete-dialog/delete-dialog.component';
 import { AboutDialogComponent } from './business/dialog/about-dialog/about-dialog.component';
 import { UserInfoDialogComponent } from './business/dialog/user-info-dialog/user-info-dialog.component';
 import {ErrorInfoDialogComponent} from './business/dialog/error-info-dialog/error-info-dialog.component';
 import {BACKEND_URL} from './business/service/backend.service';
+import { TechsComponent } from './business/view/techs/techs.component';
 
 
 
@@ -79,12 +81,14 @@ import {BACKEND_URL} from './business/service/backend.service';
     SupplyEditComponent,
     SuppliersComponent,
     SupplierEditComponent,
+    Techs2Component,
 
     HeaderTopComponent,
     DeleteDialogComponent,
     AboutDialogComponent,
     UserInfoDialogComponent,
-    ErrorInfoDialogComponent
+    ErrorInfoDialogComponent,
+    TechsComponent
 
   ],
   imports: [

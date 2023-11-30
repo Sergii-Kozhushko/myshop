@@ -16,6 +16,8 @@ import {SupplyEditComponent} from './business/view/supply-edit/supply-edit.compo
 import {SuppliersComponent} from './business/view/suppliers/suppliers.component';
 import {Supplier} from './model/Models';
 import {SupplierEditComponent} from './business/view/supplier-edit/supplier-edit.component';
+import {Techs2Component} from './business/view/techs2/techs2.component';
+import {TechsComponent} from './business/view/techs/techs.component';
 
 
 const routes: Routes = [
@@ -37,6 +39,7 @@ const routes: Routes = [
   {path: 'customers', component: CustomersComponent},
   {path: 'customers/:cid?', component: CustomersComponent },
   {path: 'options', component: OptionsComponent},
+  {path: 'techs', component: TechsComponent},
 ];
 
 
